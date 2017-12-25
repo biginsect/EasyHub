@@ -1,7 +1,10 @@
-package com.lipeng.mygithub;
+package com.lipeng.mygithub.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.lipeng.mygithub.R;
+
 /**
  * 主页面
  * @author lipeng
