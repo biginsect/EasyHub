@@ -20,7 +20,7 @@ public class PageSkipUtils {
     }
 
     /**
-     * 页面跳转
+     * 页面跳转,不携带任何数据
      * @param context 当前页面
      * @param target 目标页面
      * */

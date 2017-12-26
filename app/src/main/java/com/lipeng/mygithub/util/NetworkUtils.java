@@ -16,9 +16,9 @@ public class NetworkUtils {
 
     /**
      * 判断是否有网络连接
-     * @param context 上下文
+     * @param context 上下文环境
      * */
-    public static boolean isNetwrokConnected(Context context){
+    public static boolean isNetworkConnected(Context context){
         if (context != null){
             //获取手机网络连接管理对象，包含wifi和数据连接
             ConnectivityManager manager = (ConnectivityManager) context.

@@ -6,5 +6,6 @@
     <string name="user_pass_word_hint">PassWord</string>
     <string name="login_btn_text">Login</string>
     <string name="login_page_hint">Login using your default browser(OAuth)</string>
+    <string name="update_date_text">days ago</string>
 
 </resources>

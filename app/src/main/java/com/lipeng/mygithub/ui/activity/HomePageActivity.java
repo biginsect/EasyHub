@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.activity;
+package com.lipeng.mygithub.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
