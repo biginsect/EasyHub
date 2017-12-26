@@ -14,12 +14,13 @@ import com.lipeng.mygithub.bean.ProjectListUsersBean;
 import java.util.List;
 
 /**
- * RecyclerView的适配器
+ * RecyclerView（用户信息列表）的适配器
  * @author lipeng
  * @date 2017/12/26
  */
 
-public class OtherProjectListRecyclerAdapter extends RecyclerView.Adapter<OtherProjectListRecyclerAdapter.ProjectListViewHolder> implements View.OnClickListener{
+public class OtherProjectListRecyclerAdapter extends RecyclerView.Adapter<OtherProjectListRecyclerAdapter.ProjectListViewHolder>
+        implements View.OnClickListener{
 
     /**监听器，用于列表项的点击事件*/
     private OnItemClickListener mItemListener = null;
@@ -47,7 +48,7 @@ public class OtherProjectListRecyclerAdapter extends RecyclerView.Adapter<OtherP
     }
 
     /**
-     * 绑定列表项数据内容
+     * 绑定列表项数据内容,未完成
      * */
     @Override
     public void onBindViewHolder(ProjectListViewHolder holder, int position) {

@@ -22,6 +22,10 @@
         <activity android:name=".ui.activity.HomePageActivity">
 
         </activity>
+
+        <activity android:name=".ui.activity.BaseActivity">
+
+        </activity>
     </application>
 
 </manifest>

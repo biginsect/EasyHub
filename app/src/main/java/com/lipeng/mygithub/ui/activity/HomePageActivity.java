@@ -1,6 +1,5 @@
 package com.lipeng.mygithub.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.lipeng.mygithub.R;
@@ -10,7 +9,7 @@ import com.lipeng.mygithub.R;
  * @author lipeng
  * @date 2017/12/22
  * */
-public class HomePageActivity extends AppCompatActivity {
+public class HomePageActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

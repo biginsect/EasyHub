@@ -80,6 +80,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         String getName = userNameEdit.getText().toString();
         String getPassword = userPasswordEdit.getText().toString();
 
+        //用户和密码不能为空
         if (TextUtils.isEmpty(getName) || TextUtils.isEmpty(getPassword)){
             ToastUtils.showShortToast(this, "name or password should not be null!");
         }else {//检查账号密码是否正确
