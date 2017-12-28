@@ -1,5 +1,7 @@
 package com.lipeng.mygithub.login.view;
 
+import android.view.View;
+
 /**
  * 登录视图层
  * @author lipeng
@@ -12,5 +14,11 @@ public interface LoginView {
      * @param result 成功 true，失败false
      * @param code 标识码
      * */
-    void loginResult(boolean result, String code);
+    void onLoginResult(boolean result, String code);
+
+    /**
+     * 回调，隐藏软键盘
+     *@param view target
+     * */
+    void onHideSoftKeyboard(View view);
 }

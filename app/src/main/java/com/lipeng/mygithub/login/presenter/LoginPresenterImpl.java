@@ -2,6 +2,7 @@ package com.lipeng.mygithub.login.presenter;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 
 import com.lipeng.mygithub.login.view.LoginView;
 import com.lipeng.mygithub.login.model.User;
@@ -38,9 +39,17 @@ public class LoginPresenterImpl implements LoginPresenter{
         handler.post(new Runnable() {
             @Override
             public void run() {
-                loginView.loginResult(result, "0");
+                loginView.onLoginResult(result, "0");
             }
         });
+    }
+
+    /**
+     * 在这里关闭某些资源
+     * */
+    @Override
+    public void onDestroy() {
+        loginView = null;
     }
 
     /**
@@ -49,5 +58,13 @@ public class LoginPresenterImpl implements LoginPresenter{
     @Override
     public void setProgressBarVisibility(int visibility) {
 
+    }
+
+    /**
+     * 隐藏软键盘
+     * */
+    @Override
+    public void hideSoftKeyboard(View view) {
+        loginView.onHideSoftKeyboard(view);
     }
 }

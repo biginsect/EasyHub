@@ -1,5 +1,7 @@
 package com.lipeng.mygithub.login.presenter;
 
+import android.view.View;
+
 /**
  * 登录模块的presenter
  * @author lipeng
@@ -19,4 +21,15 @@ public interface LoginPresenter {
      * @param visibility 可见与否
      * */
     void setProgressBarVisibility(int visibility);
+
+    /**
+     * 隐藏软键盘
+     * @param view target
+     * */
+    void hideSoftKeyboard(View view);
+
+    /**
+     * 销毁资源
+     * */
+    void onDestroy();
 }

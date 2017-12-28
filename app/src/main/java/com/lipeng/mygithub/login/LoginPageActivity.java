@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.login.view;
+package com.lipeng.mygithub.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.login.presenter.LoginPresenter;
 import com.lipeng.mygithub.login.presenter.LoginPresenterImpl;
+import com.lipeng.mygithub.login.view.LoginView;
 import com.lipeng.mygithub.ui.activity.HomePageActivity;
 import com.lipeng.mygithub.util.NetworkUtils;
 import com.lipeng.mygithub.util.PageSkipUtils;
@@ -28,7 +29,7 @@ import es.dmoral.toasty.Toasty;
  * @date 2017/12/25
  */
 
-public class LoginPageActivity extends AppCompatActivity implements View.OnClickListener, LoginView{
+public class LoginPageActivity extends AppCompatActivity implements View.OnClickListener, LoginView {
     @BindView(R.id.user_name_edit) EditText userNameEdit;
     @BindView(R.id.user_pass_word_edit) EditText userPasswordEdit;
     @BindView(R.id.login_btn)Button loginBtn;
@@ -57,23 +58,20 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.login_btn:
-                handleNetwork();
-                login();
+                if (!NetworkUtils.isNetworkConnected(this)){
+                    //无网络连接
+                    Toasty.error(this, "Network is not connected!").show();
+                    break;
+                }else {
+                    //有网络连接
+                    login();
+                }
                 break;
             case R.id.root:
-                hideSoftKeyboard(v);
+                loginPresenter.hideSoftKeyboard(v);
                 break;
             default:
                 break;
-        }
-    }
-
-    /**
-     * 检查网络状态，无连接则提示，有连接则跳转页面
-     * */
-    private void handleNetwork(){
-        if (!NetworkUtils.isNetworkConnected(this)) {
-            Toasty.error(this, "No network is connected!").show();
         }
     }
 
@@ -94,16 +92,6 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    /**
-     * 点击编辑框以外区域，隐藏软键盘
-     * @param view 目标view
-     * */
-    private void hideSoftKeyboard(View view){
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        if (inputMethodManager != null){
-            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
 
     /**
      * 测试，获取编辑框的hint，目标是实现hint上移的动画效果
@@ -114,14 +102,37 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         Log.d(TAG,"  --  --  "+getUserNameHint);
     }
 
+    /**
+     * 登录回调
+     * */
     @Override
-    public void loginResult(boolean result, String code) {
+    public void onLoginResult(boolean result, String code) {
         loginPresenter.setProgressBarVisibility(View.INVISIBLE);
         if (result){
             PageSkipUtils.skipWithNoData(LoginPageActivity.this, HomePageActivity.class);
         }else {
             Toasty.error(this,
                     "username or password is valid").show();
+        }
+    }
+
+    /**
+     * 关闭资源
+     * */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loginPresenter.onDestroy();
+    }
+
+    /**
+     * 隐藏软键盘
+     * */
+    @Override
+    public void onHideSoftKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null){
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }
