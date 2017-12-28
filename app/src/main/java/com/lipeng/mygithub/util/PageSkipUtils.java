@@ -1,9 +1,7 @@
 package com.lipeng.mygithub.util;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 
 /**
  * 页面跳转工具

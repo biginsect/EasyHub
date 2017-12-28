@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class ToastUtils {
     private final static String TAG = "ToastUtils";
     private static Toast mToast = null;
-    private static String oldMessage;
+    private static String oldMessage = "";
     /**最后一次弹提示的时间*/
     private static long lastTime = 0;
     private static long currentTime = 0;

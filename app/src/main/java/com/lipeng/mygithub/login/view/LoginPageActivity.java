@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.ui.activity;
+package com.lipeng.mygithub.login.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,13 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.lipeng.mygithub.R;
+import com.lipeng.mygithub.login.presenter.LoginPresenter;
+import com.lipeng.mygithub.login.presenter.LoginPresenterImpl;
+import com.lipeng.mygithub.ui.activity.HomePageActivity;
 import com.lipeng.mygithub.util.NetworkUtils;
 import com.lipeng.mygithub.util.PageSkipUtils;
-import com.lipeng.mygithub.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
 
 /**
  * 登录页面，
@@ -25,10 +28,12 @@ import butterknife.OnClick;
  * @date 2017/12/25
  */
 
-public class LoginPageActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginPageActivity extends AppCompatActivity implements View.OnClickListener, LoginView{
     @BindView(R.id.user_name_edit) EditText userNameEdit;
     @BindView(R.id.user_pass_word_edit) EditText userPasswordEdit;
     @BindView(R.id.login_btn)Button loginBtn;
+
+    LoginPresenter loginPresenter;
 
     /**打印日志标识*/
     private final static String TAG = "LoginPageActivity";
@@ -45,6 +50,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
 
         loginBtn.setOnClickListener(this);
         findViewById(R.id.root).setOnClickListener(this);
+        loginPresenter = new LoginPresenterImpl(this);
     }
 
     @Override
@@ -67,29 +73,24 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
      * */
     private void handleNetwork(){
         if (!NetworkUtils.isNetworkConnected(this)) {
-            ToastUtils.showShortToast(this, "No network is connected!");
+            Toasty.error(this, "No network is connected!").show();
         }
     }
 
     /**
-     * 检查账号密码是否正确
+     * 登录
      * */
     private void login(){
-        String name = "123";
-        String password = "123";
         String getName = userNameEdit.getText().toString();
         String getPassword = userPasswordEdit.getText().toString();
 
-        //用户和密码不能为空
         if (TextUtils.isEmpty(getName) || TextUtils.isEmpty(getPassword)){
-            ToastUtils.showShortToast(this, "name or password should not be null!");
+            //用户和密码不能为空
+            Toasty.error(this,
+                    "name or password should not be null!").show();
         }else {//检查账号密码是否正确
-            if (name.equals(getName) || password.equals(getPassword)){
-                //全部正确，页面跳转
-                PageSkipUtils.skipWithNoData(LoginPageActivity.this, HomePageActivity.class);
-            }else {
-                ToastUtils.showLongToast(this, "username or password is valid");
-            }
+            loginPresenter.setProgressBarVisibility(View.VISIBLE);
+            loginPresenter.login(getName, getPassword);
         }
     }
 
@@ -111,5 +112,16 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     public void userNameEditClicked(){
         String getUserNameHint = userNameEdit.getHint().toString();
         Log.d(TAG,"  --  --  "+getUserNameHint);
+    }
+
+    @Override
+    public void loginResult(boolean result, String code) {
+        loginPresenter.setProgressBarVisibility(View.INVISIBLE);
+        if (result){
+            PageSkipUtils.skipWithNoData(LoginPageActivity.this, HomePageActivity.class);
+        }else {
+            Toasty.error(this,
+                    "username or password is valid").show();
+        }
     }
 }

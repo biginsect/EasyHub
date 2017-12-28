@@ -23,10 +23,12 @@ public class NetworkUtils {
             //获取手机网络连接管理对象，包含wifi和数据连接
             ConnectivityManager manager = (ConnectivityManager) context.
                     getSystemService(Context.CONNECTIVITY_SERVICE);
-            //获取network信息
-            NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-            if (networkInfo != null){
-                return networkInfo.isAvailable();
+            if (manager != null) {
+                //获取network信息
+                NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+                if (networkInfo != null) {
+                    return networkInfo.isAvailable();
+                }
             }
         }
         return false;

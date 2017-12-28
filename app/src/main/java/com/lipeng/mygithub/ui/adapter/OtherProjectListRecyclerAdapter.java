@@ -63,7 +63,7 @@ public class OtherProjectListRecyclerAdapter extends RecyclerView.Adapter<OtherP
     /**
      * ViewHolder
      * */
-    public class ProjectListViewHolder extends RecyclerView.ViewHolder{
+     class ProjectListViewHolder extends RecyclerView.ViewHolder{
         /**用户头像*/
         SimpleDraweeView userPicture;
         /**用户名*/
