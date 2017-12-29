@@ -8,6 +8,8 @@ import com.lipeng.mygithub.login.view.LoginView;
 import com.lipeng.mygithub.login.model.User;
 import com.lipeng.mygithub.login.model.UserModel;
 
+import javax.inject.Inject;
+
 /**
  * 登录presenter实现类
  * @author lipeng
@@ -57,7 +59,7 @@ public class LoginPresenterImpl implements LoginPresenter{
      * */
     @Override
     public void setProgressBarVisibility(int visibility) {
-
+        loginView.onSetProgressBar(visibility);
     }
 
     /**

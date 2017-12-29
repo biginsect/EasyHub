@@ -18,6 +18,8 @@ import com.lipeng.mygithub.ui.activity.HomePageActivity;
 import com.lipeng.mygithub.util.NetworkUtils;
 import com.lipeng.mygithub.util.PageSkipUtils;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -134,5 +136,13 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         if (inputMethodManager != null){
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    /**
+     * 显示进度条
+     * */
+    @Override
+    public void onSetProgressBar(int visibility) {
+
     }
 }

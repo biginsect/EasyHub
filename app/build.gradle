@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+// add after applying plugin: 'com.android.application'
+
 
 android {
     compileSdkVersion 26
@@ -26,6 +28,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
+    compile project(path: ':mvp')
+
+
     //butterKnife
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
@@ -42,5 +47,10 @@ dependencies {
 // explicitly depend on RxJava's latest version for bug fixes and new features.
     compile 'io.reactivex.rxjava2:rxjava:2.1.7'
 
-    compile project(path: ':mvp')
+    // apt command comes from the android-apt plugin
+    compile 'com.google.dagger:dagger:2.5'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
+    //java注解
+    compile 'org.glassfish:javax.annotation:10.0-b28'
+
 }

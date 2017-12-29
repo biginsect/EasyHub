@@ -21,4 +21,10 @@ public interface LoginView {
      *@param view target
      * */
     void onHideSoftKeyboard(View view);
+
+    /**
+     * 显示进度条
+     * @param visibility 是否可见
+     * */
+    void onSetProgressBar(int visibility);
 }
