@@ -19,6 +19,20 @@ android {
         }
     }
 }
+/**
+ * 防止第三方包使用的support库与当前app使用的support库不一致
+ * 强制使所有用到support库的模块使用相同的support库
+ * */
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '26.1.0'
+            }
+        }
+    }
+}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
