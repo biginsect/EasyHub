@@ -20,14 +20,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.HomePageActivity"
+        <activity android:name=".homepage.HomePageActivity"
             android:theme="@style/AppTheme.HomePageTheme">
 
         </activity>
 
-        <activity android:name=".ui.activity.BaseActivity">
+        <activity android:name=".detailpage.OtherProjectDetailPageActivity"
+            android:theme="@style/AppTheme.DetailPage">
 
         </activity>
+
     </application>
 
 </manifest>

@@ -7,7 +7,17 @@
     <!--主布局-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/jump_btn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="jump"
+            android:textSize="18sp"
+            android:textAllCaps="false"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/new_others_project_list"
             android:layout_width="match_parent"

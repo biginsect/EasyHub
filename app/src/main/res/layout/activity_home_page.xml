@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.lipeng.mygithub.ui.activity.HomePageActivity">
+    tools:context="com.lipeng.mygithub.homepage.HomePageActivity">
 
     <include layout="@layout/home_page_toolbar"/>
     <include layout="@layout/home_page_drawer_layout"/>

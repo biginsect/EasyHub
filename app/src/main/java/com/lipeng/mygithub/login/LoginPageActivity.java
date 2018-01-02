@@ -14,11 +14,9 @@ import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.login.presenter.LoginPresenter;
 import com.lipeng.mygithub.login.presenter.LoginPresenterImpl;
 import com.lipeng.mygithub.login.view.LoginView;
-import com.lipeng.mygithub.ui.activity.HomePageActivity;
+import com.lipeng.mygithub.homepage.HomePageActivity;
 import com.lipeng.mygithub.util.NetworkUtils;
 import com.lipeng.mygithub.util.PageSkipUtils;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

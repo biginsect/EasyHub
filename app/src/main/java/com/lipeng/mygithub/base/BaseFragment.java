@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.ui.fragment;
+package com.lipeng.mygithub.base;
 
 import android.app.Fragment;
 

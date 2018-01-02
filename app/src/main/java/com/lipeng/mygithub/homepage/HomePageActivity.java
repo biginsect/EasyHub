@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.ui.activity;
+package com.lipeng.mygithub.homepage;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -6,8 +6,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 
 import com.lipeng.mygithub.R;
+import com.lipeng.mygithub.base.BaseActivity;
+import com.lipeng.mygithub.detailpage.OtherProjectDetailPageActivity;
+import com.lipeng.mygithub.util.PageSkipUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +28,8 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     /**两次back键间隔时间*/
     private final static long TIME_INTERVAL = 1000;
     @BindView(R.id.home_page_toolbar) Toolbar mToolbar;
+    @BindView(R.id.jump_btn)
+    Button jump;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -37,10 +43,11 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     /**
      * 初始化布局文件 view等
      * */
-    private void initView(){
+    @Override
+    protected void initView(){
         ButterKnife.bind(this);
+        jump.setOnClickListener(this);
         setToolbar();
-        mDrawerLayout = findViewById(R.id.drawer_layout_left);
         setDrawerLayout();
     }
 
@@ -48,6 +55,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
      * 设置左边侧滑栏
      * */
     private void setDrawerLayout(){
+        mDrawerLayout = findViewById(R.id.drawer_layout_left);
         /**侧滑栏监听器*/
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
                 R.string.drawer_layout_open, R.string.drawer_layout_close){
@@ -63,6 +71,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
                 Toasty.info(HomePageActivity.this,"Close Drawer").show();
             }
         };
+        //设置弹出侧滑栏的按钮的默认logo为三横杠，不调用此方法则为箭头
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
     }
@@ -83,6 +92,9 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.jump_btn:
+                OtherProjectDetailPageActivity.skip(this);
+                break;
             default:
                 break;
         }

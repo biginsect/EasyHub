@@ -12,4 +12,8 @@
     <string name="project_list">Project Lists</string>
     <string name="drawer_layout_open">Open drawer</string>
     <string name="drawer_layout_close">Close drawer</string>
+    
+    <!--他人项目页面相关-->
+    <string name="menu_star">star</string>
+    <string name="menu_setting">setting</string>
 </resources>
