@@ -1,9 +1,11 @@
 package com.lipeng.mygithub.ui.activity;
 
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.lipeng.mygithub.R;
 
@@ -21,6 +23,9 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     private long mLastBackPressedTime = 0;
     /**两次back键间隔时间*/
     private final static long TIME_INTERVAL = 1000;
+    @BindView(R.id.home_page_toolbar) Toolbar mToolbar;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +38,45 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
      * 初始化布局文件 view等
      * */
     private void initView(){
-        setActionbar();
+        ButterKnife.bind(this);
+        setToolbar();
+        mDrawerLayout = findViewById(R.id.drawer_layout_left);
+        setDrawerLayout();
     }
 
-    private void setActionbar(){
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setCustomView(R.layout.home_page_actionbar);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+    /**
+     * 设置左边侧滑栏
+     * */
+    private void setDrawerLayout(){
+        /**侧滑栏监听器*/
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
+                R.string.drawer_layout_open, R.string.drawer_layout_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                Toasty.info(HomePageActivity.this,"Open Drawer").show();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                Toasty.info(HomePageActivity.this,"Close Drawer").show();
+            }
+        };
+        mDrawerToggle.syncState();
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+    }
+
+    private void setToolbar(){
+        if (mToolbar != null){
+            setSupportActionBar(mToolbar);
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                /**返回按钮可用*/
+                actionBar.setHomeButtonEnabled(true);
+                /**显示返回图标*/
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
     }
 

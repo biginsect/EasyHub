@@ -8,14 +8,7 @@
     android:orientation="vertical"
     tools:context="com.lipeng.mygithub.ui.activity.HomePageActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/new_others_project_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        >
-
-    </android.support.v7.widget.RecyclerView>
+    <include layout="@layout/home_page_toolbar"/>
+    <include layout="@layout/home_page_drawer_layout"/>
 
 </LinearLayout>

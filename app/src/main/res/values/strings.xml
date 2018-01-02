@@ -10,4 +10,6 @@
     
     <!--主页面相关-->
     <string name="project_list">Project Lists</string>
+    <string name="drawer_layout_open">Open drawer</string>
+    <string name="drawer_layout_close">Close drawer</string>
 </resources>
