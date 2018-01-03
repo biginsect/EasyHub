@@ -11,6 +11,9 @@ import android.view.MenuItem;
 
 import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.base.BaseActivity;
+import com.lipeng.mygithub.detailpage.presenter.DetailPagePresenter;
+import com.lipeng.mygithub.detailpage.presenter.DetailPagePresenterImpl;
+import com.lipeng.mygithub.detailpage.view.DetailPageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +25,10 @@ import es.dmoral.toasty.Toasty;
  * @date 2018/1/2
  */
 
-public class OtherProjectDetailPageActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener{
+public class OtherProjectDetailPageActivity extends BaseActivity implements DetailPageView,
+        Toolbar.OnMenuItemClickListener{
+
+    private DetailPagePresenter mPresenter;
 
     @BindView(R.id.detail_page_toolbar)Toolbar mToolbar;
 
@@ -35,6 +41,7 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Tool
 
     @Override
     protected void initView() {
+        mPresenter = new DetailPagePresenterImpl(this);
         ButterKnife.bind(this);
         setToolbar();
     }
@@ -72,8 +79,22 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Tool
     }
 
     /**
+     * star该项目，更改标识
+     * */
+    @Override
+    public void onStar() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.destroy();
+    }
+
+    /**
      * 跳转到此页面
-     * @param context 前页面的上下文
+     * @param context 上个页面的上下文
      * */
     public static void skip(Context context){
         Intent intent = new Intent(context, OtherProjectDetailPageActivity.class);

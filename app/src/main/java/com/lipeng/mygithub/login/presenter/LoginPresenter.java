@@ -31,5 +31,5 @@ public interface LoginPresenter {
     /**
      * 销毁资源
      * */
-    void onDestroy();
+    void destroy();
 }

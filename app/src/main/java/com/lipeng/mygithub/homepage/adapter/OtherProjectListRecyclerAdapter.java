@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.lipeng.mygithub.R;
-import com.lipeng.mygithub.homepage.bean.ProjectListUsersBean;
+import com.lipeng.mygithub.homepage.model.ProjectListUsersBean;
 
 import java.util.List;
 

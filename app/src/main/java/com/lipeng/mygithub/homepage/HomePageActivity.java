@@ -11,6 +11,9 @@ import android.widget.Button;
 import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.base.BaseActivity;
 import com.lipeng.mygithub.detailpage.OtherProjectDetailPageActivity;
+import com.lipeng.mygithub.homepage.presenter.HomePagePresenter;
+import com.lipeng.mygithub.homepage.presenter.HomePagePresenterImpl;
+import com.lipeng.mygithub.homepage.view.HomePageView;
 import com.lipeng.mygithub.util.PageSkipUtils;
 
 import butterknife.BindView;
@@ -22,16 +25,19 @@ import es.dmoral.toasty.Toasty;
  * @author lipeng
  * @date 2017/12/22
  * */
-public class HomePageActivity extends BaseActivity implements View.OnClickListener{
+public class HomePageActivity extends BaseActivity implements HomePageView,View.OnClickListener{
+
+    private HomePagePresenter mPresenter;
     /**记录按下返回键的时间*/
     private long mLastBackPressedTime = 0;
     /**两次back键间隔时间*/
     private final static long TIME_INTERVAL = 1000;
-    @BindView(R.id.home_page_toolbar) Toolbar mToolbar;
-    @BindView(R.id.jump_btn)
-    Button jump;
+
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+
+    @BindView(R.id.home_page_toolbar) Toolbar mToolbar;
+    @BindView(R.id.jump_btn) Button jump;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
      * */
     @Override
     protected void initView(){
+        mPresenter = new HomePagePresenterImpl(this);
         ButterKnife.bind(this);
         jump.setOnClickListener(this);
         setToolbar();
@@ -93,7 +100,7 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.jump_btn:
-                OtherProjectDetailPageActivity.skip(this);
+                mPresenter.skipToProjectDetail();
                 break;
             default:
                 break;
@@ -109,5 +116,19 @@ public class HomePageActivity extends BaseActivity implements View.OnClickListen
             mLastBackPressedTime = System.currentTimeMillis();
             Toasty.info(this,"Press again to exit.").show();
         }
+    }
+
+    /**
+     * 页面跳转
+     * */
+    @Override
+    public void onSkipToProjectDetail() {
+        OtherProjectDetailPageActivity.skip(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.destroy();
     }
 }

@@ -50,7 +50,7 @@ public class LoginPresenterImpl implements LoginPresenter{
      * 在这里关闭某些资源
      * */
     @Override
-    public void onDestroy() {
+    public void destroy() {
         loginView = null;
     }
 

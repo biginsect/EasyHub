@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.homepage.bean;
+package com.lipeng.mygithub.homepage.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -42,8 +42,8 @@ public class ProjectListUsersBean implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.otherPictureUrl);
-        dest.writeString(otherName);
-        dest.writeInt(otherUpdateDays);
+        dest.writeString(this.otherName);
+        dest.writeInt(this.otherUpdateDays);
 //        dest.writeValue(this.otherUpdateDate);
         dest.writeString(this.otherDynamic);
     }
