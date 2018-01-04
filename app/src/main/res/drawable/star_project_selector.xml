@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_pressed="false"
-        android:drawable="@drawable/not_star"/>
+    <!--未实现，使menu 的star item 的背景图片交替-->
 
-    <item android:state_selected="true"
+    <item
+        android:state_selected="true"
         android:drawable="@drawable/is_star"/>
+    <!--按下之后-->
+    <item
+        android:drawable="@drawable/is_star"
+        android:state_pressed="true"/>
+
+    <!--默认-->
+    <item
+        android:drawable="@drawable/not_star"/>
 </selector>

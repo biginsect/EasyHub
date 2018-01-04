@@ -69,4 +69,9 @@ public class LoginPresenterImpl implements LoginPresenter{
     public void hideSoftKeyboard(View view) {
         loginView.onHideSoftKeyboard(view);
     }
+
+    @Override
+    public void skipPage() {
+        loginView.onSkipPage();
+    }
 }

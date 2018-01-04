@@ -32,4 +32,9 @@ public interface LoginPresenter {
      * 销毁资源
      * */
     void destroy();
+
+    /**
+     * 页面跳转
+     * */
+    void skipPage();
 }

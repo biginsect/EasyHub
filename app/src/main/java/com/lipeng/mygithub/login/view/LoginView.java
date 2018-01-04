@@ -27,4 +27,9 @@ public interface LoginView {
      * @param visibility 是否可见
      * */
     void onSetProgressBar(int visibility);
+
+    /**
+     * 页面跳转回调
+     * */
+    void onSkipPage();
 }

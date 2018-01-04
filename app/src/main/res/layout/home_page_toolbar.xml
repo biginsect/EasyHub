@@ -4,6 +4,8 @@
     android:layout_height="?android:actionBarSize"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/home_page_toolbar"
+    app:title="@string/project_list"
+    app:titleTextColor="@android:color/white"
     android:background="@color/myBackgroundColor"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     android:theme="@style/ThemeOverlay.AppCompat.ActionBar">

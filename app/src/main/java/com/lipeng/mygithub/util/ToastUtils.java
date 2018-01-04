@@ -5,8 +5,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import es.dmoral.toasty.Toasty;
+
 /**
- * 提示语的工具类，防止重复显示
+ * 提示语的工具类，封装第三方工具类Toasty，防止重复显示
  * @author lipeng
  * @date 2017/12/25
  */
@@ -17,6 +19,7 @@ public class ToastUtils {
     private static String oldMessage = "";
     /**最后一次弹提示的时间*/
     private static long lastTime = 0;
+    /**当前记录的时间*/
     private static long currentTime = 0;
 
     private ToastUtils(){
@@ -26,6 +29,7 @@ public class ToastUtils {
      * 长提示
      * @param context 上下文
      * @param msg 提示信息
+     * @param type 提示时长类型
      * */
     private static void showToast(Context context, String msg, int type){
         /*提示信息不能为空*/
@@ -34,7 +38,7 @@ public class ToastUtils {
             return;
         }
         if (mToast == null){
-            mToast = Toast.makeText(context, msg, type);
+            mToast = Toasty.info(context, msg, type);
             mToast.show();
             lastTime = System.currentTimeMillis();
         }else {
@@ -45,7 +49,6 @@ public class ToastUtils {
                 }
             }else {
                 oldMessage = msg;
-                mToast.setText(msg);
                 mToast.show();
             }
         }

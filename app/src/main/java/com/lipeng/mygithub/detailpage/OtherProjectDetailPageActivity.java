@@ -14,6 +14,7 @@ import com.lipeng.mygithub.base.BaseActivity;
 import com.lipeng.mygithub.detailpage.presenter.DetailPagePresenter;
 import com.lipeng.mygithub.detailpage.presenter.DetailPagePresenterImpl;
 import com.lipeng.mygithub.detailpage.view.DetailPageView;
+import com.lipeng.mygithub.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,7 +72,8 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){
             case R.id.star:
-                Toasty.info(this, "star").show();
+                mPresenter.star();
+                break;
             default:
                 break;
         }
@@ -83,7 +85,7 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
      * */
     @Override
     public void onStar() {
-
+        ToastUtils.showShortToast(this,"star");
     }
 
     @Override

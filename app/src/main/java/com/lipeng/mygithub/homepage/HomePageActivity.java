@@ -11,10 +11,14 @@ import android.widget.Button;
 import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.base.BaseActivity;
 import com.lipeng.mygithub.detailpage.OtherProjectDetailPageActivity;
+import com.lipeng.mygithub.homepage.adapter.OtherProjectListRecyclerAdapter;
+import com.lipeng.mygithub.homepage.model.ProjectListUsersBean;
 import com.lipeng.mygithub.homepage.presenter.HomePagePresenter;
 import com.lipeng.mygithub.homepage.presenter.HomePagePresenterImpl;
 import com.lipeng.mygithub.homepage.view.HomePageView;
-import com.lipeng.mygithub.util.PageSkipUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +40,9 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
+    private OtherProjectListRecyclerAdapter mAdapter;
+    private List<ProjectListUsersBean> usersBeanList = new ArrayList<>();
+
     @BindView(R.id.home_page_toolbar) Toolbar mToolbar;
     @BindView(R.id.jump_btn) Button jump;
 
@@ -54,6 +61,10 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
         mPresenter = new HomePagePresenterImpl(this);
         ButterKnife.bind(this);
         jump.setOnClickListener(this);
+
+//        usersBeanList.add(new ProjectListUsersBean());
+//        mAdapter = new OtherProjectListRecyclerAdapter(this, );
+
         setToolbar();
         setDrawerLayout();
     }
@@ -69,13 +80,11 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                Toasty.info(HomePageActivity.this,"Open Drawer").show();
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                Toasty.info(HomePageActivity.this,"Close Drawer").show();
             }
         };
         //设置弹出侧滑栏的按钮的默认logo为三横杠，不调用此方法则为箭头

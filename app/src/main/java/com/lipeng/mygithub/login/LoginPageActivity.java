@@ -34,7 +34,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     @BindView(R.id.user_pass_word_edit) EditText userPasswordEdit;
     @BindView(R.id.login_btn)Button loginBtn;
 
-    LoginPresenter loginPresenter;
+    private LoginPresenter mLoginPresenter;
 
     /**打印日志标识*/
     private final static String TAG = "LoginPageActivity";
@@ -51,7 +51,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
 
         loginBtn.setOnClickListener(this);
         findViewById(R.id.root).setOnClickListener(this);
-        loginPresenter = new LoginPresenterImpl(this);
+        mLoginPresenter = new LoginPresenterImpl(this);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                 }
                 break;
             case R.id.root:
-                loginPresenter.hideSoftKeyboard(v);
+                mLoginPresenter.hideSoftKeyboard(v);
                 break;
             default:
                 break;
@@ -87,8 +87,8 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
             Toasty.error(this,
                     "name or password should not be null!").show();
         }else {//检查账号密码是否正确
-            loginPresenter.setProgressBarVisibility(View.VISIBLE);
-            loginPresenter.login(getName, getPassword);
+            mLoginPresenter.setProgressBarVisibility(View.VISIBLE);
+            mLoginPresenter.login(getName, getPassword);
         }
     }
 
@@ -107,9 +107,9 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
      * */
     @Override
     public void onLoginResult(boolean result, String code) {
-        loginPresenter.setProgressBarVisibility(View.INVISIBLE);
+        mLoginPresenter.setProgressBarVisibility(View.INVISIBLE);
         if (result){
-            PageSkipUtils.skipWithNoData(LoginPageActivity.this, HomePageActivity.class);
+            mLoginPresenter.skipPage();
         }else {
             Toasty.error(this,
                     "username or password is valid").show();
@@ -122,7 +122,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        loginPresenter.destroy();
+        mLoginPresenter.destroy();
     }
 
     /**
@@ -142,5 +142,13 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onSetProgressBar(int visibility) {
 
+    }
+
+    /**
+     * 页面跳转
+     * */
+    @Override
+    public void onSkipPage() {
+        PageSkipUtils.skipWithNoData(LoginPageActivity.this, HomePageActivity.class);
     }
 }
