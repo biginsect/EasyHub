@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.base.BaseActivity;
+import com.lipeng.mygithub.constant.MessageType;
 import com.lipeng.mygithub.detailpage.presenter.DetailPagePresenter;
 import com.lipeng.mygithub.detailpage.presenter.DetailPagePresenterImpl;
 import com.lipeng.mygithub.detailpage.view.DetailPageView;
@@ -18,7 +19,6 @@ import com.lipeng.mygithub.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import es.dmoral.toasty.Toasty;
 
 /**
  * 点击主页面的列表子项跳转的页面，具体展示该项目的相关信息
@@ -85,7 +85,7 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
      * */
     @Override
     public void onStar() {
-        ToastUtils.showShortToast(this,"star");
+        ToastUtils.showShortToast(this,"star", MessageType.INFO);
     }
 
     @Override
