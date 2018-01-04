@@ -1,5 +1,7 @@
 package com.lipeng.mygithub.homepage;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -139,5 +141,14 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.destroy();
+    }
+
+    /**
+     * 跳转到此页面（homepage）
+     * @param context 上一页面的上下文
+     * */
+    public static void skip(Context context){
+        Intent intent = new Intent(context, HomePageActivity.class);
+        context.startActivity(intent);
     }
 }

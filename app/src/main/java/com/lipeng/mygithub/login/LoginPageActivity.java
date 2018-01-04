@@ -145,10 +145,10 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     }
 
     /**
-     * 页面跳转
+     * 页面跳转至主页面（homepage）
      * */
     @Override
     public void onSkipPage() {
-        PageSkipUtils.skipWithNoData(LoginPageActivity.this, HomePageActivity.class);
+        HomePageActivity.skip(this);
     }
 }

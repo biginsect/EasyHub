@@ -33,12 +33,7 @@
         android:background="#fff"
         android:layout_gravity="start"
         >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/project_list"
-            android:textSize="25sp"
-            android:gravity="center"/>
+        <include layout="@layout/home_page_drawer_left"/>
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

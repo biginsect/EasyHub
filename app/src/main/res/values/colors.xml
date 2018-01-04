@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="myBackgroundColor">#548B54</color>
+
+    <!--侧滑栏-->
+    <color name="my_join_time">#DBDBDB</color>
 </resources>
