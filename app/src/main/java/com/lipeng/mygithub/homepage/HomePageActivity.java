@@ -73,7 +73,7 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
      * */
     private void setDrawerLayout(){
         mDrawerLayout = findViewById(R.id.drawer_layout_left);
-        /**侧滑栏监听器*/
+        /*侧滑栏监听器*/
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
                 R.string.drawer_layout_open, R.string.drawer_layout_close){
             @Override
@@ -86,7 +86,7 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
                 super.onDrawerClosed(drawerView);
             }
         };
-        /**设置弹出侧滑栏的按钮的默认logo为三横杠，不调用此方法则为箭头*/
+        /*设置弹出侧滑栏的按钮的默认logo为三横杠，不调用此方法则为箭头*/
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
     }
@@ -96,9 +96,9 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
             setSupportActionBar(mToolbar);
             ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {
-                /**返回按钮可用*/
+                /*返回按钮可用*/
                 actionBar.setHomeButtonEnabled(true);
-                /**显示返回图标*/
+                /*显示返回图标*/
                 actionBar.setDisplayHomeAsUpEnabled(true);
             }
         }

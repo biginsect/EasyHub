@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ScrollView;
 
 import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.base.BaseActivity;
@@ -28,10 +29,11 @@ import butterknife.ButterKnife;
 
 public class OtherProjectDetailPageActivity extends BaseActivity implements DetailPageView,
         Toolbar.OnMenuItemClickListener{
+    @BindView(R.id.detail_page_toolbar)Toolbar mToolbar;
+    private ScrollView mScrollView;
 
     private DetailPagePresenter mPresenter;
 
-    @BindView(R.id.detail_page_toolbar)Toolbar mToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
     protected void initView() {
         mPresenter = new DetailPagePresenterImpl(this);
         ButterKnife.bind(this);
+        mScrollView = findViewById(R.id.sv_detail_page);
         setToolbar();
     }
 

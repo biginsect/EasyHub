@@ -75,10 +75,9 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()){
             case R.id.btn_login:
                 if (!NetworkUtils.isNetworkConnected(this)){
-                    /**无网络连接*/
+                    /*无网络连接*/
                     ToastUtils.showLongToast(this, "Network is not connected!",
                             ToastType.ERROR);
-                    break;
                 }else {
                     //有网络连接
                     login();
@@ -96,7 +95,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
      * 登录
      * */
     private void login(){
-        /**防止NPE*/
+        /*防止NPE*/
         if (null != userNameWrapper.getEditText() && null != passwordWrapper.getEditText()){
             String getName = userNameWrapper.getEditText().getText().toString();
             String getPassword = passwordWrapper.getEditText().getText().toString();
@@ -105,7 +104,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
             }else if (TextUtils.isEmpty(getPassword)){
                 passwordWrapper.setError("Pass word should not be empty");
             }else {
-                /**账号密码不为空，消除错误提示框*/
+                /*账号密码不为空，消除错误提示框*/
                 userNameWrapper.setErrorEnabled(false);
                 passwordWrapper.setErrorEnabled(false);
                 mLoginPresenter.setProgressBarVisibility(View.VISIBLE);
