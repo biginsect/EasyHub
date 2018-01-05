@@ -6,7 +6,7 @@ package com.lipeng.mygithub.constant;
  * @date 2018/1/4
  */
 
-public enum MessageType {
+public enum ToastType {
     /**成功提示*/
     SUCCESS,
     /**错误提示*/

@@ -11,7 +11,7 @@ import android.view.MenuItem;
 
 import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.base.BaseActivity;
-import com.lipeng.mygithub.constant.MessageType;
+import com.lipeng.mygithub.constant.ToastType;
 import com.lipeng.mygithub.detailpage.presenter.DetailPagePresenter;
 import com.lipeng.mygithub.detailpage.presenter.DetailPagePresenterImpl;
 import com.lipeng.mygithub.detailpage.view.DetailPageView;
@@ -64,7 +64,7 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.other_project_page_menu, menu);
+        getMenuInflater().inflate(R.menu.detail_project_page_menu, menu);
         return true;
     }
 
@@ -85,7 +85,7 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
      * */
     @Override
     public void onStar() {
-        ToastUtils.showShortToast(this,"star", MessageType.INFO);
+        ToastUtils.showShortToast(this,"star", ToastType.INFO);
     }
 
     @Override

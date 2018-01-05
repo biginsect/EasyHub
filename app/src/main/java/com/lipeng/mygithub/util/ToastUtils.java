@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.lipeng.mygithub.constant.MessageType;
+import com.lipeng.mygithub.constant.ToastType;
 
 import es.dmoral.toasty.Toasty;
 
@@ -32,15 +32,16 @@ public class ToastUtils {
      * @param context 上下文
      * @param msg 提示信息
      * @param time 提示时长类型
+     * @param type 提示的类型
      * */
-    private static void showToast(Context context, String msg, int time, MessageType type){
+    private static void showToast(Context context, String msg, int time, ToastType type){
         /*提示信息不能为空*/
         if (TextUtils.isEmpty(msg)){
             Log.d(TAG, "Toast message is null");
             return;
         }
         if (mToast == null){
-            setToast(context, msg, time, type);
+            setToastType(context, msg, time, type);
             mToast.show();
             lastTime = System.currentTimeMillis();
         }else {
@@ -64,7 +65,7 @@ public class ToastUtils {
      * @param context 上下文环境
      * @param msg 提示信息
      * */
-    public static void showShortToast(Context context, String msg, MessageType type){
+    public static void showShortToast(Context context, String msg, ToastType type){
         showToast(context, msg, Toast.LENGTH_SHORT, type);
     }
 
@@ -73,11 +74,11 @@ public class ToastUtils {
      * @param context 上下文环境
      * @param msg 提示信息
      */
-    public static void showLongToast(Context context, String msg, MessageType type){
+    public static void showLongToast(Context context, String msg, ToastType type){
         showToast(context, msg, Toast.LENGTH_LONG, type);
     }
 
-    private static void setToast(Context context, String  msg, int time,MessageType type){
+    private static void setToastType(Context context, String  msg, int time, ToastType type){
         switch (type){
             case INFO:
                 mToast = Toasty.info(context, msg, time);

@@ -42,8 +42,8 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private OtherProjectListRecyclerAdapter mAdapter;
-    private List<ProjectListUsersBean> usersBeanList = new ArrayList<>();
+    private OtherProjectListRecyclerAdapter mRecyclerAdapter;
+    private List<ProjectListUsersBean> mUsersBeanList = new ArrayList<>();
 
     @BindView(R.id.home_page_toolbar) Toolbar mToolbar;
     @BindView(R.id.jump_btn) Button jump;
@@ -63,9 +63,6 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
         mPresenter = new HomePagePresenterImpl(this);
         ButterKnife.bind(this);
         jump.setOnClickListener(this);
-
-//        usersBeanList.add(new ProjectListUsersBean());
-//        mAdapter = new OtherProjectListRecyclerAdapter(this, );
 
         setToolbar();
         setDrawerLayout();
@@ -89,7 +86,7 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
                 super.onDrawerClosed(drawerView);
             }
         };
-        //设置弹出侧滑栏的按钮的默认logo为三横杠，不调用此方法则为箭头
+        /**设置弹出侧滑栏的按钮的默认logo为三横杠，不调用此方法则为箭头*/
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
     }

@@ -41,6 +41,7 @@ public class LoginPresenterImpl implements LoginPresenter{
         handler.post(new Runnable() {
             @Override
             public void run() {
+                /**有进度条的显示与隐藏，需要使用handler操作*/
                 loginView.onLoginResult(result, "0");
             }
         });

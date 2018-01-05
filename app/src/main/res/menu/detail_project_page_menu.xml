@@ -4,7 +4,7 @@
     <item
         android:id="@+id/star"
         android:title="@string/menu_star"
-        android:icon="@drawable/star_project_selector"
+        android:icon="@drawable/homepage_selector_star_project"
         android:orderInCategory="80"
         app:showAsAction="ifRoom"/>
 

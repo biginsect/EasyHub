@@ -2,6 +2,7 @@ package com.lipeng.mygithub.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,12 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.lipeng.mygithub.R;
+import com.lipeng.mygithub.constant.ToastType;
 import com.lipeng.mygithub.login.presenter.LoginPresenter;
 import com.lipeng.mygithub.login.presenter.LoginPresenterImpl;
 import com.lipeng.mygithub.login.view.LoginView;
 import com.lipeng.mygithub.homepage.HomePageActivity;
 import com.lipeng.mygithub.util.NetworkUtils;
-import com.lipeng.mygithub.util.PageSkipUtils;
+import com.lipeng.mygithub.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,9 +32,12 @@ import es.dmoral.toasty.Toasty;
  */
 
 public class LoginPageActivity extends AppCompatActivity implements View.OnClickListener, LoginView {
-    @BindView(R.id.user_name_edit) EditText userNameEdit;
-    @BindView(R.id.user_pass_word_edit) EditText userPasswordEdit;
-    @BindView(R.id.login_btn)Button loginBtn;
+    @BindView(R.id.et_user_name) EditText userNameEdit;
+    @BindView(R.id.et_user_password) EditText userPasswordEdit;
+    @BindView(R.id.btn_login)Button loginBtn;
+    private TextInputLayout userNameWrapper;
+    private TextInputLayout passwordWrapper;
+
 
     private LoginPresenter mLoginPresenter;
 
@@ -49,18 +54,30 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     private void init(){
         ButterKnife.bind(this);
 
+        setTextInputLayout();
         loginBtn.setOnClickListener(this);
         findViewById(R.id.root).setOnClickListener(this);
         mLoginPresenter = new LoginPresenterImpl(this);
     }
 
+    /**
+     * 设置用户名和密码编辑框hint提示的浮动动画
+     * */
+    private void setTextInputLayout(){
+        userNameWrapper = findViewById(R.id.til_username_wrapper);
+        passwordWrapper = findViewById(R.id.til_password_wrapper);
+        userNameWrapper.setHint("UserName");
+        passwordWrapper.setHint("Password");
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.login_btn:
+            case R.id.btn_login:
                 if (!NetworkUtils.isNetworkConnected(this)){
-                    //无网络连接
-                    Toasty.error(this, "Network is not connected!").show();
+                    /**无网络连接*/
+                    ToastUtils.showLongToast(this, "Network is not connected!",
+                            ToastType.ERROR);
                     break;
                 }else {
                     //有网络连接
@@ -79,16 +96,21 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
      * 登录
      * */
     private void login(){
-        String getName = userNameEdit.getText().toString();
-        String getPassword = userPasswordEdit.getText().toString();
-
-        if (TextUtils.isEmpty(getName) || TextUtils.isEmpty(getPassword)){
-            //用户和密码不能为空
-            Toasty.error(this,
-                    "name or password should not be null!").show();
-        }else {//检查账号密码是否正确
-            mLoginPresenter.setProgressBarVisibility(View.VISIBLE);
-            mLoginPresenter.login(getName, getPassword);
+        /**防止NPE*/
+        if (null != userNameWrapper.getEditText() && null != passwordWrapper.getEditText()){
+            String getName = userNameWrapper.getEditText().getText().toString();
+            String getPassword = passwordWrapper.getEditText().getText().toString();
+            if (TextUtils.isEmpty(getName)){
+                userNameWrapper.setError("User name should not be empty!");
+            }else if (TextUtils.isEmpty(getPassword)){
+                passwordWrapper.setError("Pass word should not be empty");
+            }else {
+                /**账号密码不为空，消除错误提示框*/
+                userNameWrapper.setErrorEnabled(false);
+                passwordWrapper.setErrorEnabled(false);
+                mLoginPresenter.setProgressBarVisibility(View.VISIBLE);
+                mLoginPresenter.login(getName, getPassword);
+            }
         }
     }
 
@@ -96,7 +118,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     /**
      * 测试，获取编辑框的hint，目标是实现hint上移的动画效果
      * */
-    @OnClick(R.id.user_name_edit)
+    @OnClick(R.id.et_user_name)
     public void userNameEditClicked(){
         String getUserNameHint = userNameEdit.getHint().toString();
         Log.d(TAG,"  --  --  "+getUserNameHint);
@@ -110,9 +132,10 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         mLoginPresenter.setProgressBarVisibility(View.INVISIBLE);
         if (result){
             mLoginPresenter.skipPage();
+            finish();
         }else {
-            Toasty.error(this,
-                    "username or password is valid").show();
+            ToastUtils.showLongToast(this,
+                    "username or password is valid", ToastType.ERROR);
         }
     }
 
@@ -126,13 +149,15 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     }
 
     /**
-     * 隐藏软键盘
+     * presenter回调隐藏软键盘
+     * 点击username和password两个编辑框外的地方可以隐藏软键盘，这两个EdiText会消费这个点击事件
      * */
     @Override
     public void onHideSoftKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         if (inputMethodManager != null){
-            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 

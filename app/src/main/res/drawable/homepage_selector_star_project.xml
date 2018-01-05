@@ -5,13 +5,13 @@
 
     <item
         android:state_selected="true"
-        android:drawable="@drawable/is_star"/>
+        android:drawable="@drawable/homepage_ic_is_star"/>
     <!--按下之后-->
     <item
-        android:drawable="@drawable/is_star"
+        android:drawable="@drawable/homepage_ic_is_star"
         android:state_pressed="true"/>
 
     <!--默认-->
     <item
-        android:drawable="@drawable/not_star"/>
+        android:drawable="@drawable/homepage_ic_not_star"/>
 </selector>

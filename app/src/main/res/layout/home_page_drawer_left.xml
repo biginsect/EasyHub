@@ -21,7 +21,9 @@
                 android:layout_height="80dp"
                 android:layout_gravity="center_vertical"/>
             <LinearLayout
-                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
