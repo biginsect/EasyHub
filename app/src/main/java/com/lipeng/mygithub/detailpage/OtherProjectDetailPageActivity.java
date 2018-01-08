@@ -67,7 +67,7 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.detail_project_page_menu, menu);
+        getMenuInflater().inflate(R.menu.detail_page_menu, menu);
         return true;
     }
 

@@ -113,16 +113,6 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-
-    /**
-     * 测试，获取编辑框的hint，目标是实现hint上移的动画效果
-     * */
-    @OnClick(R.id.et_user_name)
-    public void userNameEditClicked(){
-        String getUserNameHint = userNameEdit.getHint().toString();
-        Log.d(TAG,"  --  --  "+getUserNameHint);
-    }
-
     /**
      * 登录回调
      * */

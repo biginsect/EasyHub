@@ -12,19 +12,20 @@ import android.widget.Button;
 
 import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.base.BaseActivity;
+import com.lipeng.mygithub.constant.ToastType;
 import com.lipeng.mygithub.detailpage.OtherProjectDetailPageActivity;
 import com.lipeng.mygithub.homepage.adapter.OtherProjectListRecyclerAdapter;
 import com.lipeng.mygithub.homepage.model.ProjectListUsersBean;
 import com.lipeng.mygithub.homepage.presenter.HomePagePresenter;
 import com.lipeng.mygithub.homepage.presenter.HomePagePresenterImpl;
 import com.lipeng.mygithub.homepage.view.HomePageView;
+import com.lipeng.mygithub.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import es.dmoral.toasty.Toasty;
 
 /**
  * 主页面
@@ -122,7 +123,7 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
             finish();
         }else {
             mLastBackPressedTime = System.currentTimeMillis();
-            Toasty.info(this,"Press again to exit.").show();
+            ToastUtils.showLongToast(this, "Press again to exit.", ToastType.INFO);
         }
     }
 

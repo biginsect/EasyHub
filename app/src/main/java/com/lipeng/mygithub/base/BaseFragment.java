@@ -8,6 +8,6 @@ import android.app.Fragment;
  * @date 2017/12/26
  */
 
-public class BaseFragment extends Fragment{
+public abstract class BaseFragment extends Fragment{
 
 }
