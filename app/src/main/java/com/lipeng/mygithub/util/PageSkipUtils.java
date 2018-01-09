@@ -22,7 +22,7 @@ public class PageSkipUtils {
      * @param context 当前页面
      * @param target 目标页面
      * */
-    public static void skipWithNoData(Activity context, Class<?> target){
+    public static void skipWithNoData(Activity context, Class<? extends Activity> target){
         Intent intent = new Intent(context, target);
         context.startActivity(intent);
     }

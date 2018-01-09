@@ -3,6 +3,8 @@ package com.lipeng.mygithub.detailpage;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +19,8 @@ import com.lipeng.mygithub.detailpage.presenter.DetailPagePresenter;
 import com.lipeng.mygithub.detailpage.presenter.DetailPagePresenterImpl;
 import com.lipeng.mygithub.detailpage.view.DetailPageView;
 import com.lipeng.mygithub.util.ToastUtils;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +37,7 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
     private ScrollView mScrollView;
 
     private DetailPagePresenter mPresenter;
+    private final Handler mHandler = new MyHandler(this);
 
 
     @Override
@@ -95,6 +100,8 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.destroy();
+        /*传入null，所有的message和callback都会被清除*/
+        mHandler.removeCallbacksAndMessages(null);
     }
 
     /**
@@ -104,5 +111,21 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
     public static void skip(Context context){
         Intent intent = new Intent(context, OtherProjectDetailPageActivity.class);
         context.startActivity(intent);
+    }
+
+    /**内部类handler*/
+    private static class MyHandler extends Handler{
+        private final WeakReference<OtherProjectDetailPageActivity> mActivity;
+
+        public MyHandler( OtherProjectDetailPageActivity activity){
+            mActivity = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (null != mActivity.get()){
+
+            }
+        }
     }
 }

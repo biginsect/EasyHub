@@ -61,23 +61,8 @@ public class ToastUtils {
     }
 
     /**
-     * 短提示
-     * @param context 上下文环境
-     * @param msg 提示信息
+     * 设置提示信息的类型
      * */
-    public static void showShortToast(Context context, String msg, ToastType type){
-        showToast(context, msg, Toast.LENGTH_SHORT, type);
-    }
-
-    /**
-     * 长提示
-     * @param context 上下文环境
-     * @param msg 提示信息
-     */
-    public static void showLongToast(Context context, String msg, ToastType type){
-        showToast(context, msg, Toast.LENGTH_LONG, type);
-    }
-
     private static void setToastType(Context context, String  msg, int time, ToastType type){
         switch (type){
             case INFO:
@@ -99,4 +84,23 @@ public class ToastUtils {
                 break;
         }
     }
+
+    /**
+     * 短提示
+     * @param context 上下文环境
+     * @param msg 提示信息
+     * */
+    public static void showShortToast(Context context, String msg, ToastType type){
+        showToast(context, msg, Toast.LENGTH_SHORT, type);
+    }
+
+    /**
+     * 长提示
+     * @param context 上下文环境
+     * @param msg 提示信息
+     */
+    public static void showLongToast(Context context, String msg, ToastType type){
+        showToast(context, msg, Toast.LENGTH_LONG, type);
+    }
+
 }
