@@ -5,10 +5,13 @@ import android.util.AttributeSet;
 import android.widget.ScrollView;
 
 /**
- * Created by lipeng-ds3 on 2018/1/5.
+ * 自定义ScrollView
+ * @author lipeng
+ * @date 2018/1/5
  */
 
 public class MyScrollView extends ScrollView{
+    private ScrollListener mScrollListener;
 
     public MyScrollView(Context context){
         this(context, null);
@@ -22,7 +25,33 @@ public class MyScrollView extends ScrollView{
         super(context, attrs, defStyle);
     }
 
-    public void setOnScrollListener(){
+    public void setOnScrollListener(ScrollListener listener){
+        this.mScrollListener = listener;
+    }
 
+    /**
+     * 对自定义ScrollView的监听
+     * */
+    public interface ScrollListener{
+        /**
+         * 当前ScrollView状态更改之后进行回调处理
+         * @param scrollView 当前对象
+         *
+         * @param x 当前水平滚动原点
+         * @param y 当前垂直滚动点
+         * @param oldX 原水平滚动点.
+         * @param oldY 原垂直滚动点
+         * */
+        void onScrollChanged(MyScrollView scrollView, int x, int y,
+                             int oldX, int oldY);
+    }
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldL, int oldT) {
+        super.onScrollChanged(l, t, oldL, oldT);
+        if (null != mScrollListener){
+            mScrollListener.onScrollChanged(this, l, t,
+                    oldL, oldT );
+        }
     }
 }

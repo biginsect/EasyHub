@@ -13,12 +13,14 @@ import io.realm.RealmConfiguration;
  */
 
 public class GitHubApplication extends Application{
+    private static Application application;
 
     @Override
     public void onCreate() {
         super.onCreate();
         setRealmConfig();
         Fresco.initialize(this);
+        application = this;
     }
 
     /**
@@ -29,5 +31,9 @@ public class GitHubApplication extends Application{
         Realm.init(this);
         RealmConfiguration configuration = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(configuration);
+    }
+
+    public static Application getApplication(){
+        return application;
     }
 }
