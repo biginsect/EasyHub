@@ -159,7 +159,7 @@ public class CircleImageView extends AppCompatImageView {
      * dp转换成px
      * @param value px的值
      * */
-    private int dpToPx(float value){
+    public int dpToPx(float value){
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 value, getResources().getDisplayMetrics());
     }

@@ -10,7 +10,7 @@ import android.net.NetworkInfo;
  * @date 2017/12/25
  */
 
-public class NetworkUtils {
+public final class NetworkUtils {
     private NetworkUtils(){
     }
 

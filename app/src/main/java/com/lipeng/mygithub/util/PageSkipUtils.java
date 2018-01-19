@@ -9,7 +9,7 @@ import android.content.Intent;
  * @date 2017/12/25
  */
 
-public class PageSkipUtils {
+public final class PageSkipUtils {
 
     /**
      * 不允许该工具实例化与被继承

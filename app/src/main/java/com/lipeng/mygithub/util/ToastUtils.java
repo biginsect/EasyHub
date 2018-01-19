@@ -15,7 +15,7 @@ import es.dmoral.toasty.Toasty;
  * @date 2017/12/25
  */
 
-public class ToastUtils {
+public final class ToastUtils {
     private final static String TAG = "ToastUtils";
     private static Toast mToast = null;
     private static String oldMessage = "";
