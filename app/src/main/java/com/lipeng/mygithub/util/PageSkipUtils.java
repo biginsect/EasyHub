@@ -15,6 +15,7 @@ public final class PageSkipUtils {
      * 不允许该工具实例化与被继承
      * */
     private PageSkipUtils(){
+        throw new UnsupportedOperationException("Cannot be initialized");
     }
 
     /**

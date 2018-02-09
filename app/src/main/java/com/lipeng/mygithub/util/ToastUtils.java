@@ -25,6 +25,7 @@ public final class ToastUtils {
     private static long currentTime = 0;
 
     private ToastUtils(){
+        throw new UnsupportedOperationException("Cannot be initialized");
     }
 
     /**
@@ -37,21 +38,27 @@ public final class ToastUtils {
     private static void showToast(Context context, String msg, int time, ToastType type){
         /*提示信息不能为空*/
         if (TextUtils.isEmpty(msg)){
-            Log.d(TAG, "Toast message is null");
+            Logger.d(TAG, "Toast message is null");
             return;
         }
         if (mToast == null){
+            /**记录最后一次弹toast的时间*/
+            lastTime = System.currentTimeMillis();
             setToastType(context, msg, time, type);
             mToast.show();
-            lastTime = System.currentTimeMillis();
         }else {
+            /**记录当前toast的时间*/
             currentTime = System.currentTimeMillis();
             if (msg.equals(oldMessage)){
+                /**相同的toast内容，时间间隔大于toast的时长，直接显示*/
                 if (currentTime - lastTime > time){
                     mToast.show();
                 }
             }else {
+                /**否则记录当前的提示内容，用于与下次toast内容做比较*/
                 oldMessage = msg;
+                /**内容改变，需重新设置toast*/
+                setToastType(context, msg, time, type);
                 mToast.show();
             }
         }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +9,7 @@
     android:paddingBottom="60dp"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-    android:background="#548B54"
-    >
+    android:background="#548B54">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -38,7 +38,9 @@
                 android:id="@+id/et_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="text"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:imeOptions="actionNext"
                 />
         </android.support.design.widget.TextInputLayout>
 
@@ -47,12 +49,16 @@
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="?colorAccent">
             <EditText
                 android:id="@+id/et_user_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
+                android:maxLines="1"
+                android:imeOptions="actionSend"
                 />
         </android.support.design.widget.TextInputLayout>
 
@@ -64,7 +70,7 @@
         android:layout_height="100dp"
         android:background="@android:color/white"
         >
-        <Button
+        <com.unstoppable.submitbuttonview.SubmitButton
             android:id="@+id/btn_login"
             android:layout_width="150dp"
             android:layout_height="50dp"
@@ -72,7 +78,9 @@
             android:textAllCaps="false"
             android:textColor="#32CD32"
             android:text="@string/login_btn_text"
-            android:background="@drawable/login_btn_shape"/>
+            app:buttonColor="?colorAccent"
+            app:buttonTextSize="18sp"
+            />
 
         <View
             android:layout_height="1px"

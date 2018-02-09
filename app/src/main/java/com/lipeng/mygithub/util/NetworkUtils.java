@@ -12,6 +12,7 @@ import android.net.NetworkInfo;
 
 public final class NetworkUtils {
     private NetworkUtils(){
+        throw new UnsupportedOperationException("Cannot be initialized");
     }
 
     /**

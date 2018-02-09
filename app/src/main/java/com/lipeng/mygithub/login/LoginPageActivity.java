@@ -5,10 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.lipeng.mygithub.R;
@@ -19,11 +17,10 @@ import com.lipeng.mygithub.login.view.LoginView;
 import com.lipeng.mygithub.homepage.HomePageActivity;
 import com.lipeng.mygithub.util.NetworkUtils;
 import com.lipeng.mygithub.util.ToastUtils;
+import com.unstoppable.submitbuttonview.SubmitButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import es.dmoral.toasty.Toasty;
 
 /**
  * 登录页面，
@@ -34,9 +31,11 @@ import es.dmoral.toasty.Toasty;
 public class LoginPageActivity extends AppCompatActivity implements View.OnClickListener, LoginView {
     @BindView(R.id.et_user_name) EditText userNameEdit;
     @BindView(R.id.et_user_password) EditText userPasswordEdit;
-    @BindView(R.id.btn_login)Button loginBtn;
+    @BindView(R.id.btn_login)SubmitButton loginBtn;
     private TextInputLayout userNameWrapper;
     private TextInputLayout passwordWrapper;
+    String getName;
+    String getPassword;
 
 
     private LoginPresenter mLoginPresenter;
@@ -78,9 +77,12 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                     /*无网络连接*/
                     ToastUtils.showLongToast(this, "Network is not connected!",
                             ToastType.ERROR);
-                }else {
+                }else if (loginCheck()){
                     //有网络连接
-                    login();
+                    loginBtn.setEnabled(false);
+                    mLoginPresenter.login(getName, getPassword);
+                }else {
+                    loginBtn.reset();
                 }
                 break;
             case R.id.root:
@@ -94,23 +96,20 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     /**
      * 登录
      * */
-    private void login(){
+    private boolean loginCheck(){
+        /**登录验证结果*/
+        boolean checkResult = true;
         /*防止NPE*/
         if (null != userNameWrapper.getEditText() && null != passwordWrapper.getEditText()){
-            String getName = userNameWrapper.getEditText().getText().toString();
-            String getPassword = passwordWrapper.getEditText().getText().toString();
-            if (TextUtils.isEmpty(getName)){
-                userNameWrapper.setError("User name should not be empty!");
-            }else if (TextUtils.isEmpty(getPassword)){
-                passwordWrapper.setError("Pass word should not be empty");
-            }else {
-                /*账号密码不为空，消除错误提示框*/
-                userNameWrapper.setErrorEnabled(false);
-                passwordWrapper.setErrorEnabled(false);
-                mLoginPresenter.setProgressBarVisibility(View.VISIBLE);
-                mLoginPresenter.login(getName, getPassword);
+            getName = userNameWrapper.getEditText().getText().toString();
+            getPassword = passwordWrapper.getEditText().getText().toString();
+            if ((TextUtils.isEmpty(getName)) && TextUtils.isEmpty(getPassword)){
+                ToastUtils.showLongToast(this, "UserName or password should not be null!",
+                        ToastType.ERROR);
+                checkResult = false;
             }
         }
+        return checkResult;
     }
 
     /**

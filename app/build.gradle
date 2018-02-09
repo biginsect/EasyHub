@@ -69,4 +69,6 @@ dependencies {
     //java注解
     compile 'org.glassfish:javax.annotation:10.0-b28'
 
+    //美化的button
+    compile 'com.unstoppable:submitbutton:1.1.3'
 }

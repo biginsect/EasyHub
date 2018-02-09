@@ -39,6 +39,11 @@ public class OtherProjectListRecyclerAdapter extends RecyclerView.Adapter<OtherP
         }
     }
 
+    /**设置监听器*/
+    public void setItemListener(OnItemClickListener mItemListener){
+        this.mItemListener = mItemListener;
+    }
+
     @Override
     public ProjectListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext)
@@ -48,7 +53,17 @@ public class OtherProjectListRecyclerAdapter extends RecyclerView.Adapter<OtherP
     }
 
     /**
-     * 绑定列表项数据内容,未完成
+     * 加载新的数据，更新视图
+     * 在更新视图时需保证数据已经获取完全
+     * */
+    public void addData(List<ProjectListUsersBean> data){
+        usersBeanList.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 绑定列表项数据内容,在UI上显示结果
+     * 未完成
      * */
     @Override
     public void onBindViewHolder(ProjectListViewHolder holder, int position) {
@@ -70,6 +85,7 @@ public class OtherProjectListRecyclerAdapter extends RecyclerView.Adapter<OtherP
         TextView userName;
         /**用户动态信息的日期，以days为单位，超过30 days 用日期格式显示*/
         TextView userUpdateDate;
+        /**用户动态信息*/
         TextView userDynamic;
 
         public ProjectListViewHolder(View view){
