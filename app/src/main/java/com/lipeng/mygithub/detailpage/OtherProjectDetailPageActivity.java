@@ -43,8 +43,12 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_other_project_detail_page);
         initView();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_other_project_detail_page;
     }
 
     @Override

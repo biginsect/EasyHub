@@ -52,8 +52,12 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
         initView();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_home_page;
     }
 
     /**

@@ -28,9 +28,9 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
      * */
     public void appendToList(List<T> dataList){
         if (null != dataList && !dataList.isEmpty()){
-            this.mDataList.ensureCapacity(this.mDataList.size() + dataList.size());
-            this.mDataList.addAll(dataList);
-            this.notifyDataSetChanged();
+            mDataList.ensureCapacity(this.mDataList.size() + dataList.size());
+            mDataList.addAll(dataList);
+            notifyDataSetChanged();
         }
     }
 
@@ -39,10 +39,10 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
      * */
     public void refresh(List<T> list){
         if (null != list && !list.isEmpty()){
-            this.mDataList.clear();
-            this.mDataList.ensureCapacity(list.size());
-            this.mDataList.addAll(list);
-            this.notifyDataSetChanged();
+            mDataList.clear();
+            mDataList.ensureCapacity(list.size());
+            mDataList.addAll(list);
+            notifyDataSetChanged();
         }
     }
 

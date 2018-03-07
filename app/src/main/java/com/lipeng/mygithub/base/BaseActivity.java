@@ -18,10 +18,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(getLayoutId());
     }
 
     /**
      * 在此初始化布局文件，资源等等
      * */
     protected abstract void initView();
+
+    /**
+     * 获取布局文件id
+     * @return 布局文件id
+     * */
+    protected abstract int getLayoutId();
 }
