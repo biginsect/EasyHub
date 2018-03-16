@@ -25,7 +25,7 @@ public final class ToastUtils {
     private static long currentTime = 0;
 
     private ToastUtils(){
-        throw new UnsupportedOperationException("Cannot be initialized");
+        throw new UnsupportedOperationException(TAG + "  " + "Cannot be initialized");
     }
 
     /**
@@ -110,4 +110,10 @@ public final class ToastUtils {
         showToast(context, msg, Toast.LENGTH_LONG, type);
     }
 
+    /**
+     * 取消toast提示
+     * */
+    public static void cancelToast(){
+        mToast.cancel();
+    }
 }

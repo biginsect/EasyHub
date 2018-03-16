@@ -1,5 +1,6 @@
 package com.lipeng.mygithub.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -44,5 +45,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         Logger.d(TAG,"----onDestroy()");
         mActivitiesManager.finishActivity(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Logger.d(TAG,"----onNewIntent()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Logger.d(TAG,"----onStop()");
     }
 }

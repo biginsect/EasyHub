@@ -19,6 +19,7 @@ import com.lipeng.mygithub.homepage.model.ProjectListUsersBean;
 import com.lipeng.mygithub.homepage.presenter.HomePagePresenter;
 import com.lipeng.mygithub.homepage.presenter.HomePagePresenterImpl;
 import com.lipeng.mygithub.homepage.view.HomePageView;
+import com.lipeng.mygithub.util.ActivitiesManager;
 import com.lipeng.mygithub.util.ToastUtils;
 
 import java.util.ArrayList;
@@ -124,7 +125,8 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
     public void onBackPressed() {
         /*两次按下back键的时间小于1s，则finish*/
         if (System.currentTimeMillis() - mLastBackPressedTime < TIME_INTERVAL){
-            finish();
+            ToastUtils.cancelToast();
+            ActivitiesManager.getInstance().appExit(this);
         }else {
             mLastBackPressedTime = System.currentTimeMillis();
             ToastUtils.showLongToast(this, "Press again to exit.", ToastType.INFO);

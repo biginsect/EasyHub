@@ -2,6 +2,9 @@ package com.lipeng.mygithub.base;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+
+import com.lipeng.mygithub.util.ListUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +15,14 @@ import java.util.List;
  * @date 2018/1/8
  */
 
-public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
+public abstract class MyBaseAdapter<T> extends BaseAdapter {
     protected final ArrayList<T> mDataList = new ArrayList<>();
 
     public List<T> getDataList() {
         return mDataList;
     }
 
-    public BaseAdapter(){
+    public MyBaseAdapter(){
 
     }
 
@@ -27,7 +30,7 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
      * 添加数据
      * */
     public void appendToList(List<T> dataList){
-        if (null != dataList && !dataList.isEmpty()){
+        if (ListUtils.isEmpty(dataList)){
             mDataList.ensureCapacity(this.mDataList.size() + dataList.size());
             mDataList.addAll(dataList);
             notifyDataSetChanged();
@@ -38,7 +41,7 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
      * 刷新列表
      * */
     public void refresh(List<T> list){
-        if (null != list && !list.isEmpty()){
+        if (ListUtils.isEmpty(list)){
             mDataList.clear();
             mDataList.ensureCapacity(list.size());
             mDataList.addAll(list);
@@ -48,7 +51,7 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
 
     @Override
     public int getCount() {
-        return mDataList.size();
+        return ListUtils.getSize(mDataList);
     }
 
     @Override
@@ -66,7 +69,7 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return getExView(position, convertView, parent);
+        return getExtraView(position, convertView, parent);
     }
 
     /**
@@ -76,5 +79,5 @@ public abstract class BaseAdapter<T> extends android.widget.BaseAdapter {
      * @param parent 父布局
      * @return 返回构建后的视图
      * */
-    protected abstract View getExView(int position, View convertView, ViewGroup parent);
+    protected abstract View getExtraView(int position, View convertView, ViewGroup parent);
 }
