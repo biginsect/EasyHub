@@ -1,12 +1,17 @@
 package com.lipeng.mygithub.base;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.lipeng.mygithub.base.contract.BaseContract;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Fragment 统一基类，用于作统一处理
@@ -14,9 +19,12 @@ import android.view.ViewGroup;
  * @date 2017/12/26
  */
 
-public abstract class BaseFragment extends Fragment{
+public abstract class BaseFragment<P extends BaseContract.FragmentPresenter> extends Fragment
+    implements BaseContract.FragmentView{
     protected Context mContext;
     protected View mRootView;
+    protected P mPresenter;
+    Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -28,8 +36,23 @@ public abstract class BaseFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayoutId(), container, false);
-        initView(mRootView);
+        unbinder = ButterKnife.bind(this,mRootView);
+        if (null != mPresenter){
+            mPresenter.onViewInit(mRootView);
+        }
         return mRootView;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (null != mPresenter){
+            mPresenter.attachView(this);
+        }
+        if (null != mPresenter){
+            mPresenter.onSaveInstanceState(getArguments());
+            mPresenter.onRestoreInstanceState(savedInstanceState);
+        }
     }
 
     /**
@@ -38,9 +61,19 @@ public abstract class BaseFragment extends Fragment{
      * */
     protected abstract int getLayoutId();
 
-    /**
-     * 对view做进一步处理
-     * @param parentView target
-     * */
-    protected abstract void initView(View parentView);
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }

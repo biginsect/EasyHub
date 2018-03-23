@@ -11,6 +11,8 @@ import com.lipeng.mvp.MvpView;
  */
 
 public interface LceView<M> extends MvpView {
+    void setProgress();
+
     /**
      * 正在加载数据，显示progressbar或提示框等内容
      * */

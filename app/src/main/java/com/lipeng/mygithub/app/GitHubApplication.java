@@ -33,7 +33,7 @@ public class GitHubApplication extends Application{
         Realm.setDefaultConfiguration(configuration);
     }
 
-    public static Application getApplication(){
+    public static Application getInstance(){
         return application;
     }
 }

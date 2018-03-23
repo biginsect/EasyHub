@@ -43,7 +43,7 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
+        init();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
     }
 
     @Override
-    protected void initView() {
+    protected void init() {
         mPresenter = new DetailPagePresenterImpl(this);
         ButterKnife.bind(this);
         mScrollView = findViewById(R.id.sv_detail_page);
@@ -103,7 +103,9 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.destroy();
+        if (null != mPresenter){
+            mPresenter.destroy();
+        }
         /*传入null，所有的message和callback都会被清除*/
         mHandler.removeCallbacksAndMessages(null);
     }

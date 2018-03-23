@@ -19,7 +19,7 @@ import java.util.List;
  * @date 2017/12/26
  */
 
-public class OtherProjectListRecyclerAdapter extends RecyclerView.Adapter<OtherProjectListRecyclerAdapter.ProjectListViewHolder>
+public class ProjectsListRecyclerAdapter extends RecyclerView.Adapter<ProjectsListRecyclerAdapter.ProjectListViewHolder>
         implements View.OnClickListener{
 
     /**监听器，用于列表项的点击事件*/
@@ -27,7 +27,7 @@ public class OtherProjectListRecyclerAdapter extends RecyclerView.Adapter<OtherP
     private Context mContext;
     private List<ProjectListUsersBean> usersBeanList;
 
-    public OtherProjectListRecyclerAdapter(Context context, List<ProjectListUsersBean> usersBeanList){
+    public ProjectsListRecyclerAdapter(Context context, List<ProjectListUsersBean> usersBeanList){
         this.mContext = context;
         this.usersBeanList = usersBeanList;
     }

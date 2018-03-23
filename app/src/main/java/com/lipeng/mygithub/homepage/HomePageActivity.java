@@ -14,7 +14,7 @@ import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.base.BaseActivity;
 import com.lipeng.mygithub.constant.ToastType;
 import com.lipeng.mygithub.detailpage.OtherProjectDetailPageActivity;
-import com.lipeng.mygithub.homepage.adapter.OtherProjectListRecyclerAdapter;
+import com.lipeng.mygithub.homepage.adapter.ProjectsListRecyclerAdapter;
 import com.lipeng.mygithub.homepage.model.ProjectListUsersBean;
 import com.lipeng.mygithub.homepage.presenter.HomePagePresenter;
 import com.lipeng.mygithub.homepage.presenter.HomePagePresenterImpl;
@@ -44,7 +44,7 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private OtherProjectListRecyclerAdapter mRecyclerAdapter;
+    private ProjectsListRecyclerAdapter mRecyclerAdapter;
     private List<ProjectListUsersBean> mUsersBeanList = new ArrayList<>();
 
     @BindView(R.id.home_page_toolbar) Toolbar mToolbar;
@@ -53,7 +53,7 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
+        init();
     }
 
     @Override
@@ -65,7 +65,7 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
      * 初始化布局文件 view等
      * */
     @Override
-    protected void initView(){
+    protected void init(){
         mPresenter = new HomePagePresenterImpl(this);
         ButterKnife.bind(this);
         jump.setOnClickListener(this);
@@ -144,7 +144,9 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.destroy();
+        if (null != mPresenter){
+            mPresenter.destroy();
+        }
     }
 
     /**

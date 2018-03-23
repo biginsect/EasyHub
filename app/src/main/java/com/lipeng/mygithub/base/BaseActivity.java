@@ -32,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 在此初始化布局文件，资源等等
      * */
-    protected abstract void initView();
+    protected abstract void init();
 
     /**
      * 获取布局文件id

@@ -15,14 +15,14 @@ import java.util.List;
  * @date 2018/1/8
  */
 
-public abstract class MyBaseAdapter<T> extends BaseAdapter {
+public abstract class AbstractAdapter<T> extends BaseAdapter {
     protected final ArrayList<T> mDataList = new ArrayList<>();
 
     public List<T> getDataList() {
         return mDataList;
     }
 
-    public MyBaseAdapter(){
+    public AbstractAdapter(){
 
     }
 

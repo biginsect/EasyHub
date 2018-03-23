@@ -133,7 +133,9 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mLoginPresenter.destroy();
+        if (null != mLoginPresenter){
+            mLoginPresenter.destroy();
+        }
     }
 
     /**
