@@ -43,6 +43,7 @@ public abstract class BaseFragment<P extends BaseContract.FragmentPresenter> ext
         return mRootView;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
