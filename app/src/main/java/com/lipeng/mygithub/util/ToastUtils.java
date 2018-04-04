@@ -2,10 +2,10 @@ package com.lipeng.mygithub.util;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.lipeng.mygithub.constant.ToastType;
+import com.orhanobut.logger.Logger;
 
 import es.dmoral.toasty.Toasty;
 

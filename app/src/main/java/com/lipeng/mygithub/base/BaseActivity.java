@@ -6,9 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.lipeng.mygithub.util.ActivitiesManager;
-import com.lipeng.mygithub.util.Logger;
-
-import butterknife.ButterKnife;
+import com.orhanobut.logger.Logger;
 
 
 /**

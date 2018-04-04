@@ -72,4 +72,6 @@ dependencies {
     compile "com.unstoppable:submitbutton:${SUBMITBUTTON_VERSION}"
     //greendao
     compile "org.greenrobot:greendao:${GREENDAO_VERSION}"
+    //Loger 第三方日志打印工具
+    implementation "com.orhanobut:logger:${LOGGER_VERSION}"
 }

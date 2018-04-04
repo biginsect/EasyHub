@@ -77,7 +77,7 @@
             android:layout_centerInParent="true"
             android:textAllCaps="false"
             android:textColor="#32CD32"
-            android:text="@string/login_btn_text"
+            app:buttonText="@string/login_btn_text"
             app:buttonColor="?colorAccent"
             app:buttonTextSize="18sp"
             />
