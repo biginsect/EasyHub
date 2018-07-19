@@ -7,11 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.lipeng.mygithub.base.contract.BaseContract;
-
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 /**
  * Fragment 统一基类，用于作统一处理
@@ -19,12 +19,9 @@ import butterknife.Unbinder;
  * @date 2017/12/26
  */
 
-public abstract class BaseFragment<P extends BaseContract.FragmentPresenter> extends Fragment
-    implements BaseContract.FragmentView{
+public abstract class BaseFragment extends Fragment {
     protected Context mContext;
     protected View mRootView;
-    protected P mPresenter;
-    Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -34,47 +31,42 @@ public abstract class BaseFragment<P extends BaseContract.FragmentPresenter> ext
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayoutId(), container, false);
-        unbinder = ButterKnife.bind(this,mRootView);
-        if (null != mPresenter){
-            mPresenter.onViewInit(mRootView);
-        }
+        initView(mRootView);
         return mRootView;
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (null != mPresenter){
-            mPresenter.attachView(this);
-        }
-        if (null != mPresenter){
-            mPresenter.onSaveInstanceState(getArguments());
-            mPresenter.onRestoreInstanceState(savedInstanceState);
-        }
-    }
+    /**
+     * 初始化布局
+     * @param view
+     * */
+    protected abstract void initView(View view);
 
     /**
-     * 获取布局文件id
+     * 布局Id
      * @return id
      * */
     protected abstract int getLayoutId();
 
-    @Override
-    public void hideLoading() {
-
+    protected TextView getTextView(int id){
+        return mRootView.findViewById(id);
     }
 
-    @Override
-    public void showLoading() {
-
+    protected Button getButton(int id){
+        return mRootView.findViewById(id);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    protected ImageView getImageView(int id){
+        return mRootView.findViewById(id);
     }
+
+    protected LinearLayout getLinearLayout(int id){
+        return mRootView.findViewById(id);
+    }
+
+    protected RelativeLayout getRealtiveLayout(int id){
+        return mRootView.findViewById(id);
+    }
+
 }

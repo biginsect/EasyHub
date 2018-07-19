@@ -15,7 +15,7 @@
             android:orientation="horizontal"
             android:background="@color/myBackgroundColor">
 
-            <com.lipeng.mygithub.view.CircleImageView
+            <com.lipeng.mygithub.widgets.CircleImageView
                 android:id="@+id/im_my_picture"
                 android:layout_width="80dp"
                 android:layout_height="80dp"

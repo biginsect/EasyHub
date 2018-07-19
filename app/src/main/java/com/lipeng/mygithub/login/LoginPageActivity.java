@@ -15,7 +15,7 @@ import com.lipeng.mygithub.login.presenter.LoginPresenter;
 import com.lipeng.mygithub.login.presenter.LoginPresenterImpl;
 import com.lipeng.mygithub.login.view.LoginView;
 import com.lipeng.mygithub.homepage.HomePageActivity;
-import com.lipeng.mygithub.util.NetworkUtils;
+import com.lipeng.mygithub.util.NetUtils;
 import com.lipeng.mygithub.util.ToastUtils;
 import com.unstoppable.submitbuttonview.SubmitButton;
 
@@ -73,7 +73,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_login:
-                if (!NetworkUtils.isNetworkConnected(this)){
+                if (!NetUtils.INSTANCE.isNetworkConnected(this)){
                     /*无网络连接*/
                     ToastUtils.showLongToast(this, "Network is not connected!",
                             ToastType.ERROR);

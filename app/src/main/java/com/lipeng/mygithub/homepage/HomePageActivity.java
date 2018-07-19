@@ -3,10 +3,13 @@ package com.lipeng.mygithub.homepage;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -49,6 +52,7 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
 
     @BindView(R.id.home_page_toolbar) Toolbar mToolbar;
     @BindView(R.id.jump_btn) Button jump;
+    @BindView(R.id.homepage_nav)  NavigationView mNavView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,14 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
         mPresenter = new HomePagePresenterImpl(this);
         ButterKnife.bind(this);
         jump.setOnClickListener(this);
+        mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                /**这里应当是点击item之后进行对应页面的跳转，这里只是把侧滑栏关闭，后期修改*/
+                mDrawerLayout.closeDrawers();
+                return true;
+            }
+        });
 
         setToolbar();
         setDrawerLayout();
@@ -126,7 +138,7 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
         /*两次按下back键的时间小于1s，则finish*/
         if (System.currentTimeMillis() - mLastBackPressedTime < TIME_INTERVAL){
             ToastUtils.cancelToast();
-            ActivitiesManager.getInstance().appExit(this);
+            ActivitiesManager.INSTANCE.appExit(this);
         }else {
             mLastBackPressedTime = System.currentTimeMillis();
             ToastUtils.showLongToast(this, "Press again to exit.", ToastType.INFO);

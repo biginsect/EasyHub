@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 // add after applying plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 
@@ -43,7 +44,6 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:${RUNNER_VERSION}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${ESPRESSO_CORE_VERSION}"
     implementation "com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"
-    compile project(path: ':mvp')
 
 
     //butterKnife
@@ -74,4 +74,8 @@ dependencies {
     compile "org.greenrobot:greendao:${GREENDAO_VERSION}"
     //Loger 第三方日志打印工具
     implementation "com.orhanobut:logger:${LOGGER_VERSION}"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

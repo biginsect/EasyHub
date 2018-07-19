@@ -12,6 +12,11 @@
     <string name="project_list">Project Lists</string>
     <string name="drawer_layout_open">Open drawer</string>
     <string name="drawer_layout_close">Close drawer</string>
+
+    <!--homepage navigation view-->
+    <string name="nav_profile">Profile</string>
+    <string name="nav_notifications">Notifications</string>
+    <string name="nav_issues">Issues</string>
     
     <!--他人项目页面相关-->
     <string name="menu_star">star</string>

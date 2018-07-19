@@ -17,7 +17,7 @@ import com.orhanobut.logger.Logger;
 
 public abstract class BaseActivity extends AppCompatActivity {
     public static final String TAG = "BaseActivity";
-    private ActivitiesManager mActivitiesManager = ActivitiesManager.getInstance();
+    private ActivitiesManager mActivitiesManager = ActivitiesManager.INSTANCE;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,6 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Logger.d(TAG, "----onCreate()");
         mActivitiesManager.addActivity(this);
         setContentView(getLayoutId());
+        ActivitiesManager.INSTANCE.addActivity(this);
     }
 
     /**
@@ -55,5 +56,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         Logger.d(TAG,"----onStop()");
+    }
+
+    @Override
+    public void finish() {
+        ActivitiesManager.INSTANCE.finishActivity(this);
+        super.finish();
     }
 }
