@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 
 /**
- * Created by lipeng-ds3 on 2018/7/19.
+ * @author big insect
  */
 interface FragmentMvpDelegate<V :MvpView, P :MvpPresenter<V>> {
     fun onCreate(bundle: Bundle?)

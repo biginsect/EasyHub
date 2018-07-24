@@ -60,35 +60,35 @@ class FragmentMvpDelegateImpl<V :MvpView, P :MvpPresenter<V>>(fragment: Fragment
     }
 
     override fun onViewCreated(view: View?, bundle: Bundle?) {
-        var prensenter :P ? = null
+        val presenter: P?
         if(null != bundle && keepPresenterInstanceDuringScreenOrientationChanges){
             mosbyViewId = bundle.getString(KEY_MOSBY_VIEW_ID)
             if(DEBUG){
                 Log.d(DEBUG_TAG, "MosbyView ID = $mosbyViewId for MvpView:  ${delegateCallback?.getMvpView()}")
             }
             if (null != mosbyViewId && null != PresenterManager.getPresenter(getActivity(), mosbyViewId!!)){
-                prensenter = PresenterManager.getPresenter(getActivity(), mosbyViewId!!)
+                presenter = PresenterManager.getPresenter(getActivity(), mosbyViewId!!)
                 if (DEBUG){
-                    Log.d(DEBUG_TAG, "Reused presenter $prensenter for View ${delegateCallback?.getMvpView()}")
+                    Log.d(DEBUG_TAG, "Reused presenter $presenter for View ${delegateCallback?.getMvpView()}")
                 }
             }else{
-                prensenter = createViewIdAndCreatePresenter()
+                presenter = createViewIdAndCreatePresenter()
                 if (DEBUG){
-                    Log.d(DEBUG_TAG, "No presenter found although view Id was here: $mosbyViewId \". Most likely this was caused by a process death. New Presenter created $prensenter for View ${getMvpView()}")
+                    Log.d(DEBUG_TAG, "No presenter found although view Id was here: $mosbyViewId \". Most likely this was caused by a process death. New Presenter created $presenter for View ${getMvpView()}")
                 }
             }
         }else{
-            prensenter = createViewIdAndCreatePresenter()
+            presenter = createViewIdAndCreatePresenter()
             if (DEBUG){
-                Log.d(DEBUG_TAG, "New presenter $prensenter for View ${getMvpView()}" )
+                Log.d(DEBUG_TAG, "New presenter $presenter for View ${getMvpView()}" )
             }
         }
 
-        when(prensenter){
+        when(presenter){
             null -> throw IllegalStateException("Oops, Presenter is null. This seems to be a Mosby internal bug. Please report this issue here: https://github.com/sockeqwe/mosby/issues")
 
             else -> {
-                delegateCallback?.setPresenter(prensenter)
+                delegateCallback?.setPresenter(presenter)
                 getPresenter().attachView(getMvpView())
                 if(DEBUG){
                     Log.d(DEBUG_TAG, "view ${getMvpView()}")
@@ -161,7 +161,7 @@ class FragmentMvpDelegateImpl<V :MvpView, P :MvpPresenter<V>>(fragment: Fragment
     }
 
     private fun getActivity():Activity{
-        /**a ?: b ，，，，a != null 返回a  否则返回b*/
+        /**a ?: b ------- a != null 返回a  否则返回b*/
         return fragment?.activity ?: throw NullPointerException("Activity returned by Fragment.getActivity() is null. Fragment is $fragment")
     }
 

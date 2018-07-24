@@ -6,7 +6,7 @@ import android.support.annotation.NonNull
 import android.util.Log
 import java.util.*
 
-open class ActivityMvpDelegateImpl<in V : MvpView, P : MvpPresenter<V>>(@NonNull delegateCallback: MvpDelegateCallback<V, P>?, keepPresenterInstance: Boolean, activity: Activity?)
+class ActivityMvpDelegateImpl<in V : MvpView, P : MvpPresenter<V>>(@NonNull delegateCallback: MvpDelegateCallback<V, P>?, keepPresenterInstance: Boolean, activity: Activity?)
     : ActivityMvpDelegate<V, P> {
     companion object{
         var DEBUG = false
@@ -22,8 +22,8 @@ open class ActivityMvpDelegateImpl<in V : MvpView, P : MvpPresenter<V>>(@NonNull
 
     init{
         when {
-            null == activity -> NullPointerException("Activity is null")
-            null == delegateCallback -> NullPointerException("MvpDelegateCallback is null")
+            null == activity -> throw NullPointerException("Activity is null")
+            null == delegateCallback -> throw NullPointerException("MvpDelegateCallback is null")
             else -> {
                 this.delegateCallback = delegateCallback
                 this.activity = activity
@@ -36,16 +36,16 @@ open class ActivityMvpDelegateImpl<in V : MvpView, P : MvpPresenter<V>>(@NonNull
         val presenter:P? = this.delegateCallback?.createPresenter()
 
         when(presenter){
-            null ->  NullPointerException("Presenter returned from createPresenter() is null. Activity is " + this.activity)
+            null ->  throw NullPointerException("Presenter returned from createPresenter() is null. Activity is " + this.activity)
             else -> {
                 if (this.keepPresenterInstance){
                     this.mosbyViewId = UUID.randomUUID().toString()
-                    PresenterManager.putPresenter(this.activity!!, this.mosbyViewId!!, presenter)
+                    PresenterManager.putPresenter(this.activity, this.mosbyViewId!!, presenter)
 
                 }
             }
         }
-        return presenter!!
+        return presenter
     }
 
     override fun onCreate(bundle: Bundle?) {
@@ -88,21 +88,11 @@ open class ActivityMvpDelegateImpl<in V : MvpView, P : MvpPresenter<V>>(@NonNull
     }
 
     private fun getPresenter():P?{
-        val presenter :P? = this.delegateCallback?.createPresenter()
-        if (null == presenter){
-            NullPointerException("Presenter returned from getPresenter() is null")
-        }
-
-        return presenter
+        return delegateCallback?.createPresenter() ?: throw NullPointerException("Presenter returned from getPresenter() is null")
     }
 
     private fun getMvpView():V?{
-        val view :V? = delegateCallback?.getMvpView()
-        if(null == view){
-            NullPointerException("View returned from getMvpView() is null")
-        }
-
-        return view
+        return delegateCallback?.getMvpView() ?: throw NullPointerException("View returned from getMvpView() is null")
     }
 
     override fun onDestroy() {

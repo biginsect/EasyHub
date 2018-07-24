@@ -26,15 +26,15 @@ class ActivityScopedCache {
 
     fun putPresenter(@NonNull viewId: String?, @NonNull presenter: MvpPresenter<*>?){
         when {
-            viewId == null -> NullPointerException("viewId is null")
-            presenter == null -> NullPointerException("Presenter is null")
+            viewId == null -> throw NullPointerException("viewId is null")
+            presenter == null -> throw NullPointerException("Presenter is null")
 
             else -> {
                 var holder = presenterMap[viewId]
                 if (holder == null){
                     holder = PresenterHolder()
                     holder.presenter = presenter
-                    presenterMap.put(viewId, holder)
+                    presenterMap[viewId] = holder
                 }else{
                     holder.presenter = presenter
                 }
@@ -44,14 +44,14 @@ class ActivityScopedCache {
 
     fun putViewState(@NonNull viewId: String?, @NonNull viewState: Any?){
         when{
-            viewId == null -> NullPointerException("ViewId is null")
-            viewState == null -> NullPointerException("ViewState is null")
+            viewId == null -> throw NullPointerException("ViewId is null")
+            viewState == null -> throw NullPointerException("ViewState is null")
             else -> {
                 var holder = presenterMap[viewId]
                 if (holder == null){
                     holder = PresenterHolder()
                     holder.viewState = viewState
-                    presenterMap.put(viewId, holder)
+                    presenterMap[viewId] = holder
                 }else{
                     holder.viewState = viewState
                 }
@@ -60,7 +60,7 @@ class ActivityScopedCache {
     }
 
     fun remove(@NonNull viewId: String?){
-        if (viewId == null) NullPointerException("ViewId is null")
+        if (viewId == null) throw NullPointerException("ViewId is null")
         else presenterMap.remove(viewId)
     }
 
