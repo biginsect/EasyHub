@@ -114,6 +114,8 @@ public final class ToastUtils {
      * 取消toast提示
      * */
     public static void cancelToast(){
-        mToast.cancel();
+        if (null != mToast) {
+            mToast.cancel();
+        }
     }
 }

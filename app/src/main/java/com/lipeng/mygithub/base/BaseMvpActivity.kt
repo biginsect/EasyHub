@@ -2,6 +2,9 @@ package com.lipeng.mygithub.base
 
 import android.os.Bundle
 import android.support.annotation.NonNull
+import android.support.v7.widget.RecyclerView
+import android.view.animation.AnimationUtils
+import com.lipeng.mygithub.R
 import com.lipeng.mygithub.base.mvp.*
 
 /**
@@ -69,7 +72,18 @@ abstract class BaseMvpActivity<V:MvpView, P: MvpPresenter<V>> : BaseActivity()
     }
 
     @NonNull
-    override abstract fun createPresenter():P?
+    abstract override fun createPresenter():P?
+
+    /**
+     * 数据变化时触发RecyclerView的动画
+     * */
+    internal fun runLayoutAnimation(recyclerView: RecyclerView){
+        val layoutAnimationController = AnimationUtils.loadLayoutAnimation(recyclerView.context,
+                R.anim.layout_animation_fall_down)
+        recyclerView.layoutAnimation = layoutAnimationController
+        recyclerView.adapter.notifyDataSetChanged()
+        recyclerView.scheduleLayoutAnimation()
+    }
 
     override fun getPresenter(): P? {
         return presenter
@@ -77,5 +91,13 @@ abstract class BaseMvpActivity<V:MvpView, P: MvpPresenter<V>> : BaseActivity()
 
     override fun getMvpView(): V? {
         return this as V
+    }
+
+    fun showLoading(){
+
+    }
+
+    fun hideLoading(){
+
     }
 }

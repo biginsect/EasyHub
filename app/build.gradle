@@ -19,6 +19,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/anim'] } }
 }
 /**
  * 防止第三方包使用的support库与当前app使用的support库不一致
@@ -44,7 +45,6 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:${RUNNER_VERSION}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${ESPRESSO_CORE_VERSION}"
     implementation "com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"
-
 
     //butterKnife
     compile "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"

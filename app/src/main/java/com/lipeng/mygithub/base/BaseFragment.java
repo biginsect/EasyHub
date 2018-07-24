@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.lipeng.mygithub.R;
 
 /**
  * Fragment 统一基类，用于作统一处理
@@ -49,6 +53,14 @@ public abstract class BaseFragment extends Fragment {
      * */
     protected abstract int getLayoutId();
 
+    protected void hideLoading(){
+
+    }
+
+    protected void showLoading(){
+
+    }
+
     protected TextView getTextView(int id){
         return mRootView.findViewById(id);
     }
@@ -66,6 +78,14 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected RelativeLayout getRealtiveLayout(int id){
+        return mRootView.findViewById(id);
+    }
+
+    protected RecyclerView getRecyclerView(int id){
+        return mRootView.findViewById(id);
+    }
+
+    protected Toolbar getToolbar(int id){
         return mRootView.findViewById(id);
     }
 

@@ -11,7 +11,7 @@ import com.lipeng.mygithub.base.mvp.*
  */
 abstract class BaseMvpFragment<V : MvpView, P :MvpPresenter<V>>: BaseFragment()
         ,MvpDelegateCallback<V, P>, MvpView {
-    internal var mvpDelegate: FragmentMvpDelegate<V, P>? = null
+    private var mvpDelegate: FragmentMvpDelegate<V, P>? = null
         get() {
             if (null == field){
                 field = FragmentMvpDelegateImpl(this,this, true, true)
