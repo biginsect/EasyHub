@@ -7,12 +7,13 @@ import java.lang.ref.WeakReference
 /**
  * @author big insect
  */
-class MvpBasePresenter<in V: MvpView> :MvpPresenter<V>{
+open class MvpBasePresenter< V: MvpView> :MvpPresenter<V>{
     private var viewRef:WeakReference<V?>? = null
-    var view:MvpView? = null
-        private set
-        @UiThread
-        get() {return viewRef?.get()}
+
+    @UiThread
+    fun getView():V?{
+        return viewRef?.get()
+    }
 
     @UiThread
     fun isViewAttached():Boolean{

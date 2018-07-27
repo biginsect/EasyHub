@@ -6,10 +6,11 @@ import android.support.annotation.NonNull
 import android.util.Log
 import java.util.*
 
-class ActivityMvpDelegateImpl<in V : MvpView, P : MvpPresenter<V>>(@NonNull delegateCallback: MvpDelegateCallback<V, P>?, keepPresenterInstance: Boolean, activity: Activity?)
+class ActivityMvpDelegateImpl< V : MvpView, P : MvpPresenter<V>>(@NonNull delegateCallback: MvpDelegateCallback<V, P>?, keepPresenterInstance: Boolean, activity: Activity?)
     : ActivityMvpDelegate<V, P> {
     companion object{
         var DEBUG = false
+        internal const val KEY_MOSBY_VIEW_ID = "com.hannesdorfmann.mosby3.activity.mvp.id"
         internal const val TAG:String = "ActivityMvpDelegateImpl"
         fun retainPresenterInstance(keepPresenterInstance: Boolean, activity: Activity?):Boolean{
             return keepPresenterInstance && (activity?.isChangingConfigurations!! || activity.isFinishing)
@@ -51,7 +52,7 @@ class ActivityMvpDelegateImpl<in V : MvpView, P : MvpPresenter<V>>(@NonNull dele
     override fun onCreate(bundle: Bundle?) {
         var presenter : P? = null
         if (null != bundle && keepPresenterInstance){
-            mosbyViewId = bundle.getString("com.hannesdorfmann.mosby3.activity.mvp.id")
+            mosbyViewId = bundle.getString(KEY_MOSBY_VIEW_ID)
             if (DEBUG){
                 Log.d(TAG, "MosbyView ID = " + this.mosbyViewId + " for MvpView: " + this.delegateCallback?.getMvpView())
 
@@ -132,7 +133,7 @@ class ActivityMvpDelegateImpl<in V : MvpView, P : MvpPresenter<V>>(@NonNull dele
 
     override fun onSaveInstanceState(outState: Bundle?) {
         if(keepPresenterInstance && null != outState){
-            outState.putString("com.hannesdorfmann.mosby3.activity.mvp.id", mosbyViewId)
+            outState.putString(KEY_MOSBY_VIEW_ID, mosbyViewId)
             if(DEBUG){
                 Log.d(TAG, "Saving MosbyViewId into Bundle. ViewId: $mosbyViewId for view" + getMvpView())
             }

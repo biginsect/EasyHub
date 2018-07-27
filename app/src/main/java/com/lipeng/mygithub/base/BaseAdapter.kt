@@ -13,10 +13,7 @@ abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D>(protected var context
     : RecyclerView.Adapter<VH>(), View.OnClickListener {
     protected var mDataList:ArrayList<D> = ArrayList()
     private var mListener:OnItemClickListener? = null
-
-    init {
-        this.context = context
-    }
+    protected var mContext :Context = context
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH {
         val view: View = LayoutInflater.from(parent?.context)

@@ -15,12 +15,12 @@ class ActivityScopedCache {
     }
 
     fun <P> getPresenter(@NonNull viewId :String):P {
-        val holder = presenterMap[viewId]
+        val holder :PresenterHolder? = presenterMap[viewId]
         return holder?.presenter as P
     }
 
     fun <VS> getViewState(@NonNull viewId: String) : VS{
-        val holder = presenterMap[viewId]
+        val holder :PresenterHolder? = presenterMap[viewId]
         return holder?.viewState as VS
     }
 

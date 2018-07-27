@@ -74,6 +74,7 @@ dependencies {
     compile "org.greenrobot:greendao:${GREENDAO_VERSION}"
     //Loger 第三方日志打印工具
     implementation "com.orhanobut:logger:${LOGGER_VERSION}"
+    implementation "com.hannesdorfmann.mosby3:viewstate:${MVP_VERSION}"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 repositories {

@@ -1,20 +1,19 @@
 package com.lipeng.mygithub.login;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.lipeng.mygithub.R;
+import com.lipeng.mygithub.base.BaseMvpActivity;
 import com.lipeng.mygithub.constant.ToastType;
+import com.lipeng.mygithub.contract.ILoginContract;
 import com.lipeng.mygithub.login.presenter.LoginPresenter;
-import com.lipeng.mygithub.login.presenter.LoginPresenterImpl;
-import com.lipeng.mygithub.login.view.LoginView;
-import com.lipeng.mygithub.homepage.HomePageActivity;
 import com.lipeng.mygithub.util.NetUtils;
 import com.lipeng.mygithub.util.ToastUtils;
 import com.unstoppable.submitbuttonview.SubmitButton;
@@ -28,7 +27,8 @@ import butterknife.ButterKnife;
  * @date 2017/12/25
  */
 
-public class LoginPageActivity extends AppCompatActivity implements View.OnClickListener, LoginView {
+public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView, ILoginContract.ILoginPresenter>
+        implements View.OnClickListener, ILoginContract.ILoginView {
     @BindView(R.id.et_user_name) EditText userNameEdit;
     @BindView(R.id.et_user_password) EditText userPasswordEdit;
     @BindView(R.id.btn_login)SubmitButton loginBtn;
@@ -37,26 +37,27 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     String getName;
     String getPassword;
 
-
-    private LoginPresenter mLoginPresenter;
-
     /**打印日志标识*/
     private final static String TAG = "LoginPageActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_page);
         init();
     }
 
-    private void init(){
+    @Override
+     protected void init(){
         ButterKnife.bind(this);
 
         setTextInputLayout();
         loginBtn.setOnClickListener(this);
         findViewById(R.id.root).setOnClickListener(this);
-        mLoginPresenter = new LoginPresenterImpl(this);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_login_page;
     }
 
     /**
@@ -80,13 +81,13 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                 }else if (loginCheck()){
                     //有网络连接
                     loginBtn.setEnabled(false);
-                    mLoginPresenter.login(getName, getPassword);
+                    presenter.login(getName, getPassword);
                 }else {
                     loginBtn.reset();
                 }
                 break;
             case R.id.root:
-                mLoginPresenter.hideSoftKeyboard(v);
+                presenter.hideSoftKeyboard(v);
                 break;
             default:
                 break;
@@ -117,9 +118,8 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
      * */
     @Override
     public void onLoginResult(boolean result, String code) {
-        mLoginPresenter.setProgressBarVisibility(View.INVISIBLE);
         if (result){
-            mLoginPresenter.skipPage();
+            presenter.jump();
             finish();
         }else {
             ToastUtils.showLongToast(this,
@@ -127,16 +127,6 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    /**
-     * 关闭资源
-     * */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (null != mLoginPresenter){
-            mLoginPresenter.destroy();
-        }
-    }
 
     /**
      * presenter回调隐藏软键盘
@@ -151,19 +141,17 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    /**
-     * 显示进度条
-     * */
-    @Override
-    public void onSetProgressBar(int visibility) {
 
+    @NonNull
+    @Override
+    public ILoginContract.ILoginPresenter createPresenter() {
+        presenter = new LoginPresenter();
+        return presenter;
     }
 
-    /**
-     * 页面跳转至主页面（homepage）
-     * */
+
     @Override
-    public void onSkipPage() {
-        HomePageActivity.skip(this);
+    public void onJump() {
+
     }
 }

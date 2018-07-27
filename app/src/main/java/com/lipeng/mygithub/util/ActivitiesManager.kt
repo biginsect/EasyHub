@@ -15,15 +15,18 @@ object ActivitiesManager {
         mActivityList.add(activity)
     }
 
+    fun removeActivity(activity: Activity){
+        mActivityList.remove(activity)
+    }
+
     fun finishActivity(activity: Activity){
         mActivityList.remove(activity)
         activity.finish()
     }
 
     private fun finishAll(){
-        while (mActivityList.size > 0){
-            val activity :Activity = mActivityList.get(mActivityList.size - 1)
-            mActivityList.removeAt(mActivityList.size - 1)
+        while (!mActivityList.isEmpty()){
+            val activity :Activity = mActivityList[mActivityList.size - 1]
             activity.finish()
         }
     }

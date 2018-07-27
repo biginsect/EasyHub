@@ -1,3 +1,0 @@
-与presenter类似，这里存放视图层
-   LoginView接口存放所有处理视图的接口方法。
-   LoginPageActivity实现LoginView接口，保留了Presenter的调用，具体的工作由PresenterImpl实现。

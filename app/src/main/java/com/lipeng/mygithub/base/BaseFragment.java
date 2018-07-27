@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lipeng.mygithub.R;
 
 /**
  * Fragment 统一基类，用于作统一处理

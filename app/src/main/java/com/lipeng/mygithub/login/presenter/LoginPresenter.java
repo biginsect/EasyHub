@@ -1,40 +1,65 @@
 package com.lipeng.mygithub.login.presenter;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.lipeng.mygithub.base.mvp.MvpBasePresenter;
+import com.lipeng.mygithub.contract.ILoginContract;
+import com.lipeng.mygithub.login.model.User;
+import com.lipeng.mygithub.login.model.UserModel;
+
 /**
- * 登录模块的presenter
+ * 登录presenter实现类
  * @author lipeng
  * @date 2017/12/28
  */
 
-public interface LoginPresenter {
-    /**
-     * 登录
-     * @param name 用户名
-     * @param password 密码
-     * */
-    void login(String name, String password);
+public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
+        implements ILoginContract.ILoginPresenter {
+    private User user;
+    private Handler handler;
+
+    public LoginPresenter(){
+        initUser();
+        handler = new Handler(Looper.getMainLooper());
+    }
 
     /**
-     * 进度条的显示与隐藏
-     * @param visibility 可见与否
-     * */
-    void setProgressBarVisibility(int visibility);
+     * 初始化User
+     */
+    private void initUser(){
+        /*应该要获取github的授权检验用户名与密码*/
+        user = new UserModel("123","123");
+    }
+
+    @Override
+    public void login(String name, String password) {
+        if (isViewAttached()) {
+            final boolean result = user.checkLogin(name, password);
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    /**有进度条的显示与隐藏，需要使用handler操作*/
+                    getView().onLoginResult(result, "0");
+                }
+            });
+        }
+    }
 
     /**
      * 隐藏软键盘
-     * @param view target
      * */
-    void hideSoftKeyboard(View view);
+    @Override
+    public void hideSoftKeyboard(@NonNull View view) {
+        if (isViewAttached()) {
+            getView().onHideSoftKeyboard(view);
+        }
+    }
 
-    /**
-     * 销毁资源
-     * */
-    void destroy();
+    @Override
+    public void jump() {
 
-    /**
-     * 页面跳转
-     * */
-    void skipPage();
+    }
 }
