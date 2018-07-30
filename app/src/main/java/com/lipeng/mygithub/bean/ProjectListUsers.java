@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * 用于保存其他用户的头像，用户名，最近动态信息的时间与行为动作等
  * 已实现序列化，将数据写入共享内存中，其他进程可以通过Parcel从这个共享内存中读取字节流
- * @author lipeng
+ * @author biginsect
  * @date 2017/12/26
  */
 

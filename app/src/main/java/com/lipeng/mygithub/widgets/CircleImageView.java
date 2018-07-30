@@ -19,11 +19,11 @@ import com.lipeng.mygithub.R;
 
 /**
  * 自定义圆形ImageView
- * @author lipeng
+ * @author biginsect
  * @date 2018/1/4
  */
 
-public class CircleImageView extends AppCompatImageView {
+public final class CircleImageView extends AppCompatImageView {
 
     /**圆形模式*/
     private static final int MODE_CIRCLE = 1;

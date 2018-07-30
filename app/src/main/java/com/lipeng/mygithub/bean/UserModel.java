@@ -2,7 +2,7 @@ package com.lipeng.mygithub.bean;
 
 /**
  * 用户实体
- * @author lipeng
+ * @author biginsect
  * @date 2017/12/28
  */
 

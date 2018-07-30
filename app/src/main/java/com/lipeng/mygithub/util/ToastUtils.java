@@ -11,7 +11,7 @@ import es.dmoral.toasty.Toasty;
 
 /**
  * 提示语的工具类，封装第三方工具类Toasty，防止重复显示
- * @author lipeng
+ * @author biginsect
  * @date 2017/12/25
  */
 

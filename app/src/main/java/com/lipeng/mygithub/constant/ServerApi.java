@@ -2,7 +2,7 @@ package com.lipeng.mygithub.constant;
 
 /**
  * github开放API
- * @author lipeng
+ * @author biginsect
  * @date 2018/1/8
  */
 

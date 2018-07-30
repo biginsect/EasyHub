@@ -19,7 +19,7 @@ import com.orhanobut.logger.Logger;
 
 /**
  * activity基类，用于对所有activity的统一处理
- * @author lipeng
+ * @author biginsect
  * @date 2017/12/26
  */
 

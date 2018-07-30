@@ -2,7 +2,7 @@ package com.lipeng.mygithub.constant;
 
 /**
  * 提示信息的枚举类型
- * @author lipeng
+ * @author biginsect
  * @date 2018/1/4
  */
 

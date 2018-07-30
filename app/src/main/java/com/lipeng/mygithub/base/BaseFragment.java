@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 /**
  * Fragment 统一基类，用于作统一处理
- * @author lipeng
+ * @author biginsect
  * @date 2017/12/26
  */
 

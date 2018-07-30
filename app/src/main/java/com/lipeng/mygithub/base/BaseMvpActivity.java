@@ -11,7 +11,7 @@ import com.lipeng.mygithub.base.mvp.MvpPresenter;
 import com.lipeng.mygithub.base.mvp.MvpView;
 
 /**
- * @author big insect
+ * @author biginsect
  */
 
 public abstract class BaseMvpActivity<V extends MvpView, P extends MvpPresenter<V>>

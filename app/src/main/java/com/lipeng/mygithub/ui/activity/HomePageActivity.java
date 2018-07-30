@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.lipeng.mygithub.R;
-import com.lipeng.mygithub.base.BaseActivity;
 import com.lipeng.mygithub.base.BaseMvpListActivity;
 import com.lipeng.mygithub.constant.ToastType;
 import com.lipeng.mygithub.ui.adapter.HomePageListAdapter;
@@ -31,7 +30,7 @@ import butterknife.ButterKnife;
 
 /**
  * 主页面
- * @author lipeng
+ * @author biginsect
  * @date 2017/12/22
  * */
 public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHomePageView,IHomePageContract.IHomePagePresenter, HomePageListAdapter>

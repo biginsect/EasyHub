@@ -1,12 +1,13 @@
 package com.lipeng.mygithub.widgets;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
 
 /**
  * 自定义ScrollView
- * @author lipeng
+ * @author biginsect
  * @date 2018/1/5
  */
 
@@ -27,6 +28,12 @@ public class MyScrollView extends ScrollView{
 
     public void setOnScrollListener(ScrollListener listener){
         this.mScrollListener = listener;
+    }
+
+    /**解决ScrollView嵌套RecyclerView自动滚动到底部的问题*/
+    @Override
+    protected int computeScrollDeltaToGetChildRectOnScreen(Rect rect) {
+        return 0;
     }
 
     /**

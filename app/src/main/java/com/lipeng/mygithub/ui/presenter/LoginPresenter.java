@@ -12,7 +12,7 @@ import com.lipeng.mygithub.bean.UserModel;
 
 /**
  * 登录presenter实现类
- * @author lipeng
+ * @author biginsect
  * @date 2017/12/28
  */
 

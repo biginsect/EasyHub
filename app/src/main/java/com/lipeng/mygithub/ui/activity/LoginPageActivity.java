@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 
 /**
  * 登录页面，
- * @author lipeng
+ * @author biginsect
  * @date 2017/12/25
  */
 
@@ -154,6 +154,6 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
 
     @Override
     public void onJump() {
-
+        HomePageActivity.show(this);
     }
 }
