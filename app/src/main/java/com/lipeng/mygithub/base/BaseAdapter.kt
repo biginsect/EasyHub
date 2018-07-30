@@ -11,9 +11,10 @@ import com.lipeng.mygithub.util.ListUtils
  * @author big insect
  */
 abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D>(protected var context: Context)
-    : RecyclerView.Adapter<VH>(), View.OnClickListener {
+    : RecyclerView.Adapter<VH>(), View.OnClickListener, View.OnLongClickListener {
     protected var dataList:ArrayList<D> = ArrayList()
-    private var mListener:OnItemClickListener? = null
+    private var mClickListener :OnItemClickListener? = null
+    private var mLongClickListener :OnItemLongClickListener? = null
     protected var mContext :Context = context
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH {
@@ -23,17 +24,28 @@ abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D>(protected var context
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        if (null != mListener){
+        if (null != mClickListener){
             holder.itemView.setOnClickListener(this)
+        }
+        if (null != mLongClickListener) {
+            holder.itemView.setOnLongClickListener(this)
         }
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener?){
-        this.mListener = listener
+        this.mClickListener = listener
+    }
+
+    fun setOnItemLongClickListener(listener: OnItemLongClickListener?){
+        this.mLongClickListener = listener
     }
 
     override fun onClick(v: View) {
-        mListener?.onItemClick(v.tag)
+        mClickListener?.onItemClick(v.tag)
+    }
+
+    override fun onLongClick(v: View?): Boolean {
+        return mLongClickListener!!.onItemLongClick(v?.tag)
     }
 
     override fun getItemCount(): Int {
@@ -65,5 +77,13 @@ abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D>(protected var context
 
     interface OnItemClickListener{
         fun onItemClick(tag :Any)
+    }
+
+    interface OnItemLongClickListener{
+        /**
+         * @return true 只执行此方法中的代码
+         * @return false 继续响应其他监听中的事件
+         * */
+        fun onItemLongClick(tag: Any?):Boolean
     }
 }

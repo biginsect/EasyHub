@@ -13,18 +13,26 @@ import org.jetbrains.annotations.NotNull;
  * @date 2018/7/30
  */
 
-public abstract class BaseMvpListActivity<V extends MvpView, P extends MvpPresenter<V>>
+public abstract class BaseMvpListActivity<V extends MvpView, P extends MvpPresenter<V>, A extends BaseAdapter>
         extends BaseMvpActivity<V,P>{
-    protected BaseAdapter mAdapter;
+    protected A mAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAdapter = getAdapter();
         if (null != mAdapter){
             mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(@NotNull Object tag) {
                     showDetail(tag);
+                }
+            });
+
+            mAdapter.setOnItemLongClickListener(new BaseAdapter.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(@Nullable Object tag) {
+                    return onLongClickShow();
                 }
             });
         }
@@ -42,4 +50,17 @@ public abstract class BaseMvpListActivity<V extends MvpView, P extends MvpPresen
      * @param tag 传入的相关tag
      * */
     protected abstract void showDetail(Object tag);
+
+    /**
+     * 长按item响应
+     * @return false 此次事件还被其他监听器响应
+     * @return true 此次事件已被消耗，无法响应其他监听器
+     * */
+    protected abstract boolean onLongClickShow();
+
+    /**
+     * 获取适配器
+     * @return target
+     * */
+    protected abstract A getAdapter();
 }

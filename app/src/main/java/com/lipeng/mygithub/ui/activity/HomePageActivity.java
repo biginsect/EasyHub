@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
  * @author lipeng
  * @date 2017/12/22
  * */
-public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHomePageView,IHomePageContract.IHomePagePresenter>
+public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHomePageView,IHomePageContract.IHomePagePresenter, HomePageListAdapter>
         implements View.OnClickListener{
 
     /**记录按下返回键的时间*/
@@ -45,7 +45,7 @@ public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHom
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private   RecyclerView mProjectList;
+    @BindView(R.id.rv_project_list) RecyclerView mProjectList;
     @BindView(R.id.home_page_toolbar) Toolbar mToolbar;
     @BindView(R.id.jump_btn) Button jump;
     @BindView(R.id.homepage_nav)  NavigationView mNavView;
@@ -86,9 +86,7 @@ public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHom
     }
 
     private void setRecyclerView(){
-        mProjectList = findViewById(R.id.rv_project_list);
         mProjectList.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new HomePageListAdapter(this);
         mProjectList.setAdapter(mAdapter);
     }
 
@@ -127,8 +125,18 @@ public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHom
     }
 
     @Override
+    protected HomePageListAdapter getAdapter() {
+        return new HomePageListAdapter(this);
+    }
+
+    @Override
     protected void showDetail(Object tag) {
 
+    }
+
+    @Override
+    protected boolean onLongClickShow() {
+        return false;
     }
 
     @Override
