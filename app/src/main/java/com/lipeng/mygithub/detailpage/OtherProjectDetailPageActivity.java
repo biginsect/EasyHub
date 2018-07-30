@@ -48,7 +48,7 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_other_project_detail_page;
+        return R.layout.activity_detail_page;
     }
 
     @Override

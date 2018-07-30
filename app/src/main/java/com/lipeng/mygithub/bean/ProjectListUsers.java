@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.homepage.model;
+package com.lipeng.mygithub.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,7 +12,7 @@ import java.util.Date;
  * @date 2017/12/26
  */
 
-public class ProjectListUsersBean implements Parcelable{
+public class ProjectListUsers implements Parcelable{
     /**保存的用户头像URL*/
     private String otherPictureUrl;
     /**用户名*/
@@ -24,10 +24,10 @@ public class ProjectListUsersBean implements Parcelable{
     /**动态信息*/
     private String otherDynamic;
 
-    public ProjectListUsersBean(){
+    public ProjectListUsers(){
     }
 
-    public ProjectListUsersBean(Parcel in){
+    public ProjectListUsers(Parcel in){
         this.otherPictureUrl = in.readString();
         this.otherName = in.readString();
         this.otherUpdateDays = in.readInt();
@@ -48,15 +48,15 @@ public class ProjectListUsersBean implements Parcelable{
         dest.writeString(this.otherDynamic);
     }
 
-    public static final Parcelable.Creator<ProjectListUsersBean> CREATOR = new Creator<ProjectListUsersBean>() {
+    public static final Parcelable.Creator<ProjectListUsers> CREATOR = new Creator<ProjectListUsers>() {
         @Override
-        public ProjectListUsersBean createFromParcel(Parcel source) {
-            return new ProjectListUsersBean(source);
+        public ProjectListUsers createFromParcel(Parcel source) {
+            return new ProjectListUsers(source);
         }
 
         @Override
-        public ProjectListUsersBean[] newArray(int size) {
-            return new ProjectListUsersBean[size];
+        public ProjectListUsers[] newArray(int size) {
+            return new ProjectListUsers[size];
         }
     };
 

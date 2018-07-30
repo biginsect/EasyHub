@@ -13,17 +13,15 @@ import com.orhanobut.logger.PrettyFormatStrategy
 open class GitApplication :Application() {
     private val tag :String = GitApplication::class.java.simpleName
     companion object {
-        private var mApplication :GitApplication? = null
-        val instance :Application by lazy {
-            mApplication!!
-        }
+        @JvmStatic lateinit var instance : GitApplication
+        private set
     }
 
 
     override fun onCreate() {
         super.onCreate()
         Fresco.initialize(this)
-        mApplication = this
+        instance = this
         val startTime = System.currentTimeMillis()
         initLogger()
         Logger.t(tag).i("App start time :", startTime)

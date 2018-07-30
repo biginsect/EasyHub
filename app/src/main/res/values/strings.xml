@@ -2,8 +2,8 @@
     <string name="app_name">MyGithub</string>
 
     <!--登录界面编辑框hint-->
-    <string name="user_name_hint">UserName</string>
-    <string name="user_pass_word_hint">PassWord</string>
+    <string name="name_error">Invalid user name!</string>
+    <string name="pass_word_error">Invalid password!</string>
     <string name="login_btn_text">Login</string>
     <string name="login_page_hint">Login using your default browser(OAuth)</string>
     <string name="update_date_text">days ago</string>

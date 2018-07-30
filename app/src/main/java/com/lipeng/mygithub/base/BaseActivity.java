@@ -5,6 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.lipeng.mygithub.util.ActivitiesManager;
 import com.orhanobut.logger.Logger;
@@ -26,11 +33,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         ActivitiesManager.INSTANCE.addActivity(this);
     }
-
-    /**
-     * 在此初始化布局文件，资源等等
-     * */
-    protected abstract void init();
 
     /**
      * 获取布局文件id

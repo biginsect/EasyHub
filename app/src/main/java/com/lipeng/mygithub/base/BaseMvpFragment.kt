@@ -21,6 +21,7 @@ abstract class BaseMvpFragment<V : MvpView, P :MvpPresenter<V>>: BaseFragment()
 
     internal var presenter : P? = null
 
+    @Suppress("UNCHECKED_CAST")
     override fun getMvpView(): V? {
         return this as V
     }

@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.login;
+package com.lipeng.mygithub.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,8 +12,8 @@ import android.widget.EditText;
 import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.base.BaseMvpActivity;
 import com.lipeng.mygithub.constant.ToastType;
-import com.lipeng.mygithub.contract.ILoginContract;
-import com.lipeng.mygithub.login.presenter.LoginPresenter;
+import com.lipeng.mygithub.ui.contract.ILoginContract;
+import com.lipeng.mygithub.ui.presenter.LoginPresenter;
 import com.lipeng.mygithub.util.NetUtils;
 import com.lipeng.mygithub.util.ToastUtils;
 import com.unstoppable.submitbuttonview.SubmitButton;
@@ -34,11 +34,8 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
     @BindView(R.id.btn_login)SubmitButton loginBtn;
     private TextInputLayout userNameWrapper;
     private TextInputLayout passwordWrapper;
-    String getName;
-    String getPassword;
-
-    /**打印日志标识*/
-    private final static String TAG = "LoginPageActivity";
+    private String name;
+    private String password;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,10 +43,8 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
         init();
     }
 
-    @Override
-     protected void init(){
+     private void init(){
         ButterKnife.bind(this);
-
         setTextInputLayout();
         loginBtn.setOnClickListener(this);
         findViewById(R.id.root).setOnClickListener(this);
@@ -81,7 +76,7 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
                 }else if (loginCheck()){
                     //有网络连接
                     loginBtn.setEnabled(false);
-                    presenter.login(getName, getPassword);
+                    presenter.login(name, password);
                 }else {
                     loginBtn.reset();
                 }
@@ -99,18 +94,25 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
      * */
     private boolean loginCheck(){
         /**登录验证结果*/
-        boolean checkResult = true;
+        boolean result = true;
         /*防止NPE*/
-        if (null != userNameWrapper.getEditText() && null != passwordWrapper.getEditText()){
-            getName = userNameWrapper.getEditText().getText().toString();
-            getPassword = passwordWrapper.getEditText().getText().toString();
-            if ((TextUtils.isEmpty(getName)) && TextUtils.isEmpty(getPassword)){
-                ToastUtils.showLongToast(this, "UserName or password should not be null!",
-                        ToastType.ERROR);
-                checkResult = false;
-            }
+        name = userNameEdit.getText().toString();
+        password = userPasswordEdit.getText().toString();
+        if (TextUtils.isEmpty(name) || name.trim().equals("")){
+            result = false;
+            userNameWrapper.setError(getResources().getString(R.string.name_error));
+        }else {
+            userNameWrapper.setErrorEnabled(false);
         }
-        return checkResult;
+
+        if (TextUtils.isEmpty(password) || password.trim().equals("")){
+            result = false;
+            passwordWrapper.setError(getResources().getString(R.string.pass_word_error));
+        }else{
+            passwordWrapper.setErrorEnabled(false);
+        }
+
+        return result;
     }
 
     /**
@@ -133,7 +135,7 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
      * 点击username和password两个编辑框外的地方可以隐藏软键盘，这两个EdiText会消费这个点击事件
      * */
     @Override
-    public void onHideSoftKeyboard(View view) {
+    public void onHideSoftKeyboard(@NonNull View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         if (inputMethodManager != null){
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),

@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.contract
+package com.lipeng.mygithub.ui.contract
 
 import android.view.View
 import com.lipeng.mygithub.base.mvp.MvpPresenter

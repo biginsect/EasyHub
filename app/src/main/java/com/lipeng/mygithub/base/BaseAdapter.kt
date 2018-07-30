@@ -5,13 +5,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.lipeng.mygithub.util.ListUtils
 
 /**
  * @author big insect
  */
 abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D>(protected var context: Context)
     : RecyclerView.Adapter<VH>(), View.OnClickListener {
-    protected var mDataList:ArrayList<D> = ArrayList()
+    protected var dataList:ArrayList<D> = ArrayList()
     private var mListener:OnItemClickListener? = null
     protected var mContext :Context = context
 
@@ -27,12 +28,16 @@ abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D>(protected var context
         }
     }
 
+    fun setOnItemClickListener(listener: OnItemClickListener?){
+        this.mListener = listener
+    }
+
     override fun onClick(v: View) {
         mListener?.onItemClick(v.tag)
     }
 
     override fun getItemCount(): Int {
-        return mDataList.size
+        return ListUtils.getSize(dataList)
     }
 
     override fun getItemId(position: Int): Long {
@@ -43,8 +48,8 @@ abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D>(protected var context
      * 获取到数据，通知视图更新
      * */
     fun addData(dataList:List<D>){
-        mDataList.clear()
-        mDataList.addAll(dataList)
+        this.dataList.clear()
+        this.dataList.addAll(dataList)
         notifyDataSetChanged()
     }
 
@@ -59,6 +64,6 @@ abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D>(protected var context
     abstract fun getViewHolder(itemView:View):VH
 
     interface OnItemClickListener{
-        fun onItemClick(url :Any)
+        fun onItemClick(tag :Any)
     }
 }

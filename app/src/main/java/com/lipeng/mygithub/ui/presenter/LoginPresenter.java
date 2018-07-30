@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.login.presenter;
+package com.lipeng.mygithub.ui.presenter;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -6,9 +6,9 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.lipeng.mygithub.base.mvp.MvpBasePresenter;
-import com.lipeng.mygithub.contract.ILoginContract;
-import com.lipeng.mygithub.login.model.User;
-import com.lipeng.mygithub.login.model.UserModel;
+import com.lipeng.mygithub.ui.contract.ILoginContract;
+import com.lipeng.mygithub.bean.User;
+import com.lipeng.mygithub.bean.UserModel;
 
 /**
  * 登录presenter实现类

@@ -1,6 +1,7 @@
 package com.lipeng.mygithub.base;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.lipeng.mygithub.base.mvp.ActivityMvpDelegate;
@@ -79,10 +80,15 @@ public abstract class BaseMvpActivity<V extends MvpView, P extends MvpPresenter<
         getMvpDelegate().onPostCreate(savedInstanceState);
     }
 
-    @Nullable
+    /**
+     * 创建presenter
+     * @return
+     * */
+    @NonNull
     @Override
     public abstract P createPresenter();
 
+    @SuppressWarnings("unchecked")
     protected ActivityMvpDelegate<V, P> getMvpDelegate(){
         if (mMvpDelegate == null){
             mMvpDelegate = new ActivityMvpDelegateImpl(this, true, this);
@@ -101,6 +107,7 @@ public abstract class BaseMvpActivity<V extends MvpView, P extends MvpPresenter<
         this.presenter = presenter;
     }
 
+    @SuppressWarnings("unchecked")
     @Nullable
     @Override
     public V getMvpView() {

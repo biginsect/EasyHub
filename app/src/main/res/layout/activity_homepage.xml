@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/drawer_layout_left"
-    tools:context="com.lipeng.mygithub.homepage.HomePageActivity">
+    tools:context="com.lipeng.mygithub.ui.activity.HomePageActivity">
 
     <!--主布局-->
     <LinearLayout
@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/home_page_toolbar"/>
+        <include layout="@layout/toolbar_homepage"/>
 
         <Button
             android:id="@+id/jump_btn"
@@ -25,7 +25,7 @@
             android:textAllCaps="false"/>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/new_others_project_list"
+            android:id="@+id/rv_project_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -39,7 +39,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="start"
     app:menu="@menu/nav_homepage_menu"
-    app:headerLayout="@layout/home_page_drawer_left"/>
+    app:headerLayout="@layout/drawer_left_homepage"/>
 
 
 </android.support.v4.widget.DrawerLayout>

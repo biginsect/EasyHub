@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.homepage;
+package com.lipeng.mygithub.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,18 +17,14 @@ import android.widget.Button;
 
 import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.base.BaseActivity;
+import com.lipeng.mygithub.base.BaseMvpListActivity;
 import com.lipeng.mygithub.constant.ToastType;
-import com.lipeng.mygithub.detailpage.OtherProjectDetailPageActivity;
-import com.lipeng.mygithub.homepage.adapter.ProjectsListRecyclerAdapter;
-import com.lipeng.mygithub.homepage.model.ProjectListUsersBean;
-import com.lipeng.mygithub.homepage.presenter.HomePagePresenter;
-import com.lipeng.mygithub.homepage.presenter.HomePagePresenterImpl;
-import com.lipeng.mygithub.homepage.view.HomePageView;
+import com.lipeng.mygithub.ui.adapter.HomePageListAdapter;
+import com.lipeng.mygithub.ui.contract.IHomePageContract;
+import com.lipeng.mygithub.ui.presenter.HomePagePresenter;
 import com.lipeng.mygithub.util.ActivitiesManager;
 import com.lipeng.mygithub.util.ToastUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,9 +34,9 @@ import butterknife.ButterKnife;
  * @author lipeng
  * @date 2017/12/22
  * */
-public class HomePageActivity extends BaseActivity implements HomePageView,View.OnClickListener{
+public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHomePageView,IHomePageContract.IHomePagePresenter>
+        implements View.OnClickListener{
 
-    private HomePagePresenter mPresenter;
     /**记录按下返回键的时间*/
     private long mLastBackPressedTime = 0;
     /**两次back键间隔时间*/
@@ -47,9 +45,7 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private ProjectsListRecyclerAdapter mRecyclerAdapter;
-    private List<ProjectListUsersBean> mUsersBeanList = new ArrayList<>();
-
+    private   RecyclerView mProjectList;
     @BindView(R.id.home_page_toolbar) Toolbar mToolbar;
     @BindView(R.id.jump_btn) Button jump;
     @BindView(R.id.homepage_nav)  NavigationView mNavView;
@@ -62,15 +58,17 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_home_page;
+        return R.layout.activity_homepage;
     }
 
-    /**
-     * 初始化布局文件 view等
-     * */
+    @NonNull
     @Override
-    protected void init(){
-        mPresenter = new HomePagePresenterImpl(this);
+    public IHomePageContract.IHomePagePresenter createPresenter() {
+        presenter = new HomePagePresenter();
+        return presenter;
+    }
+
+    private void init(){
         ButterKnife.bind(this);
         jump.setOnClickListener(this);
         mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -82,8 +80,16 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
             }
         });
 
+        setRecyclerView();
         setToolbar();
         setDrawerLayout();
+    }
+
+    private void setRecyclerView(){
+        mProjectList = findViewById(R.id.rv_project_list);
+        mProjectList.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new HomePageListAdapter(this);
+        mProjectList.setAdapter(mAdapter);
     }
 
     /**
@@ -110,23 +116,25 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
     }
 
     private void setToolbar(){
-        if (mToolbar != null){
-            setSupportActionBar(mToolbar);
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                /*返回按钮可用*/
-                actionBar.setHomeButtonEnabled(true);
-                /*显示返回图标*/
-                actionBar.setDisplayHomeAsUpEnabled(true);
-            }
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            /*返回按钮可用*/
+            actionBar.setHomeButtonEnabled(true);
+            /*显示返回图标*/
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    @Override
+    protected void showDetail(Object tag) {
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.jump_btn:
-                mPresenter.skipToProjectDetail();
                 break;
             default:
                 break;
@@ -146,26 +154,10 @@ public class HomePageActivity extends BaseActivity implements HomePageView,View.
     }
 
     /**
-     * 页面跳转
-     * */
-    @Override
-    public void onSkipToProjectDetail() {
-        OtherProjectDetailPageActivity.skip(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (null != mPresenter){
-            mPresenter.destroy();
-        }
-    }
-
-    /**
      * 跳转到此页面（homepage）
      * @param context 上一页面的上下文
      * */
-    public static void skip(Context context){
+    public static void show(Context context){
         Intent intent = new Intent(context, HomePageActivity.class);
         context.startActivity(intent);
     }

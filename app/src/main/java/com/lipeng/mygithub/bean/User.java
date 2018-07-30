@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.login.model;
+package com.lipeng.mygithub.bean;
 
 /**
  * 用户模型接口
