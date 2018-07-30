@@ -30,7 +30,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.d(TAG, "----onCreate()");
-        setContentView(getLayoutId());
+        if (0 != getLayoutId()) {
+            setContentView(getLayoutId());
+        }
         ActivitiesManager.INSTANCE.addActivity(this);
     }
 

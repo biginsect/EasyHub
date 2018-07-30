@@ -60,6 +60,8 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
 
     @Override
     public void jump() {
-
+        if (isViewAttached()){
+            getView().onJump();
+        }
     }
 }

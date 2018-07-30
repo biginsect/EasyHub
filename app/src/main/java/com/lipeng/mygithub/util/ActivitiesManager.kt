@@ -27,6 +27,7 @@ object ActivitiesManager {
     private fun finishAll(){
         while (!mActivityList.isEmpty()){
             val activity :Activity = mActivityList[mActivityList.size - 1]
+            mActivityList.remove(activity)
             activity.finish()
         }
     }

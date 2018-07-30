@@ -53,8 +53,8 @@ public abstract class BaseMvpListActivity<V extends MvpView, P extends MvpPresen
 
     /**
      * 长按item响应
-     * @return false 此次事件还被其他监听器响应
-     * @return true 此次事件已被消耗，无法响应其他监听器
+     * @return <p>if false</p> 此次事件还被其他监听器响应
+     * <p>if true</p> 此次事件已被消耗，无法响应其他监听器
      * */
     protected abstract boolean onLongClickShow();
 

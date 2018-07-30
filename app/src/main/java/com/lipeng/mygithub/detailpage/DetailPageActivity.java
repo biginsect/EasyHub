@@ -27,11 +27,11 @@ import butterknife.ButterKnife;
 
 /**
  * 点击主页面的列表子项跳转的页面，具体展示该项目的相关信息
- * @author lipeng
+ * @author biginsect
  * @date 2018/1/2
  */
 
-public class OtherProjectDetailPageActivity extends BaseActivity implements DetailPageView,
+public class DetailPageActivity extends BaseActivity implements DetailPageView,
         Toolbar.OnMenuItemClickListener{
     @BindView(R.id.detail_page_toolbar)Toolbar mToolbar;
     private ScrollView mScrollView;
@@ -51,7 +51,6 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
         return R.layout.activity_detail_page;
     }
 
-    @Override
     protected void init() {
         mPresenter = new DetailPagePresenterImpl(this);
         ButterKnife.bind(this);
@@ -114,16 +113,16 @@ public class OtherProjectDetailPageActivity extends BaseActivity implements Deta
      * 跳转到此页面
      * @param context 上个页面的上下文
      * */
-    public static void skip(Context context){
-        Intent intent = new Intent(context, OtherProjectDetailPageActivity.class);
+    public static void show(Context context){
+        Intent intent = new Intent(context, DetailPageActivity.class);
         context.startActivity(intent);
     }
 
     /**内部类handler*/
     private static class MyHandler extends Handler{
-        private final WeakReference<OtherProjectDetailPageActivity> mActivity;
+        private final WeakReference<DetailPageActivity> mActivity;
 
-        public MyHandler( OtherProjectDetailPageActivity activity){
+        public MyHandler( DetailPageActivity activity){
             mActivity = new WeakReference<>(activity);
         }
 

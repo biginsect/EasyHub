@@ -10,12 +10,11 @@ import com.lipeng.mygithub.util.ListUtils
 /**
  * @author big insect
  */
-abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D>(protected var context: Context)
+abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D: Any>(protected var context: Context)
     : RecyclerView.Adapter<VH>(), View.OnClickListener, View.OnLongClickListener {
     protected var dataList:ArrayList<D> = ArrayList()
     private var mClickListener :OnItemClickListener? = null
     private var mLongClickListener :OnItemLongClickListener? = null
-    protected var mContext :Context = context
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH {
         val view: View = LayoutInflater.from(parent?.context)
@@ -55,11 +54,10 @@ abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D>(protected var context
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
-
     /**
      * 获取到数据，通知视图更新
      * */
-    fun addData(dataList:List<D>){
+    fun addData(dataList:ArrayList<D>){
         this.dataList.clear()
         this.dataList.addAll(dataList)
         notifyDataSetChanged()

@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
  * @date 2017/12/26
  */
 
-public class HomePageListAdapter extends BaseAdapter<HomePageListAdapter.ProjectListViewHolder,ProjectListUsers> {
+public class HomePageListAdapter extends BaseAdapter<HomePageListAdapter.ProjectListViewHolder, ProjectListUsers> {
 
     public HomePageListAdapter(Context context){
        super(context);

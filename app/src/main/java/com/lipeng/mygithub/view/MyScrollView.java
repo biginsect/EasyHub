@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.widgets;
+package com.lipeng.mygithub.view;
 
 import android.content.Context;
 import android.graphics.Rect;
