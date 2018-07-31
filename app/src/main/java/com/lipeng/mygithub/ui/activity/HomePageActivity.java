@@ -26,7 +26,6 @@ import com.lipeng.mygithub.util.ToastUtils;
 
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 主页面
@@ -50,12 +49,6 @@ public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHom
     @BindView(R.id.homepage_nav)  NavigationView mNavView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init();
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.activity_homepage;
     }
@@ -67,8 +60,9 @@ public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHom
         return presenter;
     }
 
-    private void init(){
-        ButterKnife.bind(this);
+    @Override
+    protected void initView(Bundle savedInstanceState){
+        super.initView(savedInstanceState);
         jump.setOnClickListener(this);
         mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -134,7 +128,7 @@ public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHom
     }
 
     @Override
-    protected boolean onLongClickShow() {
+    protected boolean onLongClickShow(Object tag) {
         return false;
     }
 

@@ -17,7 +17,7 @@ abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D: Any>(protected var co
     private var mLongClickListener :OnItemLongClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH {
-        val view: View = LayoutInflater.from(parent?.context)
+        val view = LayoutInflater.from(parent?.context)
                 .inflate(getLayoutId(), parent, false)
         return getViewHolder(view)
     }
@@ -44,7 +44,10 @@ abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D: Any>(protected var co
     }
 
     override fun onLongClick(v: View?): Boolean {
-        return mLongClickListener!!.onItemLongClick(v?.tag)
+        if(null != mLongClickListener) {
+            return mLongClickListener!!.onItemLongClick(v?.tag)
+        }
+        return false
     }
 
     override fun getItemCount(): Int {
@@ -74,13 +77,17 @@ abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D: Any>(protected var co
     abstract fun getViewHolder(itemView:View):VH
 
     interface OnItemClickListener{
+        /**
+         * 单击列表的item回调
+         * @param tag 携带的数据
+         * */
         fun onItemClick(tag :Any)
     }
 
     interface OnItemLongClickListener{
         /**
-         * @return true 只执行此方法中的代码
-         * @return false 继续响应其他监听中的事件
+         * @return if true 只执行此方法中的代码
+         * if false 继续响应其他监听中的事件
          * */
         fun onItemLongClick(tag: Any?):Boolean
     }

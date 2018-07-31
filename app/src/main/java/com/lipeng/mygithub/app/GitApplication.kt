@@ -1,9 +1,8 @@
 package com.lipeng.mygithub.app
 
 import android.app.Application
-import com.facebook.drawee.backends.pipeline.Fresco
+import com.lipeng.mygithub.BuildConfig
 import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.BuildConfig
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
 
@@ -20,7 +19,6 @@ open class GitApplication :Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Fresco.initialize(this)
         instance = this
         val startTime = System.currentTimeMillis()
         initLogger()

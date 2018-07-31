@@ -2,7 +2,6 @@ package com.lipeng.mygithub.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.lipeng.mygithub.util.ToastUtils;
 import com.unstoppable.submitbuttonview.SubmitButton;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 登录页面，
@@ -38,13 +36,8 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
     private String password;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init();
-    }
-
-     private void init(){
-        ButterKnife.bind(this);
+     protected void initView(Bundle savedInstanceState){
+        super.initView(savedInstanceState);
         setTextInputLayout();
         loginBtn.setOnClickListener(this);
         findViewById(R.id.root).setOnClickListener(this);

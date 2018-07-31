@@ -15,6 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lipeng.mygithub.R;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 
 /**
  * Fragment 统一基类，用于作统一处理
@@ -25,6 +30,7 @@ import android.widget.TextView;
 public abstract class BaseFragment extends Fragment {
     protected Context mContext;
     protected View mRootView;
+    private Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -36,8 +42,15 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayoutId(), container, false);
+        unbinder = ButterKnife.bind(this, mRootView);
         initView(mRootView);
         return mRootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     /**
@@ -60,32 +73,9 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
-    protected TextView getTextView(int id){
-        return mRootView.findViewById(id);
-    }
-
-    protected Button getButton(int id){
-        return mRootView.findViewById(id);
-    }
-
-    protected ImageView getImageView(int id){
-        return mRootView.findViewById(id);
-    }
-
-    protected LinearLayout getLinearLayout(int id){
-        return mRootView.findViewById(id);
-    }
-
-    protected RelativeLayout getRealtiveLayout(int id){
-        return mRootView.findViewById(id);
-    }
-
-    protected RecyclerView getRecyclerView(int id){
-        return mRootView.findViewById(id);
-    }
-
-    protected Toolbar getToolbar(int id){
-        return mRootView.findViewById(id);
+    @SuppressWarnings("unchecked")
+    protected <T extends View> T findViewById(int id){
+        return (T)mRootView.findViewById(id);
     }
 
 }

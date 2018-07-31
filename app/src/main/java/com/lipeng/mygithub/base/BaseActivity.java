@@ -2,6 +2,8 @@ package com.lipeng.mygithub.base;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 
 import com.lipeng.mygithub.util.ActivitiesManager;
 import com.orhanobut.logger.Logger;
+
+import butterknife.ButterKnife;
 
 
 /**
@@ -32,15 +36,28 @@ public abstract class BaseActivity extends AppCompatActivity {
         Logger.d(TAG, "----onCreate()");
         if (0 != getLayoutId()) {
             setContentView(getLayoutId());
+            ButterKnife.bind(getActivity());
         }
+        initView(savedInstanceState);
         ActivitiesManager.INSTANCE.addActivity(this);
     }
+
 
     /**
      * 获取布局文件id
      * @return 布局文件id
      * */
     protected abstract int getLayoutId();
+
+
+    /**
+     * 初始化
+     * @param savedInstanceState
+     * */
+    @CallSuper
+    protected void initView(Bundle savedInstanceState){
+
+    }
 
     @Override
     protected void onDestroy() {
@@ -65,5 +82,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void finish() {
         ActivitiesManager.INSTANCE.removeActivity(this);
         super.finish();
+    }
+
+    @NonNull
+    protected BaseActivity getActivity(){
+        return this;
     }
 }
