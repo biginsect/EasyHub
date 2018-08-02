@@ -14,11 +14,13 @@ class ActivityScopedCache {
         presenterMap.clear()
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <P> getPresenter(@NonNull viewId :String):P {
         val holder :PresenterHolder? = presenterMap[viewId]
         return holder?.presenter as P
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <VS> getViewState(@NonNull viewId: String) : VS{
         val holder :PresenterHolder? = presenterMap[viewId]
         return holder?.viewState as VS

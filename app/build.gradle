@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-// add after applying plugin: 'com.android.application'
-apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
@@ -19,7 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/anim'] } }
+    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/anim','libs'] } }
 }
 /**
  * 防止第三方包使用的support库与当前app使用的support库不一致
@@ -36,8 +34,18 @@ configurations.all {
     }
 }
 
+repositories {
+    maven { url "https://jitpack.io" }
+    google()
+    flatDir {
+        dirs 'libs' //aar
+    }
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compile "com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"
+
     implementation "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
     implementation "com.android.support:design:${ANDROID_SUPPORT_VERSION}"
     implementation "com.android.support.constraint:constraint-layout:${CONSTRAINT_VERSION}"
@@ -51,7 +59,9 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     //网络加载
     compile "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}"
-    compile "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
+    compile("com.github.bumptech.glide:glide:${GLIDE_VERSION}"){
+        exclude group: "com.android.support"
+    }
     annotationProcessor "com.github.bumptech.glide:compile:${GLIDE_VERSION}"
     compile "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     compile "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
@@ -82,4 +92,5 @@ dependencies {
 }
 repositories {
     mavenCentral()
+    google()
 }

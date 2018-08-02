@@ -36,7 +36,7 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
     private String password;
 
     @Override
-     protected void initView(Bundle savedInstanceState){
+    protected void initView(Bundle savedInstanceState){
         super.initView(savedInstanceState);
         setTextInputLayout();
         loginBtn.setOnClickListener(this);

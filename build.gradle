@@ -4,9 +4,10 @@ buildscript {
     ext.kotlin_version = '1.2.51'
 
     repositories {
-        google()
         jcenter()
-        mavenCentral() // add greendao  repository
+        maven {
+            url 'https://maven.google.com'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
@@ -20,9 +21,12 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
-        jcenter()
+        mavenCentral()
+        jcenter {
+            url "https://jcenter.bintray.com/"
+        }
         maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
     }
 }
 
