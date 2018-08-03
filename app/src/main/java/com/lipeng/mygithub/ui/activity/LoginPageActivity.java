@@ -1,5 +1,7 @@
 package com.lipeng.mygithub.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -112,7 +114,7 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
      * 登录回调
      * */
     @Override
-    public void onLoginResult(boolean result, String code) {
+    public void onLoginResult(boolean result, @NonNull String code) {
         if (result){
             presenter.jump();
             finish();
@@ -144,6 +146,9 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
         return presenter;
     }
 
+    public static void show(Context context){
+        context.startActivity(new Intent(context, LoginPageActivity.class));
+    }
 
     @Override
     public void onJump() {

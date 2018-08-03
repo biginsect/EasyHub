@@ -9,6 +9,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/transparent</item>
+    </style>
+
     <!--登录页面.-->
     <style name="LoginTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorBackground">@color/myBackgroundColor</item>

@@ -2,6 +2,7 @@ package com.lipeng.mygithub.base;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lipeng.mygithub.ui.activity.LoginPageActivity;
 import com.lipeng.mygithub.util.ActivitiesManager;
 import com.orhanobut.logger.Logger;
 
@@ -34,10 +36,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.d(TAG, "----onCreate()");
+
         if (0 != getLayoutId()) {
             setContentView(getLayoutId());
             ButterKnife.bind(getActivity());
         }
+        initActivity();
         initView(savedInstanceState);
         ActivitiesManager.INSTANCE.addActivity(this);
     }
@@ -51,11 +55,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     /**
-     * 初始化
+     * 初始化布局
      * @param savedInstanceState
      * */
     @CallSuper
     protected void initView(Bundle savedInstanceState){
+
+    }
+
+    /**
+     * 初始化activity
+     * */
+    @CallSuper
+    protected void initActivity(){
 
     }
 
@@ -87,5 +99,27 @@ public abstract class BaseActivity extends AppCompatActivity {
     @NonNull
     protected BaseActivity getActivity(){
         return this;
+    }
+
+    /**
+     * 延迟销毁页面
+     * @param mill 毫秒
+     * */
+    protected void finishDelay(int mill){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, mill);
+    }
+
+    /**
+     * 跳转至登录页面
+     * */
+    protected void showLoginPage(){
+        /**关闭当前activity栈中的所有activity，若所有activity都是用default启动方式，则退出app*/
+        getActivity().finishAffinity();
+        LoginPageActivity.show(getActivity());
     }
 }

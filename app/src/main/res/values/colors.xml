@@ -8,4 +8,5 @@
 
     <!--侧滑栏-->
     <color name="my_join_time">#DBDBDB</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
