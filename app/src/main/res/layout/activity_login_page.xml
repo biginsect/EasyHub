@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/root"
+    android:id="@+id/ll_root"
     android:paddingTop="60dp"
     android:paddingBottom="60dp"
     android:paddingLeft="15dp"

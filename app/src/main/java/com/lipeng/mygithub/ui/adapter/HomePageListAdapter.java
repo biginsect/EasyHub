@@ -5,10 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.base.BaseAdapter;
 import com.lipeng.mygithub.bean.ProjectListUsers;
+import com.lipeng.mygithub.view.CircleImageView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -48,7 +48,7 @@ public class HomePageListAdapter extends BaseAdapter<HomePageListAdapter.Project
      * */
      static class ProjectListViewHolder extends RecyclerView.ViewHolder{
         /**用户头像*/
-        @BindView(R.id.other_picture) SimpleDraweeView userPicture;
+        @BindView(R.id.other_picture)  CircleImageView userPicture;
         /**用户名*/
         @BindView(R.id.other_name) TextView userName;
         /**用户动态信息的日期，以days为单位，超过30 days 用日期格式显示*/

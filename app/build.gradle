@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
@@ -44,7 +45,7 @@ repositories {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"
+    implementation "com.android.support:support-v4:${ANDROID_SUPPORT_VERSION}"
 
     implementation "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
     implementation "com.android.support:design:${ANDROID_SUPPORT_VERSION}"
@@ -55,40 +56,40 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"
 
     //butterKnife
-    compile "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
+    implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     //网络加载
-    compile "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}"
-    compile("com.github.bumptech.glide:glide:${GLIDE_VERSION}"){
+    implementation "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}"
+    implementation("com.github.bumptech.glide:glide:${GLIDE_VERSION}"){
         exclude group: "com.android.support"
     }
-    annotationProcessor "com.github.bumptech.glide:compile:${GLIDE_VERSION}"
-    compile "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
-    compile "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
-    compile "com.squareup.retrofit2:adapter-rxjava:${RETROFIT_VERSION}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
+    implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
+    implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
+    implementation "com.squareup.retrofit2:adapter-rxjava:${RETROFIT_VERSION}"
     //美化提示框
-    compile "com.github.GrenderG:Toasty:${TOASTY_VERSION}"
+    implementation "com.github.GrenderG:Toasty:${TOASTY_VERSION}"
 
     //rxJava
-    compile "io.reactivex.rxjava2:rxandroid:${RXANDROID_VERSION}"
+    implementation "io.reactivex.rxjava2:rxandroid:${RXANDROID_VERSION}"
 // Because RxAndroid releases are few and far between, it is recommended you also
 // explicitly depend on RxJava's latest version for bug fixes and new features.
-    compile "io.reactivex.rxjava2:rxjava:${RXJAVA_VERSION}"
+    implementation "io.reactivex.rxjava2:rxjava:${RXJAVA_VERSION}"
 
     // apt command comes from the android-apt plugin
-    compile "com.google.dagger:dagger:${DAGGER_VERSION}"
+    implementation "com.google.dagger:dagger:${DAGGER_VERSION}"
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
     //java注解
-    compile 'org.glassfish:javax.annotation:10.0-b28'
+    implementation 'org.glassfish:javax.annotation:10.0-b28'
 
     //美化的button
-    compile "com.unstoppable:submitbutton:${SUBMITBUTTON_VERSION}"
+    implementation "com.unstoppable:submitbutton:${SUBMITBUTTON_VERSION}"
     //greendao
-    compile "org.greenrobot:greendao:${GREENDAO_VERSION}"
+    implementation "org.greenrobot:greendao:${GREENDAO_VERSION}"
     //Loger 第三方日志打印工具
     implementation "com.orhanobut:logger:${LOGGER_VERSION}"
     implementation "com.hannesdorfmann.mosby3:viewstate:${MVP_VERSION}"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()

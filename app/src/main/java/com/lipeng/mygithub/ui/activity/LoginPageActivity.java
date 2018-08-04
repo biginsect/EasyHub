@@ -42,7 +42,7 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
         super.initView(savedInstanceState);
         setTextInputLayout();
         loginBtn.setOnClickListener(this);
-        findViewById(R.id.root).setOnClickListener(this);
+        findViewById(R.id.ll_root).setOnClickListener(this);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
                     loginBtn.reset();
                 }
                 break;
-            case R.id.root:
+            case R.id.ll_root:
                 presenter.hideSoftKeyboard(v);
                 break;
             default:
@@ -116,7 +116,7 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
     @Override
     public void onLoginResult(boolean result, @NonNull String code) {
         if (result){
-            presenter.jump();
+            HomePageActivity.show(this);
             finish();
         }else {
             ToastUtils.showLongToast(this,
@@ -150,8 +150,4 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
         context.startActivity(new Intent(context, LoginPageActivity.class));
     }
 
-    @Override
-    public void onJump() {
-        HomePageActivity.show(this);
-    }
 }

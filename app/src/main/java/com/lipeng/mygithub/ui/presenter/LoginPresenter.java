@@ -57,11 +57,4 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
             getView().onHideSoftKeyboard(view);
         }
     }
-
-    @Override
-    public void jump() {
-        if (isViewAttached()){
-            getView().onJump();
-        }
-    }
 }

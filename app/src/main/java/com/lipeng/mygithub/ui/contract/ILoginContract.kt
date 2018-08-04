@@ -21,11 +21,6 @@ interface ILoginContract {
          *@param view target
          * */
         fun onHideSoftKeyboard(view : View)
-
-        /**
-         * 页面跳转回调
-         * */
-        fun onJump()
     }
 
     interface ILoginPresenter :MvpPresenter<ILoginView>{
@@ -33,6 +28,5 @@ interface ILoginContract {
 
         fun hideSoftKeyboard(view: View)
 
-        fun jump()
     }
 }
