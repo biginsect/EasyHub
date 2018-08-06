@@ -14,6 +14,7 @@ import com.lipeng.mygithub.ui.presenter.SplashPresenter;
 
 public class SplashActivity extends BaseMvpActivity<ISplashContract.ISplashView, ISplashContract.ISplashPresenter>
         implements ISplashContract.ISplashView{
+
     @Override
     protected int getLayoutId() {
         return 0;

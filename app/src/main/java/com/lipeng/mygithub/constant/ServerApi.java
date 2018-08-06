@@ -9,7 +9,7 @@ package com.lipeng.mygithub.constant;
 public class ServerApi {
     private ServerApi(){
     }
-    public static final String SERVER_URL = "https://api.github.com/";
+    public static final String BASE_URL = "https://api.github.com/";
 
     public static final String CURRENT_USER_URL = "https://api.github.com/user";
     public static final String CURRENT_USER_AUTHORIZATIONS_HTML_URL = "https://github.com/settings/connections/applications{/client_id}";

@@ -2,9 +2,14 @@ package com.lipeng.mygithub.base.mvp;
 
 import android.support.annotation.UiThread;
 
+import com.lipeng.mygithub.base.http.GitHubRetrofit;
+import com.lipeng.mygithub.constant.ServerApi;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
+
+import retrofit2.Retrofit;
 
 /**
  * @author biginsect
@@ -36,5 +41,18 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
             this.viewRef.clear();
             this.viewRef = null;
         }
+    }
+
+    private <T> T getService(Class<T> clazz, String baseUrl, boolean isJson){
+        return GitHubRetrofit.INSTANCE
+                .createRetrofit(baseUrl, "example",isJson)
+                .create(clazz);
+    }
+
+    /**
+     * 生成retrofit
+     * */
+    protected <T> T getService(Class<T> clazz){
+        return getService(clazz, ServerApi.BASE_URL, true);
     }
 }

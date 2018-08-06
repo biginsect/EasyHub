@@ -3,9 +3,8 @@ package com.lipeng.mygithub.app;
 import android.annotation.SuppressLint;
 import android.app.Application;
 
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
 import com.lipeng.mygithub.BuildConfig;
+import com.lipeng.mygithub.util.NetUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
@@ -25,6 +24,7 @@ public class AppApplication extends Application {
         instance = this;
         Long startTime = System.currentTimeMillis();
         initLogger();
+        NetUtils.INSTANCE.init(this);
         Logger.t(TAG).i("App start time : " + startTime);
     }
 
