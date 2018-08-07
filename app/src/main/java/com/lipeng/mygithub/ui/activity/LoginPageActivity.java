@@ -77,7 +77,7 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
                 }
                 break;
             case R.id.ll_root:
-                presenter.hideSoftKeyboard(v);
+                hideSoftKeyboard(v);
                 break;
             default:
                 break;
@@ -123,21 +123,6 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
                     "username or password is valid", ToastType.ERROR);
         }
     }
-
-
-    /**
-     * presenter回调隐藏软键盘
-     * 点击username和password两个编辑框外的地方可以隐藏软键盘，这两个EdiText会消费这个点击事件
-     * */
-    @Override
-    public void onHideSoftKeyboard(@NonNull View view) {
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        if (inputMethodManager != null){
-            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),
-                    InputMethodManager.HIDE_NOT_ALWAYS);
-        }
-    }
-
 
     @NonNull
     @Override

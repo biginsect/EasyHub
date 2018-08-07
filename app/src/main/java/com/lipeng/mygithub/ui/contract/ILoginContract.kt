@@ -1,6 +1,5 @@
 package com.lipeng.mygithub.ui.contract
 
-import android.view.View
 import com.lipeng.mygithub.base.mvp.MvpPresenter
 import com.lipeng.mygithub.base.mvp.MvpView
 
@@ -15,18 +14,9 @@ interface ILoginContract {
          * @param code 标识码
          * */
         fun onLoginResult(result : Boolean, code :String)
-
-        /**
-         * 回调，隐藏软键盘
-         *@param view target
-         * */
-        fun onHideSoftKeyboard(view : View)
     }
 
     interface ILoginPresenter :MvpPresenter<ILoginView>{
         fun login(name :String? ,password: String?)
-
-        fun hideSoftKeyboard(view: View)
-
     }
 }

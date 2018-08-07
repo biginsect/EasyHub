@@ -6,15 +6,10 @@ import android.os.Handler;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.lipeng.mygithub.ui.activity.LoginPageActivity;
 import com.lipeng.mygithub.util.ActivitiesManager;
@@ -71,6 +66,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * 设置 toolbar 返回键
+     * */
+    protected void setToolbarBackAvailable(){
+        if (null != getSupportActionBar()){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -121,5 +125,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         /**关闭当前activity栈中的所有activity，若所有activity都是用default启动方式，则退出app*/
         getActivity().finishAffinity();
         LoginPageActivity.show(getActivity());
+    }
+
+    /**
+     * 隐藏软键盘
+     * @param view target
+     * */
+    protected void hideSoftKeyboard(@NonNull View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null){
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 }

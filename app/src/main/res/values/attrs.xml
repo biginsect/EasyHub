@@ -8,4 +8,8 @@
         
         <attr name="radius" format="dimension"/>
     </declare-styleable>
+
+    <attr name="title_color" format="color|reference"/>
+    <attr name="appbar_theme" format="reference"/>
+    <attr name="popup_theme" format="reference"/>
 </resources>

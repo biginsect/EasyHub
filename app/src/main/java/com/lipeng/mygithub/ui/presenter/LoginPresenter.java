@@ -2,7 +2,6 @@ package com.lipeng.mygithub.ui.presenter;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.lipeng.mygithub.base.mvp.MvpBasePresenter;
@@ -45,16 +44,6 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
                     getView().onLoginResult(result, "0");
                 }
             });
-        }
-    }
-
-    /**
-     * 隐藏软键盘
-     * */
-    @Override
-    public void hideSoftKeyboard(@NonNull View view) {
-        if (isViewAttached()) {
-            getView().onHideSoftKeyboard(view);
         }
     }
 }

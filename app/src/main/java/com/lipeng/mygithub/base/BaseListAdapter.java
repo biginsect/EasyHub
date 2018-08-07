@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @date 2018/6/19
  */
 
+@Deprecated
 public abstract class BaseListAdapter<VH extends RecyclerView.ViewHolder, D extends Object> extends RecyclerView.Adapter{
     private Context mContext;
     private ArrayList<D> mDataList = new ArrayList<>();
@@ -49,11 +50,25 @@ public abstract class BaseListAdapter<VH extends RecyclerView.ViewHolder, D exte
         return mDataList == null ? 0:mDataList.size();
     }
 
+    /**
+     * 创建ViewHolder
+     * @param itemView
+     * @param viewType
+     * @return target
+     * */
     protected abstract VH getViewHolder(View itemView, int viewType);
 
+    /**
+     * 布局id
+     * @return target
+     * */
     protected abstract int getLayoutId();
 
     public interface OnItemClickListener{
+        /**
+         * 点击item回调
+         * @param position 点击的位置
+         * */
         void onItemClick(int position);
     }
 }

@@ -1,6 +1,8 @@
 package com.lipeng.mygithub.base.mvp;
 
+import android.content.Context;
 import android.support.annotation.UiThread;
+import android.support.v4.app.Fragment;
 
 import com.lipeng.mygithub.base.http.GitHubRetrofit;
 import com.lipeng.mygithub.constant.ServerApi;
@@ -9,7 +11,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
 
-import retrofit2.Retrofit;
 
 /**
  * @author biginsect
@@ -54,5 +55,18 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
      * */
     protected <T> T getService(Class<T> clazz){
         return getService(clazz, ServerApi.BASE_URL, true);
+    }
+
+    /**
+     * 需要在{@link #isViewAttached() }后调用，否则可能报NPE
+     * */
+    protected Context getContext(){
+        if (getView() instanceof Context){
+            return (Context) getView();
+        }else if (getView() instanceof Fragment){
+            return ((Fragment) getView()).getContext();
+        }else {
+            throw new NullPointerException("MvpBasePresenter: getView is not instance of Context, cannot invoke getContext()");
+        }
     }
 }
