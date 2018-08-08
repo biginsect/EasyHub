@@ -11,9 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.lipeng.mygithub.app.AppData;
 import com.lipeng.mygithub.ui.activity.LoginPageActivity;
+import com.lipeng.mygithub.ui.activity.SplashActivity;
 import com.lipeng.mygithub.util.ActivitiesManager;
 import com.orhanobut.logger.Logger;
+import com.thirtydegreesray.dataautoaccess.DataAutoAccess;
 
 import butterknife.ButterKnife;
 
@@ -26,11 +29,23 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity {
     public static final String TAG = "BaseActivity";
+    private static BaseActivity currentActivity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.d(TAG, "----onCreate()");
+        if (null == AppData.INSTANCE.getAuthUser() || null == AppData.INSTANCE.getLoggedUser()){
+            super.onCreate(savedInstanceState);
+            finishAffinity();
+            startActivity(new Intent(getActivity(), SplashActivity.class));
+            return;
+        }
+
+        DataAutoAccess.getData(this, savedInstanceState);
+        if (null != savedInstanceState && null == AppData.INSTANCE.getAuthUser()){
+            DataAutoAccess.getData(AppData.INSTANCE, savedInstanceState);
+        }
 
         if (0 != getLayoutId()) {
             setContentView(getLayoutId());
@@ -76,9 +91,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        DataAutoAccess.saveData(this, outState);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Logger.d(TAG,"----onDestroy()");
+        if (this.equals(currentActivity)) {
+            currentActivity =null;
+        }
         ActivitiesManager.INSTANCE.removeActivity(this);
     }
 
@@ -89,9 +113,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        Logger.d(TAG,"----onStop()");
+    protected void onResume() {
+        super.onResume();
+        currentActivity = getActivity();
     }
 
     @Override
@@ -137,5 +161,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),
                     InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+    public static BaseActivity getCurrentActivity() {
+        return currentActivity;
     }
 }

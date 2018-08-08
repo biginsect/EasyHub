@@ -1,6 +1,7 @@
 package com.lipeng.mygithub.base;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.lipeng.mygithub.base.mvp.MvpPresenter;
@@ -31,7 +32,7 @@ public abstract class BaseMvpListActivity<V extends MvpView, P extends MvpPresen
 
             mAdapter.setOnItemLongClickListener(new BaseAdapter.OnItemLongClickListener() {
                 @Override
-                public boolean onItemLongClick(@Nullable Object tag) {
+                public boolean onItemLongClick(@NonNull Object tag) {
                     return onLongClickShow(tag);
                 }
             });

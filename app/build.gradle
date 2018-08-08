@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.novoda.build-properties'
 apply plugin: 'kotlin-android'
+apply plugin: 'org.greenrobot.greendao'
 
 
 buildProperties{
@@ -56,7 +57,20 @@ configurations.all {
     }
 }
 
+/**
+ * greenDao配置
+ * */
+greendao{
+
+    schemaVersion 1//数据库版本
+    daoPackage 'com.lipeng.mygithub.dao'
+    targetGenDir   'src/main/java' //自动生成的代码存储的路径，
+    generateTests false //true的时候自动生成测试单元
+}
+
+
 repositories {
+    mavenCentral() // add repository
     maven { url "https://jitpack.io" }
     google()
     flatDir {
@@ -117,9 +131,7 @@ dependencies {
     implementation "com.hannesdorfmann.mosby3:viewstate:${MVP_VERSION}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    compile "org.jsoup:jsoup:${JSOUP_VERSION}"
-}
-repositories {
-    mavenCentral()
-    google()
+    implementation "org.jsoup:jsoup:${JSOUP_VERSION}"
+    implementation "com.thirtydegreesray:dataautoaccess:$DATAAUTOACCESS_VERSION"
+    annotationProcessor "com.thirtydegreesray:dataautoaccess-compiler:$DATAAUTOACCESS_VERSION"
 }

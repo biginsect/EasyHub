@@ -2,11 +2,10 @@ package com.lipeng.mygithub.ui.presenter;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 
 import com.lipeng.mygithub.base.mvp.MvpBasePresenter;
 import com.lipeng.mygithub.ui.contract.ILoginContract;
-import com.lipeng.mygithub.bean.User;
+import com.lipeng.mygithub.bean.IUser;
 import com.lipeng.mygithub.bean.UserModel;
 
 /**
@@ -17,7 +16,7 @@ import com.lipeng.mygithub.bean.UserModel;
 
 public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
         implements ILoginContract.ILoginPresenter {
-    private User user;
+    private IUser IUser;
     private Handler handler;
 
     public LoginPresenter(){
@@ -30,13 +29,13 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
      */
     private void initUser(){
         /*应该要获取github的授权检验用户名与密码*/
-        user = new UserModel("123","123");
+        IUser = new UserModel("123","123");
     }
 
     @Override
     public void login(String name, String password) {
         if (isViewAttached()) {
-            final boolean result = user.checkLogin(name, password);
+            final boolean result = IUser.checkLogin(name, password);
             handler.post(new Runnable() {
                 @Override
                 public void run() {

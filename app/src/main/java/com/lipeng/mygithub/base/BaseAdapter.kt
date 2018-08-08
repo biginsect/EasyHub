@@ -43,9 +43,9 @@ abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D: Any>(protected var co
         mClickListener?.onItemClick(v.tag)
     }
 
-    override fun onLongClick(v: View?): Boolean {
+    override fun onLongClick(v: View): Boolean {
         if(null != mLongClickListener) {
-            return mLongClickListener!!.onItemLongClick(v?.tag)
+            return mLongClickListener!!.onItemLongClick(v.tag)
         }
         return false
     }
@@ -86,9 +86,8 @@ abstract class BaseAdapter<VH :RecyclerView.ViewHolder, D: Any>(protected var co
 
     interface OnItemLongClickListener{
         /**
-         * @return if true 只执行此方法中的代码
-         * if false 继续响应其他监听中的事件
+         * @return  true 只执行此方法中的代码; false 继续响应其他监听中的事件
          * */
-        fun onItemLongClick(tag: Any?):Boolean
+        fun onItemLongClick(tag: Any):Boolean
     }
 }
