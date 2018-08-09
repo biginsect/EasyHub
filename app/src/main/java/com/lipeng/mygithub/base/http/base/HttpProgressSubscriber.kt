@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.base.http
+package com.lipeng.mygithub.base.http.base
 
 import android.app.AlertDialog
 

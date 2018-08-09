@@ -2,6 +2,7 @@ package com.lipeng.mygithub.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -122,6 +123,12 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
             ToastUtils.showLongToast(this,
                     "username or password is valid", ToastType.ERROR);
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        presenter.getToken(intent);
     }
 
     @NonNull

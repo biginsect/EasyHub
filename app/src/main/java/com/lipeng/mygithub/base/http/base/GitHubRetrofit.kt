@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.base.http
+package com.lipeng.mygithub.base.http.base
 
 import com.lipeng.mygithub.app.AppApplication
 import com.lipeng.mygithub.util.FileUtils
@@ -43,10 +43,10 @@ object  GitHubRetrofit {
     }
 
     fun createRetrofit(baseUrl: String, token: String, isJson: Boolean): Retrofit {
-        this.token = token
+        GitHubRetrofit.token = token
         val key = "$baseUrl-$isJson"
         if (!mMap.containsKey(key)){
-            this.createRetrofit(baseUrl, isJson)
+            createRetrofit(baseUrl, isJson)
         }
 
         return mMap[key]!!

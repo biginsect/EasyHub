@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.base.http
+package com.lipeng.mygithub.base.http.base
 
 import retrofit2.Response
 

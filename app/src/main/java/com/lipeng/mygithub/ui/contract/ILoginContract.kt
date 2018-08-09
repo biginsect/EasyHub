@@ -1,5 +1,6 @@
 package com.lipeng.mygithub.ui.contract
 
+import android.content.Intent
 import com.lipeng.mygithub.base.mvp.MvpPresenter
 import com.lipeng.mygithub.base.mvp.MvpView
 
@@ -18,5 +19,7 @@ interface ILoginContract {
 
     interface ILoginPresenter :MvpPresenter<ILoginView>{
         fun login(name :String? ,password: String?)
+
+        fun getToken(intent: Intent)
     }
 }

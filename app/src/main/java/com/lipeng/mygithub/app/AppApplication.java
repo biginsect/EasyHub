@@ -23,6 +23,7 @@ public class AppApplication extends Application {
         super.onCreate();
         instance = this;
         Long startTime = System.currentTimeMillis();
+        AppData.INSTANCE.getSystemDefaultLocal();
         initLogger();
         NetUtils.INSTANCE.init(this);
         Logger.t(TAG).i("App start time : " + startTime);
