@@ -73,6 +73,9 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
 
     }
 
+    /**
+     * retrofit创建
+     * */
     private LoginService getLoginService(){
         return GitHubRetrofit.INSTANCE
                 .createRetrofit(AppConfig.GIT_HUB_BASE_URL, null)

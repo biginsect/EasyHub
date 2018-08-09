@@ -1,6 +1,8 @@
 package com.lipeng.mygithub.app
 
+import android.text.TextUtils
 import com.lipeng.mygithub.BuildConfig
+import com.lipeng.mygithub.util.BlankUtils
 
 /**
  *相关配置，url
@@ -22,4 +24,20 @@ object AppConfig {
 
     /**gitHub鉴权成功之后，重定向到url*/
     const val REDIRECT_URL = ""
+
+    val COMMON_PAGE_URL_LIST: List<String> = listOf("https://github.com/trending")
+
+    fun isCommonPageUrl(url: String?): Boolean{
+        if (BlankUtils.isBlankString(url)){
+            return false
+        }
+
+        for (commonUrl in COMMON_PAGE_URL_LIST){
+            if (url!!.contains(commonUrl)){
+                return true
+            }
+        }
+        
+        return false
+    }
 }

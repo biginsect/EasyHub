@@ -1,9 +1,12 @@
 package com.lipeng.mygithub.base.http.base
 
 import com.lipeng.mygithub.app.AppApplication
+import com.lipeng.mygithub.app.AppConfig
+import com.lipeng.mygithub.app.AppData
+import com.lipeng.mygithub.util.BlankUtils
 import com.lipeng.mygithub.util.FileUtils
-import okhttp3.Cache
-import okhttp3.OkHttpClient
+import com.lipeng.mygithub.util.NetUtils
+import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,6 +27,8 @@ object  GitHubRetrofit {
                 TIME_OUT)
 
         val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(AppInterceptor())
+                .addNetworkInterceptor(NetworkInterceptor())
                 .connectTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
                 .cache(cache)
                 .build()
@@ -42,7 +47,7 @@ object  GitHubRetrofit {
         mMap["$baseUrl-$isJson"] = builder.build()
     }
 
-    fun createRetrofit(baseUrl: String, token: String, isJson: Boolean): Retrofit {
+    fun createRetrofit(baseUrl: String, token: String?, isJson: Boolean): Retrofit {
         GitHubRetrofit.token = token
         val key = "$baseUrl-$isJson"
         if (!mMap.containsKey(key)){
@@ -52,7 +57,67 @@ object  GitHubRetrofit {
         return mMap[key]!!
     }
 
-    fun createRetrofit(baseUrl: String, token: String):Retrofit{
+    fun createRetrofit(baseUrl: String, token: String?):Retrofit{
         return createRetrofit(baseUrl, token, isJson = true)
+    }
+
+    /**
+     * 应用发出请求到okhttp核心之间的拦截器
+     * */
+    private class AppInterceptor :Interceptor{
+        override fun intercept(chain: Interceptor.Chain): Response {
+            var request = chain.request()
+
+            /**添加一个唯一的loginId字符用于区分存储在缓存中的*/
+            if (null != AppData.loggedUser &&
+                    !AppConfig.isCommonPageUrl(request.url().toString())){
+                val httpUrl = request.url().newBuilder()
+                        .addQueryParameter("LoginId", AppData.loggedUser?.login)
+                        .build()
+
+                request = request.newBuilder()
+                        .url(httpUrl)
+                        .build()
+
+            }
+
+            /**添加访问token*/
+            if (!BlankUtils.isBlankString(token)){
+                val auth = if (token!!.startsWith("Basic")){
+                    token as String
+                }else{
+                    "token $token"
+                }
+
+                request = request.newBuilder()
+                        .addHeader("Authorization", auth)
+                        .build()
+            }
+
+            /**强制使用网络请求数据*/
+            val force = request.header("forceNetWork")
+            if (!BlankUtils.isBlankString(force) && !NetUtils.isNetwrokAvailable()){//
+                request = request.newBuilder()
+                        .cacheControl(CacheControl.FORCE_CACHE)
+                        .build()
+            }else if ("true" == force){
+                request = request.newBuilder()
+                        .cacheControl(CacheControl.FORCE_NETWORK)
+                        .build()
+            }
+
+            return chain.proceed(request)
+        }
+    }
+
+    /**
+     * okhttp核心到远程服务器之间的拦截器
+     * */
+    private class NetworkInterceptor :Interceptor{
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val request = chain.request()
+
+            return chain.proceed(request)
+        }
     }
 }
