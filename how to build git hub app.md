@@ -18,3 +18,11 @@ step3:
     返回access_token。
     之后便可以访问github的api，如：
     GET https://api.github.com/user?access_token=...
+
+
+
+
+拦截器相关:https://blog.csdn.net/qq_33463102/article/details/60869879
+
+
+RxAndroid : https://www.jianshu.com/p/a7635e39c5ac

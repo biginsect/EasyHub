@@ -1,6 +1,6 @@
 package com.lipeng.mygithub.ui.presenter;
 
-import com.lipeng.mygithub.base.mvp.MvpBasePresenter;
+import com.lipeng.mygithub.base.MvpBasePresenter;
 import com.lipeng.mygithub.ui.contract.ISplashContract;
 
 /**

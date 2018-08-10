@@ -20,16 +20,16 @@ object  GitHubRetrofit {
     private val TAG = "GitHubRetrofit"
     private var mMap = HashMap<String, Retrofit>()
     private var token:String? = null
-    private const val TIME_OUT = 32*1000L
+    private const val CACHE_MAX_SIZE = 32*1000L
 
     private fun createRetrofit(baseUrl :String, isJson: Boolean){
         val cache = Cache(FileUtils.getHttpCache(AppApplication.getInstance()),
-                TIME_OUT)
+                CACHE_MAX_SIZE)
 
         val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(AppInterceptor())
                 .addNetworkInterceptor(NetworkInterceptor())
-                .connectTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
+                .connectTimeout(CACHE_MAX_SIZE, TimeUnit.MILLISECONDS)
                 .cache(cache)
                 .build()
 
@@ -89,14 +89,15 @@ object  GitHubRetrofit {
                     "token $token"
                 }
 
+                /**需要将token放入请求头中才能获取到信息*/
                 request = request.newBuilder()
                         .addHeader("Authorization", auth)
                         .build()
             }
 
             /**强制使用网络请求数据*/
-            val force = request.header("forceNetWork")
-            if (!BlankUtils.isBlankString(force) && !NetUtils.isNetwrokAvailable()){//
+            val force = request.header(AppConfig.FORCE_NETWORK)
+            if (!BlankUtils.isBlankString(force) && !NetUtils.isNetworkAvailable()){//
                 request = request.newBuilder()
                         .cacheControl(CacheControl.FORCE_CACHE)
                         .build()
@@ -112,12 +113,30 @@ object  GitHubRetrofit {
 
     /**
      * okhttp核心到远程服务器之间的拦截器
+     * ？github服务器不支持缓存，自行设置
      * */
     private class NetworkInterceptor :Interceptor{
         override fun intercept(chain: Interceptor.Chain): Response {
             val request = chain.request()
+            val response = chain.proceed(request)
 
-            return chain.proceed(request)
+            var requestCacheControl = request.cacheControl().toString()
+
+            val forceNetwork = request.header(AppConfig.FORCE_NETWORK)
+            if (BlankUtils.isBlankString(forceNetwork)){
+                requestCacheControl = getCacheInfo()
+            }
+
+
+            //设置缓存
+            return  response.newBuilder()
+                        .header("Cache-Control", requestCacheControl)
+                        .removeHeader("Pragma")
+                        .build()
         }
+    }
+
+    private fun getCacheInfo(): String {
+        return "public, max-age=${AppConfig.CACHE_MAX_AGE}"
     }
 }

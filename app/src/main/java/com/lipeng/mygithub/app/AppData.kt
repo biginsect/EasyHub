@@ -21,4 +21,9 @@ object AppData {
             field = Locale.getDefault()
         }
     }
+
+    @JvmStatic
+    fun getAccessToken(): String?{
+        return authUser?.accessToken
+    }
 }

@@ -1,9 +1,13 @@
-package com.lipeng.mygithub.base.mvp;
+package com.lipeng.mygithub.base;
 
 import android.content.Context;
 import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
 
+import com.lipeng.mygithub.app.AppData;
+import com.lipeng.mygithub.base.mvp.MvpPresenter;
+import com.lipeng.mygithub.base.mvp.MvpView;
+import com.lipeng.mygithub.http.api.UserService;
 import com.lipeng.mygithub.http.base.GitHubRetrofit;
 import com.lipeng.mygithub.app.AppConfig;
 
@@ -47,7 +51,7 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
     private <T> T getService(Class<T> clazz, String baseUrl, boolean isJson){
         return GitHubRetrofit.INSTANCE
-                .createRetrofit(baseUrl, "example",isJson)
+                .createRetrofit(baseUrl, AppData.getAccessToken(),isJson)
                 .create(clazz);
     }
 
@@ -56,6 +60,13 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
      * */
     protected <T> T getService(Class<T> clazz){
         return getService(clazz, AppConfig.BASE_API_URL, true);
+    }
+
+    /**
+     * 用户信息相关的接口retrofit
+     * */
+    protected UserService getUserService(){
+        return getService(UserService.class);
     }
 
     /**

@@ -25,6 +25,11 @@ object AppConfig {
     /**gitHub鉴权成功之后，重定向到url*/
     const val REDIRECT_URL = ""
 
+    /**缓存最长存放时间*/
+    const val CACHE_MAX_AGE = 4 * 7 * 24 * 60 *60
+
+    const val FORCE_NETWORK = "forceNetwork"
+
     val COMMON_PAGE_URL_LIST: List<String> = listOf("https://github.com/trending")
 
     fun isCommonPageUrl(url: String?): Boolean{

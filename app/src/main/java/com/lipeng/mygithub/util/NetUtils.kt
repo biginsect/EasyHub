@@ -58,7 +58,7 @@ object NetUtils {
         }
     }
 
-    fun isNetwrokAvailable(): Boolean{
+    fun isNetworkAvailable(): Boolean{
         return netStatus == TYPE_MOBILE || netStatus == TYPE_WIFI
     }
 }

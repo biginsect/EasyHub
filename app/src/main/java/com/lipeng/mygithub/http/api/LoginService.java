@@ -35,8 +35,8 @@ public interface LoginService {
      * 鉴权之后获取令牌(唯一认证)
      * @param clientId register 应用之后返回的id
      * @param clientSecret register 之后返回的secret
-     * @param code
-     * @param state
+     * @param code <p>鉴权之后返回的response</p>
+     * @param state 鉴权之后返回的随机字符串
      * @return
      * */
     @GET("login/oauth/access_token")

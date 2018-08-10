@@ -9,7 +9,7 @@ import com.lipeng.mygithub.app.AppConfig;
 import com.lipeng.mygithub.http.api.LoginService;
 import com.lipeng.mygithub.http.api.UserService;
 import com.lipeng.mygithub.http.base.GitHubRetrofit;
-import com.lipeng.mygithub.base.mvp.MvpBasePresenter;
+import com.lipeng.mygithub.base.MvpBasePresenter;
 import com.lipeng.mygithub.bean.response.OAuthToken;
 import com.lipeng.mygithub.ui.contract.ILoginContract;
 import com.lipeng.mygithub.bean.IUser;
@@ -70,12 +70,11 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
 
     /**
      * @param code 登录后跳转至github授权网页，需要用户授权并返回参数code
-     * @param state 跳转至授权网页携带的参数
+     * @param state 随机字符串
      * */
     private void getToken(String code, String state){
         Observable<Response<OAuthToken>> observable = getLoginService()
                 .getAccessToken(AppConfig.CLIENT_ID, AppConfig.CLIENT_SECRET, code, state);
-
     }
 
     /**

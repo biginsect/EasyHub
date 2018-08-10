@@ -4,6 +4,7 @@ import com.lipeng.mygithub.bean.User;
 
 import retrofit2.Response;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import rx.Observable;
 
 /**
@@ -16,9 +17,9 @@ public interface UserService {
 
     /**
      * 获取当前用户信息
-     * @param token 令牌
+     * @param forceNetwork 请求头，是否强制使用网络
      * @return
      * */
     @GET("user")
-    Observable<Response<User>> getUserInfo(String token);
+    Observable<Response<User>> getUserInfo(@Header("forceNetwork") boolean forceNetwork);
 }
