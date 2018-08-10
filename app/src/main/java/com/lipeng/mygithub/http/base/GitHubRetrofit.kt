@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.base.http.base
+package com.lipeng.mygithub.http.base
 
 import com.lipeng.mygithub.app.AppApplication
 import com.lipeng.mygithub.app.AppConfig

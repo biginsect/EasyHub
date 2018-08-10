@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
 
-import com.lipeng.mygithub.base.http.base.GitHubRetrofit;
+import com.lipeng.mygithub.http.base.GitHubRetrofit;
 import com.lipeng.mygithub.app.AppConfig;
 
 import org.jetbrains.annotations.Nullable;

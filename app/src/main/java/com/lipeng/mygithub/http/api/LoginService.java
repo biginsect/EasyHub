@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.base.http;
+package com.lipeng.mygithub.http.api;
 
 import android.support.annotation.NonNull;
 
@@ -37,6 +37,7 @@ public interface LoginService {
      * @param clientSecret register 之后返回的secret
      * @param code
      * @param state
+     * @return
      * */
     @GET("login/oauth/access_token")
     @Headers("Accept: application/json")

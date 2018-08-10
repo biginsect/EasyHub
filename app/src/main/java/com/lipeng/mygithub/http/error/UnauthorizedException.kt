@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.base.http.error
+package com.lipeng.mygithub.http.error
 
 /**
  * @author big insect

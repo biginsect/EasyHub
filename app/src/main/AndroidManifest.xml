@@ -43,11 +43,6 @@
 
         </activity>
 
-        <activity android:name=".detailpage.DetailPageActivity"
-            android:theme="@style/AppTheme.DetailPage">
-
-        </activity>
-
     </application>
 
 </manifest>

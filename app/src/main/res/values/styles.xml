@@ -24,10 +24,4 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!--项目详细内容页面-->
-    <style name="AppTheme.DetailPage">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
 </resources>

@@ -6,8 +6,9 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.lipeng.mygithub.app.AppConfig;
-import com.lipeng.mygithub.base.http.LoginService;
-import com.lipeng.mygithub.base.http.base.GitHubRetrofit;
+import com.lipeng.mygithub.http.api.LoginService;
+import com.lipeng.mygithub.http.api.UserService;
+import com.lipeng.mygithub.http.base.GitHubRetrofit;
 import com.lipeng.mygithub.base.mvp.MvpBasePresenter;
 import com.lipeng.mygithub.bean.response.OAuthToken;
 import com.lipeng.mygithub.ui.contract.ILoginContract;
@@ -67,6 +68,10 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
         }
     }
 
+    /**
+     * @param code 登录后跳转至githu授权网页，需要用户授权并返回参数code
+     * @param state 跳转至授权网页携带的参数
+     * */
     private void getToken(String code, String state){
         Observable<Response<OAuthToken>> observable = getLoginService()
                 .getAccessToken(AppConfig.CLIENT_ID, AppConfig.CLIENT_SECRET, code, state);
@@ -80,5 +85,11 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
         return GitHubRetrofit.INSTANCE
                 .createRetrofit(AppConfig.GIT_HUB_BASE_URL, null)
                 .create(LoginService.class);
+    }
+
+    private UserService getUserService(String token){
+        return GitHubRetrofit.INSTANCE
+                .createRetrofit(AppConfig.BASE_API_URL, token)
+                .create(UserService.class);
     }
 }

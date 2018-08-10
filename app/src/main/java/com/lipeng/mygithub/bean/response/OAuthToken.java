@@ -3,7 +3,8 @@ package com.lipeng.mygithub.bean.response;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * 访问令牌
+ * 将鉴权之后的response作为参数获取到访问令牌
+ * 获取个人stars、相关repository等需要用到令牌
  * @author biginsect
  * @date  2018/8/9.
  */

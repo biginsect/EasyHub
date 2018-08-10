@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * 鉴权之后返回的数据
+ * @author biginsect
  * @date  2018/8/9.
  */
 
@@ -17,7 +18,10 @@ public class AuthResponse {
     private String token;
     @SerializedName("created_at") private Date createdAt;
     @SerializedName("updated_at") private Date updatedAt;
+    /**获取用户的数据范围*/
     private List<String> scopes;
+    /**鉴权之后返回的随机字符串*/
+    private String state;
 
     public static AuthResponse createUseToken(OAuthToken token){
         AuthResponse authResponse = new AuthResponse();
@@ -73,5 +77,13 @@ public class AuthResponse {
 
     public void setScopes(List<String> scopes) {
         this.scopes = scopes;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

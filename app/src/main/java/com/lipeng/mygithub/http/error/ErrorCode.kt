@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.base.http.error
+package com.lipeng.mygithub.http.error
 
 import android.support.annotation.StringRes
 import com.lipeng.mygithub.R

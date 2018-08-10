@@ -129,6 +129,8 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         presenter.getToken(intent);
+        /**更新Intent，防止下次收到的是old data*/
+        setIntent(null);
     }
 
     @NonNull
