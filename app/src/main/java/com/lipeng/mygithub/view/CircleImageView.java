@@ -94,14 +94,12 @@ public final class CircleImageView extends AppCompatImageView {
             final int saveCount = canvas.getSaveCount();
             canvas.save();
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
-                if (getCropToPadding()){
-                    final int scrollX = getScrollX();
-                    final int scrollY = getScrollY();
-                    canvas.clipRect(scrollX + getPaddingLeft(), scrollY + getPaddingTop(),
-                            scrollX + getRight() - getRight() - getPaddingRight(),
-                            scrollY + getBottom() - getTop() - getPaddingBottom());
-                }
+            if (getCropToPadding()){
+                final int scrollX = getScrollX();
+                final int scrollY = getScrollY();
+                canvas.clipRect(scrollX + getPaddingLeft(), scrollY + getPaddingTop(),
+                        scrollX + getRight() - getRight() - getPaddingRight(),
+                        scrollY + getBottom() - getTop() - getPaddingBottom());
             }
 
             canvas.translate(getPaddingLeft(), getPaddingTop());

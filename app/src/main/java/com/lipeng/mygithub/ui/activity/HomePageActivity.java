@@ -146,7 +146,7 @@ public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHom
     public void onBackPressed() {
         /*两次按下back键的时间小于1s，则finish*/
         if (System.currentTimeMillis() - mLastBackPressedTime < TIME_INTERVAL){
-            ToastUtils.cancelToast();
+            ToastUtils.cancel();
             ActivitiesManager.INSTANCE.appExit(this);
         }else {
             mLastBackPressedTime = System.currentTimeMillis();

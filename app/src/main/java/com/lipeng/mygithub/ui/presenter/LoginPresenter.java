@@ -69,7 +69,7 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
     }
 
     /**
-     * @param code 登录后跳转至githu授权网页，需要用户授权并返回参数code
+     * @param code 登录后跳转至github授权网页，需要用户授权并返回参数code
      * @param state 跳转至授权网页携带的参数
      * */
     private void getToken(String code, String state){
