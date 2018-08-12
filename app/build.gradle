@@ -95,18 +95,20 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     //网络加载
     implementation "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}"
+    //glide
     implementation("com.github.bumptech.glide:glide:${GLIDE_VERSION}"){
         exclude group: "com.android.support"
     }
     annotationProcessor "com.github.bumptech.glide:compiler:${GLIDE_VERSION}"
+    //retrofit
     implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
+    implementation "com.squareup.retrofit2:adapter-rxjava:${RETROFIT_VERSION}"
     implementation ("com.squareup.retrofit2:converter-simplexml:${RETROFIT_VERSION}"){
         exclude group: 'xpp3', module: 'xpp3'
         exclude group: 'stax', module: 'stax-api'
         exclude group: 'stax', module: 'stax'
     }
-    implementation "com.squareup.retrofit2:adapter-rxjava:${RETROFIT_VERSION}"
     //美化提示框
     implementation "com.github.GrenderG:Toasty:${TOASTY_VERSION}"
 
@@ -128,7 +130,6 @@ dependencies {
     implementation "org.greenrobot:greendao:${GREENDAO_VERSION}"
     //Loger 第三方日志打印工具
     implementation "com.orhanobut:logger:${LOGGER_VERSION}"
-    implementation "com.hannesdorfmann.mosby3:viewstate:${MVP_VERSION}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation "org.jsoup:jsoup:${JSOUP_VERSION}"

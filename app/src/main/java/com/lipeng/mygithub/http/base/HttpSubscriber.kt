@@ -1,5 +1,6 @@
 package com.lipeng.mygithub.http.base
 
+import com.orhanobut.logger.Logger
 import retrofit2.Response
 import rx.Subscriber
 
@@ -24,6 +25,10 @@ open class HttpSubscriber<T> : Subscriber<Response<T>> {
     }
 
     override fun onNext(t: Response<T>?) {
-        mObserver?.onSuccess(HttpResponse(t))
+        if(null != t) {
+            mObserver?.onSuccess(HttpResponse(t))
+        }else{
+            Logger.d("HttpSubscriber", "response is null!")
+        }
     }
 }

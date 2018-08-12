@@ -3,6 +3,7 @@ package com.lipeng.mygithub.ui.contract
 import android.content.Intent
 import com.lipeng.mygithub.base.mvp.MvpPresenter
 import com.lipeng.mygithub.base.mvp.MvpView
+import com.lipeng.mygithub.bean.response.AuthResponse
 
 /**
  * @author big insect
@@ -15,6 +16,16 @@ interface ILoginContract {
          * @param code 标识码
          * */
         fun onLoginResult(result : Boolean, code :String)
+
+        /**
+         * 成功获取到token
+         * */
+        fun getTokenSuccess(authResponse: AuthResponse)
+
+        /**
+         * 获取token失败
+         * */
+        fun getTokenFailed(msg: String)
     }
 
     interface ILoginPresenter :MvpPresenter<ILoginView>{

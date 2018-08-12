@@ -6,19 +6,27 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.lipeng.mygithub.app.AppConfig;
+import com.lipeng.mygithub.bean.response.AuthResponse;
 import com.lipeng.mygithub.http.api.LoginService;
-import com.lipeng.mygithub.http.api.UserService;
 import com.lipeng.mygithub.http.base.GitHubRetrofit;
 import com.lipeng.mygithub.base.MvpBasePresenter;
 import com.lipeng.mygithub.bean.response.OAuthToken;
+import com.lipeng.mygithub.http.base.HttpObserver;
+import com.lipeng.mygithub.http.base.HttpResponse;
+import com.lipeng.mygithub.http.base.HttpSubscriber;
 import com.lipeng.mygithub.ui.contract.ILoginContract;
 import com.lipeng.mygithub.bean.IUser;
 import com.lipeng.mygithub.bean.UserModel;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
-import rx.Observable;
 
 /**
  * 登录presenter实现类
@@ -75,6 +83,51 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
     private void getToken(String code, String state){
         Observable<Response<OAuthToken>> observable = getLoginService()
                 .getAccessToken(AppConfig.CLIENT_ID, AppConfig.CLIENT_SECRET, code, state);
+
+        HttpSubscriber<OAuthToken> subscriber = new HttpSubscriber<>(
+                new HttpObserver<OAuthToken>() {
+                    @Override
+                    public void onError(@Nullable Throwable error) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@Nullable HttpResponse<OAuthToken> response) {
+                        OAuthToken authToken = response.body();
+                        if (isViewAttached()){
+                            if (null != authToken){
+                                getView().getTokenSuccess(AuthResponse.createUseToken(authToken));
+                            }else {
+                                getView().getTokenFailed(response.getOriginalResponse().message());
+                            }
+                        }
+                    }
+                }
+        );
+
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<OAuthToken>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<OAuthToken> oAuthTokenResponse) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     /**
@@ -86,9 +139,9 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
                 .create(LoginService.class);
     }
 
-    private UserService getUserService(String token){
+    private LoginService getLoginService(String token){
         return GitHubRetrofit.INSTANCE
                 .createRetrofit(AppConfig.BASE_API_URL, token)
-                .create(UserService.class);
+                .create(LoginService.class);
     }
 }

@@ -6,13 +6,13 @@ import com.lipeng.mygithub.bean.request.AuthRequest;
 import com.lipeng.mygithub.bean.response.AuthResponse;
 import com.lipeng.mygithub.bean.response.OAuthToken;
 
+import io.reactivex.Observable;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * 登录接口

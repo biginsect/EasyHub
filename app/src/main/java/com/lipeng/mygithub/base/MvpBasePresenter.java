@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import com.lipeng.mygithub.app.AppData;
 import com.lipeng.mygithub.base.mvp.MvpPresenter;
 import com.lipeng.mygithub.base.mvp.MvpView;
+import com.lipeng.mygithub.http.api.LoginService;
 import com.lipeng.mygithub.http.api.UserService;
 import com.lipeng.mygithub.http.base.GitHubRetrofit;
 import com.lipeng.mygithub.app.AppConfig;
@@ -65,8 +66,14 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
     /**
      * 用户信息相关的接口retrofit
      * */
+    protected UserService getUserService(String token){
+        return GitHubRetrofit.INSTANCE
+                .createRetrofit(AppConfig.BASE_API_URL,token)
+                .create(UserService.class);
+    }
+
     protected UserService getUserService(){
-        return getService(UserService.class);
+        return getUserService(AppData.getAccessToken());
     }
 
     /**
