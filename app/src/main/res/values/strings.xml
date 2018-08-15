@@ -4,6 +4,9 @@
     <string name="page_not_found">Page is not found!</string>
     <string name="unauthorized">UNAUTHORIZED!</string>
 
+    <string name="no_network_msg">Loading the date failed, please check your network status and retry!</string>
+    <string name="time_out_msg">Loading the date timeout, please check your network status and retry!</string>
+
     <!--登录界面编辑框hint-->
     <string name="name_error">Invalid user name!</string>
     <string name="pass_word_error">Invalid password!</string>

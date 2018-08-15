@@ -12,7 +12,7 @@ import java.util.List;
  * @date  2018/8/9.
  */
 
-public class AuthResponse {
+public class AuthToken {
     private int id;
     private String url;
     private String token;
@@ -23,12 +23,12 @@ public class AuthResponse {
     /**鉴权之后返回的随机字符串*/
     private String state;
 
-    public static AuthResponse createUseToken(OAuthToken token){
-        AuthResponse authResponse = new AuthResponse();
-        authResponse.setToken(token.getAccessToken());
-        authResponse.setScopes(Arrays.asList(token.getScope().split(",")));
+    public static AuthToken createUseToken(OAuthToken token){
+        AuthToken authToken = new AuthToken();
+        authToken.setToken(token.getAccessToken());
+        authToken.setScopes(Arrays.asList(token.getScope().split(",")));
 
-        return authResponse;
+        return authToken;
     }
 
     public int getId() {

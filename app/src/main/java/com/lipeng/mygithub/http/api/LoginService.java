@@ -3,7 +3,7 @@ package com.lipeng.mygithub.http.api;
 import android.support.annotation.NonNull;
 
 import com.lipeng.mygithub.bean.request.AuthRequest;
-import com.lipeng.mygithub.bean.response.AuthResponse;
+import com.lipeng.mygithub.bean.response.AuthToken;
 import com.lipeng.mygithub.bean.response.OAuthToken;
 
 import io.reactivex.Observable;
@@ -29,7 +29,7 @@ public interface LoginService {
      * */
     @POST("login/oauth/authorize")
     @Headers("Accept: application/json")
-    Observable<Response<AuthResponse>> authorize(@NonNull @Body AuthRequest authRequest);
+    Observable<Response<AuthToken>> authorize(@NonNull @Body AuthRequest authRequest);
 
     /**
      * 鉴权之后获取令牌(唯一认证)

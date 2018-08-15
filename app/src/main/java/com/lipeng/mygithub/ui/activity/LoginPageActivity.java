@@ -6,16 +6,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
 import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.base.BaseMvpActivity;
-import com.lipeng.mygithub.bean.response.AuthResponse;
+import com.lipeng.mygithub.bean.response.AuthToken;
 import com.lipeng.mygithub.constant.ToastType;
 import com.lipeng.mygithub.ui.contract.ILoginContract;
 import com.lipeng.mygithub.ui.presenter.LoginPresenter;
+import com.lipeng.mygithub.util.BlankUtils;
 import com.lipeng.mygithub.util.NetUtils;
 import com.lipeng.mygithub.util.ToastUtils;
 import com.unstoppable.submitbuttonview.SubmitButton;
@@ -96,14 +96,14 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
         /*防止NPE*/
         name = userNameEdit.getText().toString();
         password = userPasswordEdit.getText().toString();
-        if (TextUtils.isEmpty(name) || name.trim().equals("")){
+        if (BlankUtils.INSTANCE.isBlankString(name)){
             result = false;
             userNameWrapper.setError(getResources().getString(R.string.name_error));
         }else {
             userNameWrapper.setErrorEnabled(false);
         }
 
-        if (TextUtils.isEmpty(password) || password.trim().equals("")){
+        if (BlankUtils.INSTANCE.isBlankString(name)){
             result = false;
             passwordWrapper.setError(getResources().getString(R.string.pass_word_error));
         }else{
@@ -113,24 +113,21 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
         return result;
     }
 
-    /**
-     * 登录回调
-     * */
     @Override
-    public void onLoginResult(boolean result, @NonNull String code) {
-        if (result){
-            HomePageActivity.show(this);
-            finish();
-        }else {
-            ToastUtils.showLongToast(this,
-                    "username or password is valid", ToastType.ERROR);
-        }
+    public void getTokenSuccess(@NotNull AuthToken authToken) {
+        loginBtn.doResult(true);
+        presenter.getUserInfo(authToken);
     }
 
     @Override
-    public void getTokenSuccess(@NotNull AuthResponse authResponse) {
-        loginBtn.doResult(true);
-        presenter.getUserInfo(authResponse);
+    public void onGetInfoFailed(@NotNull String msg) {
+        ToastUtils.showShortToast(getActivity(), msg, ToastType.ERROR);
+    }
+
+    @Override
+    public void onLoginSuccess() {
+        finishDelay(800);
+        HomePageActivity.show(getActivity());
     }
 
     @Override

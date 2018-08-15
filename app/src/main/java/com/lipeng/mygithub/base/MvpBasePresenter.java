@@ -1,9 +1,12 @@
 package com.lipeng.mygithub.base;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
 
+import com.lipeng.mygithub.R;
 import com.lipeng.mygithub.app.AppData;
 import com.lipeng.mygithub.base.mvp.MvpPresenter;
 import com.lipeng.mygithub.base.mvp.MvpView;
@@ -12,10 +15,15 @@ import com.lipeng.mygithub.dao.GreenDaoManager;
 import com.lipeng.mygithub.http.api.UserService;
 import com.lipeng.mygithub.http.base.GitHubRetrofit;
 import com.lipeng.mygithub.app.AppConfig;
+import com.lipeng.mygithub.http.error.HttpError;
+import com.lipeng.mygithub.util.BlankUtils;
 
+import org.apache.http.conn.ConnectTimeoutException;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -95,6 +103,30 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
         }else {
             throw new NullPointerException("MvpBasePresenter: getView is not instance of Context, cannot invoke getContext()");
         }
+    }
+
+    protected String getString(@StringRes int resId){
+        return getContext().getResources().getString(resId);
+    }
+
+    @NonNull
+    protected String getErrorMsg(Throwable throwable){
+        String msg = "";
+        if (null == throwable){
+            return msg;
+        }
+
+        if (throwable instanceof UnknownHostException){
+            msg = getString(R.string.no_network_msg);
+        }else if (throwable instanceof SocketTimeoutException || throwable instanceof ConnectTimeoutException){
+            msg = getString(R.string.time_out_msg);
+        }else if (throwable instanceof HttpError){
+            msg = throwable.getMessage();
+        }else {
+            msg = BlankUtils.INSTANCE.isBlankString(throwable.getMessage()) ? throwable.toString():throwable.getMessage();
+        }
+
+        return msg;
     }
 
     protected void registerDisposable(Disposable disposable){
