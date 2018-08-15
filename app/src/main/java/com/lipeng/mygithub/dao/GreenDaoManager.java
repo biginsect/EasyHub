@@ -20,7 +20,6 @@ public class GreenDaoManager {
     private boolean isInit;
 
     private GreenDaoManager(){
-        throw new UnsupportedOperationException("can not be initialized!");
     }
 
     private static final class DaoManagerHolder{
