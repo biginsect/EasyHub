@@ -120,7 +120,7 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
     }
 
     @Override
-    public void onGetInfoFailed(@NotNull String msg) {
+    public void showErrorToast(@NotNull String msg) {
         ToastUtils.showShortToast(getActivity(), msg, ToastType.ERROR);
     }
 

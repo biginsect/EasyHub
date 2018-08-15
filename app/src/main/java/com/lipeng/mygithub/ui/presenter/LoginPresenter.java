@@ -23,6 +23,7 @@ import com.lipeng.mygithub.util.ListUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
+import java.util.UUID;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -48,7 +49,7 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
                     @Override
                     public void onError(@NotNull Throwable error) {
                         if (isViewAttached()){
-                            getView().onGetInfoFailed(getErrorMsg(error));
+                            getView().showErrorToast(getErrorMsg(error));
                         }
                     }
 
@@ -75,6 +76,17 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(authSubscriber);
+    }
+
+    @NotNull
+    @Override
+    public String getOAuth() {
+        String randomState = UUID.randomUUID().toString();
+
+        return AppConfig.OAUTH_URL
+                + "?client_id=" + AppConfig.CLIENT_ID
+                + "&scope=" + AppConfig.OAUTH2_SCOPE
+                + "&state=" + randomState;
     }
 
     @Override
@@ -117,6 +129,7 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
                 registerDisposable(d);
             }
         });
+
         getLoginService().getAccessToken(AppConfig.CLIENT_ID, AppConfig.CLIENT_SECRET, code, state)
                 /**耗时操作 io线程*/
                 .subscribeOn(Schedulers.io())
@@ -132,7 +145,7 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
             @Override
             public void onError(@NotNull Throwable error) {
                 if (isViewAttached()){
-                    getView().onGetInfoFailed(getErrorMsg(error));
+                    getView().showErrorToast(getErrorMsg(error));
                 }
             }
 

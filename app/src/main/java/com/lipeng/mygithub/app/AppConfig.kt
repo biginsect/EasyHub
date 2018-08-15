@@ -16,6 +16,10 @@ object AppConfig {
 
     const val BASE_API_URL = "https://api.github.com/"
 
+    const val OAUTH_URL = GIT_HUB_BASE_URL + "login/oauth/authorize"
+
+    const val OAUTH2_SCOPE = "user,repo,gist,notifications"
+
     const val CLIENT_ID = BuildConfig.CLIENT_ID
 
     const val CLIENT_SECRET = BuildConfig.CLIENT_SECRET

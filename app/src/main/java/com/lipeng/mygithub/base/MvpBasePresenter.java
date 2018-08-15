@@ -63,7 +63,7 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
             this.viewRef.clear();
             this.viewRef = null;
         }
-        unregisterDisposable();
+        clearDisposables();
     }
 
     private <T> T getService(Class<T> clazz, String baseUrl, boolean isJson){
@@ -133,7 +133,7 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
         mCompositeDisposable.add(disposable);
     }
 
-    private void unregisterDisposable(){
+    private void clearDisposables(){
         if (null != mCompositeDisposable){
             mCompositeDisposable.clear();
         }

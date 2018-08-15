@@ -20,7 +20,7 @@ interface ILoginContract {
          * */
         fun getTokenFailed(msg: String)
 
-        fun onGetInfoFailed(msg: String)
+        fun showErrorToast(msg: String)
 
         /**
          * token 验证成功，成功等到，到主页面
@@ -37,5 +37,10 @@ interface ILoginContract {
          * 获取当前用户信息
          * */
         fun getUserInfo(token: AuthToken)
+
+        /**
+         * 使用浏览器鉴权
+         * */
+        fun getOAuth(): String
     }
 }
