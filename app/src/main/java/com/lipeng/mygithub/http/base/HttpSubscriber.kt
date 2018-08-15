@@ -1,34 +1,34 @@
 package com.lipeng.mygithub.http.base
 
-import com.orhanobut.logger.Logger
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
 import retrofit2.Response
-import rx.Subscriber
 
 /**
  * @author big insect
  */
-open class HttpSubscriber<T> : Subscriber<Response<T>> {
+open class HttpSubscriber<T> : Observer<Response<T>> {
     private var mObserver: HttpObserver<T>? = null
 
     constructor()
 
-    constructor(response: HttpObserver<T>?){
-        mObserver = response
+    constructor(observer: HttpObserver<T>?){
+        mObserver = observer
     }
 
-    override fun onCompleted() {
+    override fun onComplete() {
 
     }
 
-    override fun onError(e: Throwable?) {
-        mObserver?.onError(e)
+    override fun onSubscribe(d: Disposable) {
+        mObserver?.onSubscribe(d)
     }
 
-    override fun onNext(t: Response<T>?) {
-        if(null != t) {
-            mObserver?.onSuccess(HttpResponse(t))
-        }else{
-            Logger.d("HttpSubscriber", "response is null!")
-        }
+    override fun onNext(t: Response<T>) {
+        mObserver?.onSuccess(HttpResponse(t))
+    }
+
+    override fun onError(e: Throwable) {
+        mObserver?.onError(error = e)
     }
 }

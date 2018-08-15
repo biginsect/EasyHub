@@ -9,20 +9,5 @@ import android.app.AlertDialog
 class HttpProgressSubscriber<T>(dialog: AlertDialog?, observer: HttpObserver<T>) : HttpSubscriber<T>(observer) {
     private var mDialog:AlertDialog? = dialog
 
-    override fun onStart() {
-        super.onStart()
-        if (!isUnsubscribed){
-            mDialog?.show()
-        }
-    }
 
-    override fun onCompleted() {
-        super.onCompleted()
-        mDialog?.dismiss()
-    }
-
-    override fun onError(e: Throwable?) {
-        super.onError(e)
-        mDialog?.dismiss()
-    }
 }

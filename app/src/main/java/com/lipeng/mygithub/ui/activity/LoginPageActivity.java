@@ -129,7 +129,8 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
 
     @Override
     public void getTokenSuccess(@NotNull AuthResponse authResponse) {
-
+        loginBtn.doResult(true);
+        presenter.getUserInfo(authResponse);
     }
 
     @Override

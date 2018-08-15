@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 
 import com.lipeng.mygithub.BuildConfig;
+import com.lipeng.mygithub.dao.GreenDaoManager;
 import com.lipeng.mygithub.util.NetUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -27,6 +28,7 @@ public class AppApplication extends Application {
         initLogger();
         NetUtils.INSTANCE.init(this);
         Logger.t(TAG).i("App start time : " + startTime);
+        GreenDaoManager.getInstance().init(this);
     }
 
     public static Application getInstance() {

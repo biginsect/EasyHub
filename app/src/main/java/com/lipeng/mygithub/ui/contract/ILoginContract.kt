@@ -26,11 +26,23 @@ interface ILoginContract {
          * 获取token失败
          * */
         fun getTokenFailed(msg: String)
+
+        fun getUserInfoFailed(msg: String)
+
+        /**
+         * token 验证成功，成功等到，到主页面
+         * */
+        fun onLoginSuccess()
     }
 
     interface ILoginPresenter :MvpPresenter<ILoginView>{
         fun login(name :String? ,password: String?)
 
         fun getToken(intent: Intent)
+
+        /**
+         * 获取当前用户信息
+         * */
+        fun getUserInfo(response: AuthResponse)
     }
 }

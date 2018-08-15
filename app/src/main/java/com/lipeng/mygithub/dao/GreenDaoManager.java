@@ -13,28 +13,37 @@ import com.lipeng.mygithub.app.AppConfig;
 
 public class GreenDaoManager {
 
-    private static volatile GreenDaoManager instance;
     private static DaoSession daoSession;
     private static DaoMaster daoMaster;
     private static SQLiteDatabase db;
+    /**是否已经初始化*/
+    private boolean isInit;
 
-    private GreenDaoManager(Context context){
-        DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(context, AppConfig.DB_NAME, null);
-        db = devOpenHelper.getWritableDatabase();
-        daoMaster = new DaoMaster(db);
-        daoSession = daoMaster.newSession();
+    private GreenDaoManager(){
+        throw new UnsupportedOperationException("can not be initialized!");
     }
 
-    public static GreenDaoManager getInstance(Context context){
-        if (null == instance){
-            synchronized (GreenDaoManager.class){
-                if (null == instance){
-                    instance = new GreenDaoManager(context);
-                }
-            }
-        }
+    private static final class DaoManagerHolder{
+        private static final GreenDaoManager INSTANCE = new GreenDaoManager();
+    }
 
-        return instance;
+    /**
+     * 初始化，放到application的onCreate()方法
+     * */
+    public void init(Context context){
+        if (!isInit) {
+            DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(context, AppConfig.DB_NAME, null);
+            db = devOpenHelper.getWritableDatabase();
+            daoMaster = new DaoMaster(db);
+            daoSession = daoMaster.newSession();
+
+            isInit = true;
+        }
+    }
+
+    /**调用之前必须进行初始化*/
+    public static GreenDaoManager getInstance(){
+        return DaoManagerHolder.INSTANCE;
     }
 
     public  DaoMaster getDaoMaster() {

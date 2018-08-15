@@ -7,7 +7,8 @@ import android.support.v4.app.Fragment;
 import com.lipeng.mygithub.app.AppData;
 import com.lipeng.mygithub.base.mvp.MvpPresenter;
 import com.lipeng.mygithub.base.mvp.MvpView;
-import com.lipeng.mygithub.http.api.LoginService;
+import com.lipeng.mygithub.dao.DaoSession;
+import com.lipeng.mygithub.dao.GreenDaoManager;
 import com.lipeng.mygithub.http.api.UserService;
 import com.lipeng.mygithub.http.base.GitHubRetrofit;
 import com.lipeng.mygithub.app.AppConfig;
@@ -16,6 +17,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 
 /**
@@ -25,11 +28,15 @@ import java.lang.ref.WeakReference;
 
 public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
     private WeakReference<V> viewRef;
+    /**管理disposable*/
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    protected DaoSession daoSession;
 
     @UiThread
     @Override
     public void attachView(@Nullable V view) {
         this.viewRef = new WeakReference<>(view);
+        daoSession = GreenDaoManager.getInstance().getDaoSession();
     }
 
     @UiThread
@@ -48,6 +55,7 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
             this.viewRef.clear();
             this.viewRef = null;
         }
+        unregisterDisposable();
     }
 
     private <T> T getService(Class<T> clazz, String baseUrl, boolean isJson){
@@ -86,6 +94,16 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
             return ((Fragment) getView()).getContext();
         }else {
             throw new NullPointerException("MvpBasePresenter: getView is not instance of Context, cannot invoke getContext()");
+        }
+    }
+
+    protected void registerDisposable(Disposable disposable){
+        mCompositeDisposable.add(disposable);
+    }
+
+    private void unregisterDisposable(){
+        if (null != mCompositeDisposable){
+            mCompositeDisposable.clear();
         }
     }
 }

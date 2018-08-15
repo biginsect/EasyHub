@@ -2,10 +2,10 @@ package com.lipeng.mygithub.http.api;
 
 import com.lipeng.mygithub.bean.User;
 
+import io.reactivex.Observable;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import rx.Observable;
 
 /**
  * 用户接口，用于获取用户个人信息
