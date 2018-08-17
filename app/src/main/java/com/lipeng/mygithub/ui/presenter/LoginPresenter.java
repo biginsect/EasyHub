@@ -25,10 +25,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Date;
 import java.util.UUID;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.Credentials;
+import retrofit2.Response;
 
 /**
  * 登录presenter实现类
@@ -41,7 +41,7 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
 
     @Override
     public void login(String name, String password) {
-        AuthRequest authRequest = AuthRequest.create();
+        AuthRequest authRequest = AuthRequest.createAuth();
         String token = Credentials.basic(name, password);
 
         HttpSubscriber<AuthToken> authSubscriber = new HttpSubscriber<>(
@@ -72,10 +72,10 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
                 }
         );
 
-        getLoginService(token).authorize(authRequest)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(authSubscriber);
+        Observable<Response<AuthToken>> observable = getLoginService(token)
+                .authorize(authRequest);
+
+        executeRxHttp(observable, authSubscriber);
     }
 
     @NotNull
@@ -104,7 +104,8 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
      * @param state 随机字符串
      * */
     private void getToken(String code, String state){
-        HttpSubscriber<OAuthToken> tokenHttpSubscriber = new HttpSubscriber<>(new HttpObserver<OAuthToken>() {
+        HttpSubscriber<OAuthToken> tokenHttpSubscriber = new HttpSubscriber<>(
+                new HttpObserver<OAuthToken>() {
             @Override
             public void onError(@NotNull Throwable error) {
                 if (isViewAttached()){
@@ -117,7 +118,7 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
                 OAuthToken authToken = response.body();
                 if (isViewAttached()){
                     if (null != authToken){
-                        getView().getTokenSuccess(AuthToken.createUseToken(authToken));
+                        getView().getTokenSuccess(AuthToken.createAuthToken(authToken));
                     }else {
                         getView().getTokenFailed(response.getOriginalResponse().message());
                     }
@@ -130,44 +131,42 @@ public class LoginPresenter extends MvpBasePresenter<ILoginContract.ILoginView>
             }
         });
 
-        getLoginService().getAccessToken(AppConfig.CLIENT_ID, AppConfig.CLIENT_SECRET, code, state)
-                /**耗时操作 io线程*/
-                .subscribeOn(Schedulers.io())
-                /**接收事件 main，可以更新视图等*/
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(tokenHttpSubscriber);
+        Observable<Response<OAuthToken>> observable = getLoginService().
+                getAccessToken(AppConfig.CLIENT_ID, AppConfig.CLIENT_SECRET, code, state);
+
+        executeRxHttp(observable, tokenHttpSubscriber);
     }
 
     @Override
     public void getUserInfo(@NotNull final AuthToken authToken) {
         HttpSubscriber<User> userHttpSubscriber = new HttpSubscriber<>(
                 new HttpObserver<User>() {
-            @Override
-            public void onError(@NotNull Throwable error) {
-                if (isViewAttached()){
-                    getView().showErrorToast(getErrorMsg(error));
-                }
-            }
+                    @Override
+                    public void onError(@NotNull Throwable error) {
+                        if (isViewAttached()) {
+                            getView().showErrorToast(getErrorMsg(error));
+                        }
+                    }
 
-            @Override
-            public void onSuccess(@NotNull HttpResponse<User> response) {
-                User user = response.body();
-                if (isViewAttached()){
-                    saveUserInfo(authToken, user);
-                    getView().onLoginSuccess();
-                }
-            }
+                    @Override
+                    public void onSuccess(@NotNull HttpResponse<User> response) {
+                        User user = response.body();
+                        if (isViewAttached()) {
+                            saveUserInfo(authToken, user);
+                            getView().onLoginSuccess();
+                        }
+                    }
 
-            @Override
-            public void onSubscribe(@NotNull Disposable d) {
-                registerDisposable(d);
-            }
-        });
+                    @Override
+                    public void onSubscribe(@NotNull Disposable d) {
+                        registerDisposable(d);
+                    }
+                });
 
-        getUserService(authToken.getToken()).getUserInfo(true)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(userHttpSubscriber);
+        Observable<Response<User>> observable = getUserService(authToken.getToken())
+                .getUserInfo(true);
+
+        executeRxHttp(observable, userHttpSubscriber);
     }
 
     /**

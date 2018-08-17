@@ -18,7 +18,6 @@ object ToastUtils {
     private var lastTime = 0L
     private var current = 0L
 
-    @JvmStatic
     private fun showToast(context: Context, msg: String?, type: Int, time: Int){
 
         if (null == msg || msg.trim().isEmpty()){
@@ -65,17 +64,14 @@ object ToastUtils {
         }
     }
 
-    @JvmStatic
     fun showLongToast(context: Context, msg: String?, type: Int){
         showToast(context, msg, type, Toast.LENGTH_LONG)
     }
 
-    @JvmStatic
     fun showShortToast(context: Context, msg: String?, type: Int){
         showToast(context, msg, type, Toast.LENGTH_SHORT)
     }
 
-    @JvmStatic
     fun cancel(){
         mToast?.cancel()
     }

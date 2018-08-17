@@ -23,7 +23,7 @@ public class AuthToken {
     /**鉴权之后返回的随机字符串*/
     private String state;
 
-    public static AuthToken createUseToken(OAuthToken token){
+    public static AuthToken createAuthToken(OAuthToken token){
         AuthToken authToken = new AuthToken();
         authToken.setToken(token.getAccessToken());
         authToken.setScopes(Arrays.asList(token.getScope().split(",")));

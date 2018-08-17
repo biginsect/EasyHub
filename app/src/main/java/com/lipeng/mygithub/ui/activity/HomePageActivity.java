@@ -134,11 +134,9 @@ public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHom
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.jump_btn:
-                break;
-            default:
-                break;
+        int viewId = v.getId();
+        if (viewId == R.id.jump_btn){
+
         }
     }
 
@@ -146,11 +144,11 @@ public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHom
     public void onBackPressed() {
         /*两次按下back键的时间小于1s，则finish*/
         if (System.currentTimeMillis() - mLastBackPressedTime < TIME_INTERVAL){
-            ToastUtils.cancel();
+            ToastUtils.INSTANCE.cancel();
             ActivitiesManager.INSTANCE.appExit(this);
         }else {
             mLastBackPressedTime = System.currentTimeMillis();
-            ToastUtils.showLongToast(this, "Press again to exit.", ToastType.INFO);
+            ToastUtils.INSTANCE.showLongToast(this, "Press again to exit.", ToastType.INFO);
         }
     }
 

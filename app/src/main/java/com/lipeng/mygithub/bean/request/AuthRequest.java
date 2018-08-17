@@ -20,7 +20,10 @@ public class AuthRequest {
     @SerializedName("client_id") private String clientId;
     @SerializedName("client_secret") private String clientSecret;
 
-    public static AuthRequest create(){
+    /**
+     * 静态工厂方法
+     * */
+    public static AuthRequest createAuth(){
         AuthRequest request = new AuthRequest();
         request.appId = AppConfig.APPLICATION_ID;
         request.scopes = Arrays.asList("user", "repo", "gist", "notifications");

@@ -15,6 +15,7 @@ import com.lipeng.mygithub.dao.GreenDaoManager;
 import com.lipeng.mygithub.http.api.UserService;
 import com.lipeng.mygithub.http.base.GitHubRetrofit;
 import com.lipeng.mygithub.app.AppConfig;
+import com.lipeng.mygithub.http.base.HttpSubscriber;
 import com.lipeng.mygithub.http.error.HttpError;
 import com.lipeng.mygithub.util.BlankUtils;
 
@@ -25,8 +26,12 @@ import java.lang.ref.WeakReference;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 
 /**
@@ -68,7 +73,7 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
     private <T> T getService(Class<T> clazz, String baseUrl, boolean isJson){
         return GitHubRetrofit.INSTANCE
-                .createRetrofit(baseUrl, AppData.getAccessToken(),isJson)
+                .createRetrofit(baseUrl, AppData.INSTANCE.getAccessToken(),isJson)
                 .create(clazz);
     }
 
@@ -89,7 +94,17 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
     }
 
     protected UserService getUserService(){
-        return getUserService(AppData.getAccessToken());
+        return getUserService(AppData.INSTANCE.getAccessToken());
+    }
+
+    /**
+     * 执行RX请求
+     * */
+    protected <T> void executeRxHttp(@NonNull Observable<Response<T>> observable,
+                                    @NonNull HttpSubscriber<T> subscriber){
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
     }
 
     /**

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.bumptech.glide.Glide;
 import com.lipeng.mygithub.app.AppData;
 import com.lipeng.mygithub.ui.activity.LoginPageActivity;
 import com.lipeng.mygithub.ui.activity.SplashActivity;
@@ -87,6 +88,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void setToolbarBackAvailable(){
         if (null != getSupportActionBar()){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    protected void setToolbarTitle(String title){
+        if (null != getSupportActionBar()){
+            getSupportActionBar().setTitle(title);
         }
     }
 

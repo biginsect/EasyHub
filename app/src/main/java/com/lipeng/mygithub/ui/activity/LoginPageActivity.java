@@ -65,25 +65,20 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_login:
-                if (!NetUtils.INSTANCE.isNetworkConnected(this)){
-                    /*无网络连接*/
-                    ToastUtils.showLongToast(this, "Network is not connected!",
-                            ToastType.ERROR);
-                }else if (loginCheck()){
-                    //有网络连接
-                    loginBtn.setEnabled(false);
-                    presenter.login(name, password);
-                }else {
-                    loginBtn.reset();
-                }
-                break;
-            case R.id.ll_root:
-                hideSoftKeyboard(v);
-                break;
-            default:
-                break;
+        int viewId = v.getId();
+        if (viewId == R.id.btn_login){
+            if (!NetUtils.INSTANCE.isNetworkConnected(this)){
+                ToastUtils.INSTANCE.showLongToast(this, "Network is not connected!",
+                        ToastType.ERROR);
+            }else if (loginCheck()){
+                //有网络连接
+                loginBtn.setEnabled(false);
+                presenter.login(name, password);
+            }else {
+                loginBtn.reset();
+            }
+        }else if (viewId == R.id.ll_root){
+            hideSoftKeyboard(v);
         }
     }
 
@@ -121,7 +116,7 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
 
     @Override
     public void showErrorToast(@NotNull String msg) {
-        ToastUtils.showShortToast(getActivity(), msg, ToastType.ERROR);
+        ToastUtils.INSTANCE.showShortToast(getActivity(), msg, ToastType.ERROR);
     }
 
     @Override
@@ -141,7 +136,7 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
             }
         }, 1000);
 
-        ToastUtils.showShortToast(this, msg,ToastType.ERROR);
+        ToastUtils.INSTANCE.showShortToast(this, msg,ToastType.ERROR);
     }
 
     @Override

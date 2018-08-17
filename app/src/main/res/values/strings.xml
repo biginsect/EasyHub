@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyGithub</string>
+    <string name="app_name">Easy Hub</string>
     <string name="cache_and_network_unavailable">Network and cache is unavailable!</string>
     <string name="page_not_found">Page is not found!</string>
     <string name="unauthorized">UNAUTHORIZED!</string>
@@ -27,4 +27,10 @@
     <!--他人项目页面相关-->
     <string name="menu_star">star</string>
     <string name="menu_setting">setting</string>
+
+    <string name="setting">Setting</string>
+    <string name="warning">Warning</string>
+    <string name="warning_tip">Confirm to logout?</string>
+    <string name="cancel">Cancel</string>
+    <string name="okay">Okay</string>
 </resources>

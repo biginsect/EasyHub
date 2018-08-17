@@ -22,7 +22,6 @@ object AppData {
         }
     }
 
-    @JvmStatic
     fun getAccessToken(): String?{
         return authUser?.accessToken
     }
