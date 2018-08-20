@@ -150,15 +150,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 跳转至登录页面
-     * */
-    protected void showLoginPage(){
-        /**关闭当前activity栈中的所有activity，若所有activity都是用default启动方式，则退出app*/
-        getActivity().finishAffinity();
-        LoginPageActivity.show(getActivity());
-    }
-
-    /**
      * 隐藏软键盘
      * @param view target
      * */
