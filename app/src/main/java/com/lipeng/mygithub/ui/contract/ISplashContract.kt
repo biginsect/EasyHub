@@ -9,6 +9,10 @@ import com.lipeng.mygithub.base.mvp.MvpView
 interface ISplashContract {
     interface ISplashView :MvpView{
         fun showMainPage()
+
+        fun showLoginPage()
+
+        fun showErrorTips(msg: String)
     }
 
     interface ISplashPresenter: MvpPresenter<ISplashView>{
