@@ -4,7 +4,7 @@ import com.lipeng.mygithub.base.mvp.MvpPresenter
 import com.lipeng.mygithub.base.mvp.MvpView
 
 /**
- * @author lipeng-ds3
+ * @author big insect
  * @date 2018/8/17.
  */
 interface ISettingContract {

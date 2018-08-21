@@ -29,14 +29,14 @@ interface ILoginContract {
     }
 
     interface ILoginPresenter :MvpPresenter<ILoginView>{
-        fun login(name :String? ,password: String?)
+        fun login(name :String ,password: String)
 
         fun getToken(intent: Intent)
 
         /**
          * 获取当前用户信息
          * */
-        fun getUserInfo(token: AuthToken)
+        fun getUserInfo(authToken: AuthToken)
 
         /**
          * 使用浏览器鉴权
