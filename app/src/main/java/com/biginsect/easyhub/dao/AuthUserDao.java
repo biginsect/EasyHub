@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.dao;
+package com.biginsect.easyhub.dao;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;

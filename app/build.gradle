@@ -63,7 +63,7 @@ configurations.all {
 greendao{
 
     schemaVersion 1//数据库版本
-    daoPackage 'com.lipeng.mygithub.dao'
+    daoPackage 'com.biginsect.easyhub.dao'
     targetGenDir   'src/main/java' //自动生成的代码存储的路径，
     generateTests false //true的时候自动生成测试单元
 }
@@ -111,6 +111,9 @@ dependencies {
     }
     //美化提示框
     implementation "com.github.GrenderG:Toasty:${TOASTY_VERSION}"
+
+    //circleimageview
+    implementation "de.hdodenhof:circleimageview:${CIRCLE_IMAGEVIEW_VERSION}"
 
     //rxJava
     implementation "io.reactivex.rxjava2:rxandroid:${RXANDROID_VERSION}"

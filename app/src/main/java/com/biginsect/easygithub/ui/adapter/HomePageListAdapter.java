@@ -8,11 +8,11 @@ import com.biginsect.easygithub.R;
 import com.biginsect.easygithub.base.BaseAdapter;
 import com.biginsect.easygithub.base.BaseViewHolder;
 import com.biginsect.easygithub.bean.ProjectListUsers;
-import com.biginsect.easygithub.view.CircleImageView;
 
 import org.jetbrains.annotations.NotNull;
 
 import butterknife.BindView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * @author biginsect
@@ -43,7 +43,7 @@ public class HomePageListAdapter extends BaseAdapter<HomePageListAdapter.Project
 
     static class ProjectListViewHolder extends BaseViewHolder{
         /**用户头像*/
-        @BindView(R.id.other_picture)  CircleImageView userPicture;
+        @BindView(R.id.avatar) CircleImageView userPicture;
         /**用户名*/
         @BindView(R.id.other_name) TextView userName;
         /**用户动态信息的日期，以days为单位，超过30 days 用日期格式显示*/

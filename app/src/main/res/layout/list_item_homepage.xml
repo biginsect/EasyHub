@@ -13,12 +13,12 @@
         android:layout_weight="4"
         android:orientation="horizontal"
         >
-        <com.biginsect.easygithub.view.CircleImageView
-            android:id="@+id/other_picture"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            app:radius="25dp"
             android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
             />
 
         <TextView

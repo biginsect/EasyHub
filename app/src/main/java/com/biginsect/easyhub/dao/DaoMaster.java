@@ -1,4 +1,4 @@
-package com.lipeng.mygithub.dao;
+package com.biginsect.easyhub.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
