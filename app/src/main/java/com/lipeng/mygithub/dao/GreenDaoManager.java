@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.lipeng.mygithub.app.AppConfig;
 
 /**
- * green dao管理
  * @author biginsect
  * @date  2018/8/9.
  */
@@ -16,7 +15,7 @@ public class GreenDaoManager {
     private static DaoSession daoSession;
     private static DaoMaster daoMaster;
     private static SQLiteDatabase db;
-    /**是否已经初始化*/
+    /**flag*/
     private boolean isInit;
 
     private GreenDaoManager(){
@@ -26,9 +25,10 @@ public class GreenDaoManager {
         private static final GreenDaoManager INSTANCE = new GreenDaoManager();
     }
 
-    /**
-     * 初始化，放到application的onCreate()方法
-     * */
+    public static GreenDaoManager getInstance(){
+        return DaoManagerHolder.INSTANCE;
+    }
+
     public void init(Context context){
         if (!isInit) {
             DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(context, AppConfig.DB_NAME, null);
@@ -38,11 +38,6 @@ public class GreenDaoManager {
 
             isInit = true;
         }
-    }
-
-    /**调用之前必须进行初始化*/
-    public static GreenDaoManager getInstance(){
-        return DaoManagerHolder.INSTANCE;
     }
 
     public  DaoMaster getDaoMaster() {

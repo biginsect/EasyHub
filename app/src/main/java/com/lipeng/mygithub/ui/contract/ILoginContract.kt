@@ -51,6 +51,6 @@ interface ILoginContract {
         /**
          * 使用浏览器鉴权
          * */
-        fun getOAuth(): String
+        fun getOAuthUrl(): String
     }
 }

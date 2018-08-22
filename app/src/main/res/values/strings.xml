@@ -30,7 +30,7 @@
 
     <string name="setting">Setting</string>
     <string name="warning">Warning</string>
-    <string name="warning_tip">Confirm to logout?</string>
+    <string name="warning_logout">Confirm to logout?</string>
     <string name="cancel">Cancel</string>
     <string name="okay">Okay</string>
 </resources>

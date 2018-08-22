@@ -9,7 +9,7 @@ import retrofit2.http.Header;
 
 /**
  * 用户接口，用于获取用户个人信息
- * @author lipeng-ds3
+ * @author biginsect
  * @date 2018/8/10.
  */
 

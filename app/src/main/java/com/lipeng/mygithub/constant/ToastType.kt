@@ -1,7 +1,6 @@
 package com.lipeng.mygithub.constant
 
 /**
- * Toast的类型
  * @author biginsect
  * @date 2018/8/10.
  */

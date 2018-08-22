@@ -1,6 +1,7 @@
 package com.lipeng.mygithub.ui.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -33,7 +35,7 @@ import butterknife.BindView;
  * @date 2017/12/22
  * */
 public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHomePageView,IHomePageContract.IHomePagePresenter, HomePageListAdapter>
-        implements View.OnClickListener{
+        implements View.OnClickListener, IHomePageContract.IHomePageView{
 
     /**记录按下返回键的时间*/
     private long mLastBackPressedTime = 0;
@@ -118,6 +120,12 @@ public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHom
     }
 
     @Override
+    public void restartApp() {
+        getActivity().finishAffinity();
+        startActivity(new Intent(getActivity(), SplashActivity.class));
+    }
+
+    @Override
     protected HomePageListAdapter getAdapter() {
         return new HomePageListAdapter(this);
     }
@@ -150,6 +158,26 @@ public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHom
             mLastBackPressedTime = System.currentTimeMillis();
             ToastUtils.INSTANCE.showLongToast(this, "Press again to exit.", ToastType.INFO);
         }
+    }
+
+    private void logout(){
+        new AlertDialog.Builder(getActivity())
+                .setCancelable(true)
+                .setTitle(R.string.warning)
+                .setMessage(R.string.warning_logout)
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.logout();
+                    }
+                })
+                .show();
     }
 
     /**

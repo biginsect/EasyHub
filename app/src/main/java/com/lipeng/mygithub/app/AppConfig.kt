@@ -1,6 +1,5 @@
 package com.lipeng.mygithub.app
 
-import android.text.TextUtils
 import com.lipeng.mygithub.BuildConfig
 import com.lipeng.mygithub.util.BlankUtils
 

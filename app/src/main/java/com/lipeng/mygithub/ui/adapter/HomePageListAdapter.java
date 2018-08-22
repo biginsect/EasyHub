@@ -16,7 +16,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 主页列表的适配器
  * @author biginsect
  * @date 2017/12/26
  */

@@ -23,7 +23,6 @@ import butterknife.ButterKnife;
 
 
 /**
- * activity基类，用于对所有activity的统一处理
  * @author biginsect
  * @date 2017/12/26
  */

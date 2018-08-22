@@ -8,10 +8,16 @@ import com.lipeng.mygithub.base.mvp.MvpView
  */
 interface IHomePageContract {
     interface IHomePageView : MvpView{
-
+        /**
+         * 重启
+         * */
+        fun restartApp()
     }
 
     interface IHomePagePresenter : MvpPresenter<IHomePageView>{
-
+        /**
+         * 退出
+         * */
+        fun logout()
     }
 }

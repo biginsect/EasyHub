@@ -25,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
 import butterknife.BindView;
 
 /**
- * 登录页面，
  * @author biginsect
  * @date 2017/12/25
  */

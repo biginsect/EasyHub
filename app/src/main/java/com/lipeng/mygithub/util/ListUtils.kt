@@ -12,6 +12,9 @@ object ListUtils {
         return list == null || list.isEmpty()
     }
 
+    /**
+     * separator is ","
+     * */
     fun listToString(list: List<String>): String{
         val stringBuilder = StringBuilder("")
         if (getSize(list) == 0){

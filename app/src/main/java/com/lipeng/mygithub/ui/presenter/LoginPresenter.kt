@@ -95,7 +95,7 @@ class LoginPresenter: MvpBasePresenter<ILoginContract.ILoginView>(), ILoginContr
         executeRxHttp(observable, userSubscriber)
     }
 
-    override fun getOAuth(): String {
+    override fun getOAuthUrl(): String {
         val randomState = UUID.randomUUID().toString()
 
         return "${AppConfig.OAUTH_URL}?client_id=${AppConfig.CLIENT_ID}" +

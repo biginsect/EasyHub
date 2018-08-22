@@ -13,7 +13,7 @@ import com.lipeng.mygithub.ui.contract.ISettingContract;
 import com.lipeng.mygithub.ui.presenter.SettingPresenter;
 
 /**
- * @author lipeng-ds3
+ * @author biginsect
  * @date 2018/8/17.
  */
 
@@ -48,7 +48,7 @@ public class SettingActivity extends BaseMvpActivity<ISettingContract.ISettingVi
         new AlertDialog.Builder(this)
                 .setCancelable(true)
                 .setTitle(R.string.warning)
-                .setMessage(R.string.warning_tip)
+                .setMessage(R.string.warning_logout)
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

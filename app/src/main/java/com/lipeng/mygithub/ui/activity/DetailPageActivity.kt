@@ -6,7 +6,7 @@ import com.lipeng.mygithub.ui.contract.IDetailPageContract
 import com.lipeng.mygithub.ui.presenter.DetailPresenter
 
 /**
- * other user's project
+ * detail page of other's project
  * @author big insect
  * @date 2018/8/20.
  */

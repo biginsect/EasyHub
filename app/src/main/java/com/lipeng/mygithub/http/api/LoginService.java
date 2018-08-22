@@ -15,7 +15,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
- * 登录接口
+ * api for login
  * @author bininsect
  * @date  2018/8/9.
  */

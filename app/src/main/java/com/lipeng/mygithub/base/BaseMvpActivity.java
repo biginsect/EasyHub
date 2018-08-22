@@ -1,6 +1,5 @@
 package com.lipeng.mygithub.base;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import com.lipeng.mygithub.base.mvp.ActivityMvpDelegateImpl;
 import com.lipeng.mygithub.base.mvp.MvpDelegateCallback;
 import com.lipeng.mygithub.base.mvp.MvpPresenter;
 import com.lipeng.mygithub.base.mvp.MvpView;
-import com.lipeng.mygithub.ui.activity.LoginPageActivity;
 
 /**
  * @author biginsect
