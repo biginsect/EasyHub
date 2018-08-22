@@ -6,31 +6,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/drawer_layout_left"
-    tools:context="com.lipeng.mygithub.ui.activity.HomePageActivity">
+    tools:context="com.biginsect.easygithub.ui.activity.HomePageActivity">
 
     <!--主布局-->
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include layout="@layout/toolbar_homepage"/>
 
-        <Button
-            android:id="@+id/jump_btn"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="jump"
-            android:textSize="18sp"
-            android:textAllCaps="false"/>
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_project_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
         </android.support.v7.widget.RecyclerView>
-    </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
     <!--左侧滑菜单-->
 <android.support.design.widget.NavigationView

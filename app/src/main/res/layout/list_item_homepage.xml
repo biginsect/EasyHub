@@ -13,7 +13,7 @@
         android:layout_weight="4"
         android:orientation="horizontal"
         >
-        <com.lipeng.mygithub.view.CircleImageView
+        <com.biginsect.easygithub.view.CircleImageView
             android:id="@+id/other_picture"
             android:layout_width="25dp"
             android:layout_height="25dp"
