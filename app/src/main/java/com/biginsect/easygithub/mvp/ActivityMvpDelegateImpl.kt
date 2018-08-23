@@ -1,4 +1,4 @@
-package com.biginsect.easygithub.base.mvp
+package com.biginsect.easygithub.mvp
 
 import android.app.Activity
 import android.os.Bundle
@@ -16,7 +16,7 @@ class ActivityMvpDelegateImpl< V : MvpView, P : MvpPresenter<V>>(@NonNull delega
             return keepPresenterInstance && (activity?.isChangingConfigurations!! || activity.isFinishing)
         }
     }
-    private var delegateCallback:MvpDelegateCallback<V, P>? = null
+    private var delegateCallback: MvpDelegateCallback<V, P>? = null
     protected var keepPresenterInstance:Boolean = false
     protected var activity:Activity? = null
     protected var mosbyViewId:String? = null

@@ -1,4 +1,4 @@
-package com.biginsect.easygithub.base;
+package com.biginsect.easygithub.ui.base;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

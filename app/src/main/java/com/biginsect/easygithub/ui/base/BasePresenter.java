@@ -1,25 +1,26 @@
-package com.biginsect.easygithub.base;
+package com.biginsect.easygithub.ui.base;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
 
 import com.biginsect.easygithub.R;
+import com.biginsect.easygithub.app.AppConfig;
 import com.biginsect.easygithub.app.AppData;
-import com.biginsect.easygithub.base.mvp.MvpPresenter;
-import com.biginsect.easygithub.base.mvp.MvpView;
 import com.biginsect.easygithub.dao.DaoSession;
 import com.biginsect.easygithub.dao.GreenDaoManager;
 import com.biginsect.easygithub.http.api.UserService;
 import com.biginsect.easygithub.http.base.GitHubRetrofit;
-import com.biginsect.easygithub.app.AppConfig;
 import com.biginsect.easygithub.http.base.HttpSubscriber;
 import com.biginsect.easygithub.http.error.HttpError;
 import com.biginsect.easygithub.util.BlankUtils;
+import com.thirtydegreesray.dataautoaccess.DataAutoAccess;
 
 import org.apache.http.conn.ConnectTimeoutException;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
@@ -33,28 +34,27 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
-
 /**
  * @author biginsect
- * @date 2018/7/30
+ * @date 2018/8/23.
  */
 
-public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
+public abstract class BasePresenter<V extends IBaseContract.IView> implements IBaseContract.IPresenter<V> {
+
     private WeakReference<V> viewRef;
     /**管理disposable*/
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     protected DaoSession daoSession;
 
-    @UiThread
     @Override
-    public void attachView(@Nullable V view) {
-        this.viewRef = new WeakReference<>(view);
+    public void attachView(@Nullable V v) {
+        this.viewRef = new WeakReference<>(v);
         daoSession = GreenDaoManager.getInstance().getDaoSession();
     }
 
     @UiThread
     public V getView(){
-        return this.viewRef == null? null : this.viewRef.get();
+        return this.viewRef == null ? null : viewRef.get();
     }
 
     @UiThread
@@ -64,11 +64,24 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
     @Override
     public void detachView(boolean isDetach) {
-        if (null != this.viewRef){
-            this.viewRef.clear();
-            this.viewRef = null;
+        if (null != viewRef){
+            viewRef.clear();
+            viewRef = null;
         }
+
         clearDisposables();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        DataAutoAccess.saveData(this, outState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle outState) {
+        if (null != outState){
+            DataAutoAccess.getData(this, outState);
+        }
     }
 
     private <T> T getService(Class<T> clazz, String baseUrl, boolean isJson){
@@ -101,22 +114,21 @@ public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
      * 执行RX请求
      * */
     protected <T> void executeRxHttp(@NonNull Observable<Response<T>> observable,
-                                    @NonNull HttpSubscriber<T> subscriber){
+                                     @NonNull HttpSubscriber<T> subscriber){
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
 
-    /**
-     * 需要在{@link #isViewAttached() }后调用，否则可能报NPE
-     * */
-    protected Context getContext(){
+    @NotNull
+    @Override
+    public Context getContext() {
         if (getView() instanceof Context){
             return (Context) getView();
         }else if (getView() instanceof Fragment){
             return ((Fragment) getView()).getContext();
         }else {
-            throw new NullPointerException("MvpBasePresenter: getView is not instance of Context, cannot invoke getContext()");
+            throw new NullPointerException("BasePresenter: getView is not instance of Context, cannot invoke getContext()");
         }
     }
 

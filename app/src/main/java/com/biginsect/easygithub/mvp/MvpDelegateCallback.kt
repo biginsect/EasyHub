@@ -1,4 +1,4 @@
-package com.biginsect.easygithub.base.mvp
+package com.biginsect.easygithub.mvp
 
 import android.support.annotation.NonNull
 

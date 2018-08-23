@@ -1,21 +1,16 @@
-package com.biginsect.easygithub.base;
+package com.biginsect.easygithub.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
-import com.biginsect.easygithub.base.mvp.ActivityMvpDelegate;
-import com.biginsect.easygithub.base.mvp.ActivityMvpDelegateImpl;
-import com.biginsect.easygithub.base.mvp.MvpDelegateCallback;
-import com.biginsect.easygithub.base.mvp.MvpPresenter;
-import com.biginsect.easygithub.base.mvp.MvpView;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * @author biginsect
  */
 
 public abstract class BaseMvpActivity<V extends MvpView, P extends MvpPresenter<V>>
-        extends BaseActivity implements MvpView, MvpDelegateCallback<V, P>{
+        extends AppCompatActivity implements MvpView, MvpDelegateCallback<V, P>{
     protected ActivityMvpDelegate mMvpDelegate;
     protected P presenter;
     protected boolean retainInstance;

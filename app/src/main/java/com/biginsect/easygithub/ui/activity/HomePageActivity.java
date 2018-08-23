@@ -17,9 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.biginsect.easygithub.R;
-import com.biginsect.easygithub.base.BaseMvpListActivity;
 import com.biginsect.easygithub.constant.ToastType;
 import com.biginsect.easygithub.ui.adapter.HomePageListAdapter;
+import com.biginsect.easygithub.ui.base.BaseListActivity;
 import com.biginsect.easygithub.ui.contract.IHomePageContract;
 import com.biginsect.easygithub.ui.presenter.HomePagePresenter;
 import com.biginsect.easygithub.util.ActivitiesManager;
@@ -33,7 +33,7 @@ import butterknife.BindView;
  * @author biginsect
  * @date 2017/12/22
  * */
-public class HomePageActivity extends BaseMvpListActivity<IHomePageContract.IHomePageView,IHomePageContract.IHomePagePresenter, HomePageListAdapter>
+public class HomePageActivity extends BaseListActivity<IHomePageContract.IHomePageView,IHomePageContract.IHomePagePresenter, HomePageListAdapter>
         implements View.OnClickListener, IHomePageContract.IHomePageView{
 
     /**记录按下返回键的时间*/

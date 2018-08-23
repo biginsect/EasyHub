@@ -1,20 +1,19 @@
 package com.biginsect.easygithub.ui.contract
 
-import com.biginsect.easygithub.base.mvp.MvpPresenter
-import com.biginsect.easygithub.base.mvp.MvpView
+import com.biginsect.easygithub.ui.base.IBaseContract
 
 /**
  * @author big insect
  */
 interface IHomePageContract {
-    interface IHomePageView : MvpView{
+    interface IHomePageView : IBaseContract.IView{
         /**
          * 重启
          * */
         fun restartApp()
     }
 
-    interface IHomePagePresenter : MvpPresenter<IHomePageView>{
+    interface IHomePagePresenter : IBaseContract.IPresenter<IHomePageView>{
         /**
          * 退出
          * */

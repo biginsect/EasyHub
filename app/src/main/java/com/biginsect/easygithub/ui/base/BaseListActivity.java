@@ -1,20 +1,16 @@
-package com.biginsect.easygithub.base;
+package com.biginsect.easygithub.ui.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.biginsect.easygithub.base.mvp.MvpPresenter;
-import com.biginsect.easygithub.base.mvp.MvpView;
-
-
 /**
  * @author biginsect
- * @date 2018/7/30
+ * @date 2018/8/23.
  */
 
-public abstract class BaseMvpListActivity<V extends MvpView, P extends MvpPresenter<V>, A extends BaseAdapter>
-        extends BaseMvpActivity<V,P>{
+public abstract class BaseListActivity<V extends IBaseContract.IView, P extends IBaseContract.IPresenter<V>, A extends BaseAdapter>
+        extends BaseActivity<V, P> {
     protected A mAdapter;
 
     @Override
@@ -38,12 +34,8 @@ public abstract class BaseMvpListActivity<V extends MvpView, P extends MvpPresen
         }
     }
 
-    /**
-     * 布局id
-     * @return id
-     * */
     @Override
-    protected abstract int getLayoutId() ;
+    abstract protected int getLayoutId();
 
     /**
      * 点击列表项展示相关内容

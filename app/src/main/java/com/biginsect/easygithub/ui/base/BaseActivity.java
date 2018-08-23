@@ -1,4 +1,4 @@
-package com.biginsect.easygithub.base;
+package com.biginsect.easygithub.ui.base;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,33 +6,37 @@ import android.os.Handler;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.biginsect.easygithub.app.AppData;
+import com.biginsect.easygithub.mvp.BaseMvpActivity;
+import com.biginsect.easygithub.constant.ToastType;
+import com.biginsect.easygithub.ui.activity.LoginPageActivity;
 import com.biginsect.easygithub.ui.activity.SplashActivity;
 import com.biginsect.easygithub.util.ActivitiesManager;
+import com.biginsect.easygithub.util.ToastUtils;
 import com.orhanobut.logger.Logger;
 import com.thirtydegreesray.dataautoaccess.DataAutoAccess;
 
-import butterknife.ButterKnife;
+import org.jetbrains.annotations.NotNull;
 
+import butterknife.ButterKnife;
 
 /**
  * @author biginsect
- * @date 2017/12/26
+ * @date 2018/8/23.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
-    public static final String TAG = "BaseActivity";
+public abstract class BaseActivity<V extends IBaseContract.IView, P extends IBaseContract.IPresenter<V>> extends BaseMvpActivity<V,P>
+        implements IBaseContract.IView{
+    private final static String TAG = "BaseActivity";
     private static BaseActivity currentActivity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.d(TAG, "----onCreate()");
+        Logger.d(TAG, "--onCreate");
         if (null == AppData.INSTANCE.getAuthUser() || null == AppData.INSTANCE.getLoggedUser()){
             super.onCreate(savedInstanceState);
             finishAffinity();
@@ -41,6 +45,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         DataAutoAccess.getData(this, savedInstanceState);
+        presenter.onRestoreInstanceState(savedInstanceState == null ? getIntent().getExtras(): savedInstanceState);
+
         if (null != savedInstanceState && null == AppData.INSTANCE.getAuthUser()){
             DataAutoAccess.getData(AppData.INSTANCE, savedInstanceState);
         }
@@ -54,13 +60,30 @@ public abstract class BaseActivity extends AppCompatActivity {
         ActivitiesManager.INSTANCE.addActivity(this);
     }
 
+    @Override
+    protected void onResume() {
+        Logger.d(TAG, "---onResume");
+        super.onResume();
+        currentActivity = getActivity();
+    }
 
-    /**
-     * 获取布局文件id
-     * @return 布局文件id
-     * */
+    @Override
+    protected void onDestroy() {
+        Logger.d(TAG, "---onDestroy");
+        super.onDestroy();
+        if (this.equals(currentActivity)) {
+            currentActivity =null;
+        }
+        ActivitiesManager.INSTANCE.removeActivity(this);
+    }
+
+    @Override
+    public void finish() {
+        ActivitiesManager.INSTANCE.removeActivity(this);
+        super.finish();
+    }
+
     protected abstract int getLayoutId();
-
 
     /**
      * 初始化布局
@@ -79,9 +102,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * 设置 toolbar 返回键
-     * */
     protected void setToolbarBackAvailable(){
         if (null != getSupportActionBar()){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -94,42 +114,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        DataAutoAccess.saveData(this, outState);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Logger.d(TAG,"----onDestroy()");
-        if (this.equals(currentActivity)) {
-            currentActivity =null;
-        }
-        ActivitiesManager.INSTANCE.removeActivity(this);
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        Logger.d(TAG,"----onNewIntent()");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        currentActivity = getActivity();
-    }
-
-    @Override
-    public void finish() {
-        ActivitiesManager.INSTANCE.removeActivity(this);
-        super.finish();
-    }
 
     @NonNull
-    protected BaseActivity getActivity(){
+    protected BaseActivity getActivity() {
         return this;
     }
 
@@ -146,10 +133,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         }, mill);
     }
 
-    /**
-     * 隐藏软键盘
-     * @param view target
-     * */
+    protected void finishDelay(){
+        finishDelay(1000);
+    }
+
     protected void hideSoftKeyboard(@NonNull View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         if (inputMethodManager != null){
@@ -160,5 +147,42 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public static BaseActivity getCurrentActivity() {
         return currentActivity;
+    }
+
+    @Override
+    public void showLoginPage() {
+        finishDelay();
+        Intent intent = new Intent(getActivity(), LoginPageActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showError(@NotNull String msg) {
+        ToastUtils.INSTANCE.showShortToast(getActivity(), msg, ToastType.ERROR);
+    }
+
+    @Override
+    public void showInfo(@NotNull String msg) {
+        ToastUtils.INSTANCE.showShortToast(getActivity(), msg, ToastType.INFO);
+    }
+
+    @Override
+    public void showWarning(@NotNull String msg) {
+        ToastUtils.INSTANCE.showShortToast(getActivity(), msg, ToastType.WARNING);
+    }
+
+    @Override
+    public void showSuccess(@NotNull String msg) {
+        ToastUtils.INSTANCE.showShortToast(getActivity(), msg, ToastType.SUCCESS);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 }

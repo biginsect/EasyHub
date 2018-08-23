@@ -2,13 +2,12 @@ package com.biginsect.easygithub.ui.activity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 
 import com.biginsect.easygithub.R;
-import com.biginsect.easygithub.base.BaseMvpActivity;
+import com.biginsect.easygithub.ui.base.BaseActivity;
 import com.biginsect.easygithub.ui.contract.ISettingContract;
 import com.biginsect.easygithub.ui.presenter.SettingPresenter;
 
@@ -17,7 +16,7 @@ import com.biginsect.easygithub.ui.presenter.SettingPresenter;
  * @date 2018/8/17.
  */
 
-public class SettingActivity extends BaseMvpActivity<ISettingContract.ISettingView, ISettingContract.ISettingPresenter>
+public class SettingActivity extends BaseActivity<ISettingContract.ISettingView, ISettingContract.ISettingPresenter>
         implements ISettingContract.ISettingView{
 
     @Override
@@ -36,12 +35,6 @@ public class SettingActivity extends BaseMvpActivity<ISettingContract.ISettingVi
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         setToolbarTitle(getString(R.string.setting));
-    }
-
-    @Override
-    public void showLoginPage() {
-        getActivity().finishAffinity();
-        startActivity(new Intent(getActivity(), LoginPageActivity.class));
     }
 
     private void logout(){

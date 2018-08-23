@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.biginsect.easygithub.R;
-import com.biginsect.easygithub.base.BaseAdapter;
-import com.biginsect.easygithub.base.BaseViewHolder;
+import com.biginsect.easygithub.ui.base.BaseAdapter;
+import com.biginsect.easygithub.ui.base.BaseViewHolder;
 import com.biginsect.easygithub.bean.ProjectListUsers;
 
 import org.jetbrains.annotations.NotNull;

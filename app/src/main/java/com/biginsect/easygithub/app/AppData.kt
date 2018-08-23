@@ -22,7 +22,5 @@ object AppData {
         }
     }
 
-    fun getAccessToken(): String?{
-        return authUser?.accessToken
-    }
+    val accessToken = authUser?.accessToken
 }

@@ -3,7 +3,6 @@ package com.biginsect.easygithub.ui.presenter
 import android.content.Intent
 import com.biginsect.easygithub.app.AppConfig
 import com.biginsect.easygithub.app.AppData
-import com.biginsect.easygithub.base.MvpBasePresenter
 import com.biginsect.easygithub.bean.User
 import com.biginsect.easygithub.bean.request.AuthRequest
 import com.biginsect.easygithub.bean.response.AuthToken
@@ -15,6 +14,7 @@ import com.biginsect.easygithub.http.base.GitHubRetrofit
 import com.biginsect.easygithub.http.base.HttpObserver
 import com.biginsect.easygithub.http.base.HttpResponse
 import com.biginsect.easygithub.http.base.HttpSubscriber
+import com.biginsect.easygithub.ui.base.BasePresenter
 import com.biginsect.easygithub.ui.contract.ILoginContract
 import com.biginsect.easygithub.util.ListUtils
 import io.reactivex.disposables.Disposable
@@ -26,7 +26,7 @@ import java.util.*
  * @author big insect
  * @date 2018/8/21.
  */
-class LoginPresenter: MvpBasePresenter<ILoginContract.ILoginView>(), ILoginContract.ILoginPresenter{
+class LoginPresenter: BasePresenter<ILoginContract.ILoginView>(), ILoginContract.ILoginPresenter{
 
     override fun login(name: String, password: String) {
         val authRequest = AuthRequest.createAuth()
@@ -35,7 +35,7 @@ class LoginPresenter: MvpBasePresenter<ILoginContract.ILoginView>(), ILoginContr
         val authSubscriber = HttpSubscriber(object :HttpObserver<AuthToken>{
             override fun onError(error: Throwable) {
                 if (isViewAttached){
-                    view.showErrorToast(getErrorMsg(error))
+                    view.showError(getErrorMsg(error))
                 }
             }
 
@@ -72,7 +72,7 @@ class LoginPresenter: MvpBasePresenter<ILoginContract.ILoginView>(), ILoginContr
         val userSubscriber = HttpSubscriber(object: HttpObserver<User>{
             override fun onError(error: Throwable) {
                 if (isViewAttached){
-                    view.showErrorToast(getErrorMsg(error))
+                    view.showError(getErrorMsg(error))
                 }
             }
 

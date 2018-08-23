@@ -1,15 +1,14 @@
 package com.biginsect.easygithub.ui.contract
 
 import android.content.Intent
-import com.biginsect.easygithub.base.mvp.MvpPresenter
-import com.biginsect.easygithub.base.mvp.MvpView
 import com.biginsect.easygithub.bean.response.AuthToken
+import com.biginsect.easygithub.ui.base.IBaseContract
 
 /**
  * @author big insect
  */
 interface ILoginContract {
-    interface ILoginView :MvpView{
+    interface ILoginView :IBaseContract.IView{
         /**
          * 成功获取到token
          * */
@@ -21,18 +20,12 @@ interface ILoginContract {
         fun getTokenFailed(msg: String)
 
         /**
-         * 错误信息提示
-         * @param msg content
-         * */
-        fun showErrorToast(msg: String)
-
-        /**
          * token 验证成功，成功等到，到主页面
          * */
         fun onLoginSuccess()
     }
 
-    interface ILoginPresenter :MvpPresenter<ILoginView>{
+    interface ILoginPresenter :IBaseContract.IPresenter<ILoginView>{
         /**
          * check之后登录跳转
          * */

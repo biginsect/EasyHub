@@ -10,9 +10,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.biginsect.easygithub.R;
-import com.biginsect.easygithub.base.BaseMvpActivity;
 import com.biginsect.easygithub.bean.response.AuthToken;
 import com.biginsect.easygithub.constant.ToastType;
+import com.biginsect.easygithub.ui.base.BaseActivity;
 import com.biginsect.easygithub.ui.contract.ILoginContract;
 import com.biginsect.easygithub.ui.presenter.LoginPresenter;
 import com.biginsect.easygithub.util.BlankUtils;
@@ -29,7 +29,7 @@ import butterknife.BindView;
  * @date 2017/12/25
  */
 
-public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView, ILoginContract.ILoginPresenter>
+public class LoginPageActivity extends BaseActivity<ILoginContract.ILoginView, ILoginContract.ILoginPresenter>
         implements View.OnClickListener, ILoginContract.ILoginView {
     @BindView(R.id.et_user_name) EditText userNameEdit;
     @BindView(R.id.et_user_password) EditText userPasswordEdit;
@@ -111,11 +111,6 @@ public class LoginPageActivity extends BaseMvpActivity<ILoginContract.ILoginView
     public void getTokenSuccess(@NotNull AuthToken authToken) {
         loginBtn.doResult(true);
         presenter.getUserInfo(authToken);
-    }
-
-    @Override
-    public void showErrorToast(@NotNull String msg) {
-        ToastUtils.INSTANCE.showShortToast(getActivity(), msg, ToastType.ERROR);
     }
 
     @Override

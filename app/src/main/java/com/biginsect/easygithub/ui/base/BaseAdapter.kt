@@ -1,4 +1,4 @@
-package com.biginsect.easygithub.base
+package com.biginsect.easygithub.ui.base
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -10,15 +10,16 @@ import com.biginsect.easygithub.util.ListUtils
 /**
  * @author big insect
  */
-abstract class BaseAdapter<VH :BaseViewHolder, D: Any>(protected var context: Context)
-    : RecyclerView.Adapter<VH>(), BaseViewHolder.OnItemClickListener, BaseViewHolder.OnItemLongClickListener {
+abstract class BaseAdapter<VH : BaseViewHolder, D: Any>(protected var context: Context)
+    : RecyclerView.Adapter<VH>(),
+        BaseViewHolder.OnItemClickListener, BaseViewHolder.OnItemLongClickListener {
     protected lateinit var dataList:ArrayList<D>
-    protected lateinit var fragment: BaseFragment
+    protected lateinit var fragment: BaseFragment<*, *>
     private var mClickListener : BaseViewHolder.OnItemClickListener? = null
     private var mLongClickListener : BaseViewHolder.OnItemLongClickListener? = null
 
 
-    constructor(context: Context, fragment: BaseFragment) : this(context) {
+    constructor(context: Context, fragment: BaseFragment<*, *>) : this(context) {
         this.fragment = fragment
     }
 

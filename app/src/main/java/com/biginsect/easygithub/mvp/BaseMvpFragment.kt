@@ -1,37 +1,37 @@
-package com.biginsect.easygithub.base
+package com.biginsect.easygithub.mvp
 
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.View
-import com.biginsect.easygithub.base.mvp.*
 
 /**
  * @author big insect
  */
-abstract class BaseMvpFragment<V : MvpView, P :MvpPresenter<V>>: BaseFragment()
-        ,MvpDelegateCallback<V, P>, MvpView {
+abstract class BaseMvpFragment<V : MvpView, P : MvpPresenter<V>>: Fragment()
+        , MvpDelegateCallback<V, P>, MvpView {
     private var mvpDelegate: FragmentMvpDelegate<V, P>? = null
         get() {
             if (null == field){
-                field = FragmentMvpDelegateImpl(this,this, true, true)
+                field = FragmentMvpDelegateImpl(this, this, true, true)
             }
             return field
         }
 
-    internal var presenter : P? = null
+//    protected var mPresenter : P? = null
 
     @Suppress("UNCHECKED_CAST")
     override fun getMvpView(): V? {
         return this as V
     }
-    override fun setPresenter(presenter: P?) {
-        this.presenter = presenter
+    /*override fun setPresenter(presenter: P?) {
+        this.mPresenter = presenter
     }
 
     override fun getPresenter(): P? {
-        return presenter
-    }
+        return mPresenter
+    }*/
 
     abstract override fun createPresenter(): P?
 

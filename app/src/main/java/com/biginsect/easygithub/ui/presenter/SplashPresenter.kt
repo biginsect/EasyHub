@@ -1,9 +1,9 @@
 package com.biginsect.easygithub.ui.presenter
 
 import com.biginsect.easygithub.app.AppData
-import com.biginsect.easygithub.base.MvpBasePresenter
 import com.biginsect.easygithub.dao.AuthUser
 import com.biginsect.easygithub.dao.AuthUserDao
+import com.biginsect.easygithub.ui.base.BasePresenter
 import com.biginsect.easygithub.ui.contract.ISplashContract
 import com.biginsect.easygithub.util.ListUtils
 
@@ -11,7 +11,7 @@ import com.biginsect.easygithub.util.ListUtils
  * @author big insect
  * @date 2018/8/21.
  */
-class SplashPresenter: MvpBasePresenter<ISplashContract.ISplashView>(), ISplashContract.ISplashPresenter {
+class SplashPresenter: BasePresenter<ISplashContract.ISplashView>(), ISplashContract.ISplashPresenter {
 
     /**缓存*/
     private lateinit var authUser: AuthUser

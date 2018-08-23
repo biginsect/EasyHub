@@ -1,4 +1,4 @@
-package com.biginsect.easygithub.base.mvp
+package com.biginsect.easygithub.mvp
 
 import android.support.annotation.NonNull
 import android.support.v4.util.ArrayMap
@@ -8,7 +8,7 @@ import android.support.v4.util.ArrayMap
  * @author big insect
  */
 class ActivityScopedCache {
-    private val presenterMap = ArrayMap<String,PresenterHolder>()
+    private val presenterMap = ArrayMap<String, PresenterHolder>()
 
     fun clear(){
         presenterMap.clear()
@@ -16,13 +16,13 @@ class ActivityScopedCache {
 
     @Suppress("UNCHECKED_CAST")
     fun <P> getPresenter(@NonNull viewId :String):P {
-        val holder :PresenterHolder? = presenterMap[viewId]
+        val holder : PresenterHolder? = presenterMap[viewId]
         return holder?.presenter as P
     }
 
     @Suppress("UNCHECKED_CAST")
     fun <VS> getViewState(@NonNull viewId: String) : VS{
-        val holder :PresenterHolder? = presenterMap[viewId]
+        val holder : PresenterHolder? = presenterMap[viewId]
         return holder?.viewState as VS
     }
 

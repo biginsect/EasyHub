@@ -1,21 +1,17 @@
 package com.biginsect.easygithub.ui.contract
 
-import com.biginsect.easygithub.base.mvp.MvpPresenter
-import com.biginsect.easygithub.base.mvp.MvpView
+import com.biginsect.easygithub.ui.base.IBaseContract
 
 /**
  * @author big insect
  */
 interface ISplashContract {
-    interface ISplashView :MvpView{
-        fun showMainPage()
+    interface ISplashView :IBaseContract.IView{
+        fun showHomePage()
 
-        fun showLoginPage()
-
-        fun showErrorTips(msg: String)
     }
 
-    interface ISplashPresenter: MvpPresenter<ISplashView>{
+    interface ISplashPresenter: IBaseContract.IPresenter<ISplashView>{
         fun getUser()
     }
 }

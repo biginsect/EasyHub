@@ -1,4 +1,4 @@
-package com.biginsect.easygithub.base.mvp
+package com.biginsect.easygithub.mvp
 
 import android.app.Activity
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.View
 /**
  * @author big insect
  */
-interface FragmentMvpDelegate<V :MvpView, P :MvpPresenter<V>> {
+interface FragmentMvpDelegate<V : MvpView, P : MvpPresenter<V>> {
     fun onCreate(bundle: Bundle?)
 
     fun onDestroy()

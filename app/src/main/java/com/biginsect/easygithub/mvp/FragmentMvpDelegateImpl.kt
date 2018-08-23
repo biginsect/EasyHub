@@ -1,4 +1,4 @@
-package com.biginsect.easygithub.base.mvp
+package com.biginsect.easygithub.mvp
 
 import android.app.Activity
 import android.os.Bundle
@@ -10,8 +10,8 @@ import java.util.*
 /**
  * @author big insect
  */
-class FragmentMvpDelegateImpl<V :MvpView, P :MvpPresenter<V>>(fragment: Fragment?, delegateCallback: MvpDelegateCallback<V, P>?, keepPresenterOnBackStack: Boolean, keepPresenterInstanceDuringScreenOrientationChanges :Boolean)
-    :FragmentMvpDelegate<V, P>{
+class FragmentMvpDelegateImpl<V : MvpView, P : MvpPresenter<V>>(fragment: Fragment?, delegateCallback: MvpDelegateCallback<V, P>?, keepPresenterOnBackStack: Boolean, keepPresenterInstanceDuringScreenOrientationChanges :Boolean)
+    : FragmentMvpDelegate<V, P> {
     companion object {
         var DEBUG = false
         private const val DEBUG_TAG = "FragmentMvpDelegateImpl"
@@ -23,7 +23,7 @@ class FragmentMvpDelegateImpl<V :MvpView, P :MvpPresenter<V>>(fragment: Fragment
     internal var keepPresenterOnBackStack :Boolean = false
     internal  var  keepPresenterInstanceDuringScreenOrientationChanges: Boolean = false
     private var onViewCreatedCalled = false
-    private var delegateCallback :MvpDelegateCallback<V, P>? = null
+    private var delegateCallback : MvpDelegateCallback<V, P>? = null
 
     init {
         when{

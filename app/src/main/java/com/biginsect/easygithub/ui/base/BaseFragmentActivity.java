@@ -1,20 +1,18 @@
-package com.biginsect.easygithub.base;
+package com.biginsect.easygithub.ui.base;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.biginsect.easygithub.R;
-import com.biginsect.easygithub.base.mvp.MvpPresenter;
-import com.biginsect.easygithub.base.mvp.MvpView;
 import com.orhanobut.logger.Logger;
 
 /**
  * @author big insect
  */
 
-public abstract class BaseFragmentActivity<V extends MvpView, P extends MvpPresenter<V>, F extends Fragment>
-        extends BaseMvpActivity<V, P>{
+public abstract class BaseFragmentActivity<V extends IBaseContract.IView, P extends IBaseContract.IPresenter<V>, F extends Fragment>
+        extends BaseActivity<V, P> {
     private F fragment;
     private static final String TAG_FRAGMENT = "fragment";
 
