@@ -37,10 +37,16 @@ public class SplashActivity extends BaseActivity<ISplashContract.ISplashView, IS
     }
 
     @Override
+    public void showLoginPage() {
+        finishDelay();
+        LoginPageActivity.show(getActivity());
+    }
+
+    @Override
     public void showHomePage() {
         finishDelay();
         Uri uri = getIntent().getData();
-        if (null != uri) {
+        if (null == uri) {
             startActivity(new Intent(getActivity(), HomePageActivity.class));
         }
     }

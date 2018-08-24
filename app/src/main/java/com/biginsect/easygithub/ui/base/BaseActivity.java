@@ -1,5 +1,6 @@
 package com.biginsect.easygithub.ui.base;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +33,8 @@ public abstract class BaseActivity<V extends IBaseContract.IView, P extends IBas
         implements IBaseContract.IView{
     private final static String TAG = "BaseActivity";
     private static BaseActivity currentActivity;
+
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -184,5 +187,30 @@ public abstract class BaseActivity<V extends IBaseContract.IView, P extends IBas
     @Override
     public void hideLoading() {
 
+    }
+
+    @NotNull
+    @Override
+    public ProgressDialog getProgressDialog(@NotNull String msg) {
+        if (null == mProgressDialog){
+            mProgressDialog = new ProgressDialog(getActivity());
+            mProgressDialog.setCancelable(false);
+        }
+        mProgressDialog.setMessage(msg);
+
+        return mProgressDialog;
+    }
+
+    @Override
+    public void showProgressDialog(@NotNull String msg) {
+        getProgressDialog(msg);
+        mProgressDialog.show();
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        if (null != mProgressDialog){
+            mProgressDialog.dismiss();
+        }
     }
 }

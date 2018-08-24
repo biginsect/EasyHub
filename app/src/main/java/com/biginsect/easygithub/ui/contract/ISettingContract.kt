@@ -7,8 +7,7 @@ import com.biginsect.easygithub.ui.base.IBaseContract
  * @date 2018/8/17.
  */
 interface ISettingContract {
-    interface ISettingView: IBaseContract.IView {
-    }
+    interface ISettingView: IBaseContract.IView
 
     interface ISettingPresenter: IBaseContract.IPresenter<ISettingView> {
         /**

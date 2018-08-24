@@ -1,5 +1,6 @@
 package com.biginsect.easygithub.ui.base;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,9 +15,18 @@ import com.biginsect.easygithub.dao.DaoSession;
 import com.biginsect.easygithub.dao.GreenDaoManager;
 import com.biginsect.easygithub.http.api.UserService;
 import com.biginsect.easygithub.http.base.GitHubRetrofit;
+import com.biginsect.easygithub.http.base.HttpObserver;
+import com.biginsect.easygithub.http.base.HttpProgressSubscriber;
+import com.biginsect.easygithub.http.base.HttpResponse;
 import com.biginsect.easygithub.http.base.HttpSubscriber;
+import com.biginsect.easygithub.http.base.IObservableCreator;
+import com.biginsect.easygithub.http.error.ErrorCode;
 import com.biginsect.easygithub.http.error.HttpError;
+import com.biginsect.easygithub.http.error.PageNotFoundException;
+import com.biginsect.easygithub.http.error.UnauthorizedException;
 import com.biginsect.easygithub.util.BlankUtils;
+import com.biginsect.easygithub.util.NetUtils;
+import com.biginsect.easygithub.util.PreUtils;
 import com.thirtydegreesray.dataautoaccess.DataAutoAccess;
 
 import org.apache.http.conn.ConnectTimeoutException;
@@ -26,6 +36,8 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.ref.WeakReference;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -120,6 +132,68 @@ public abstract class BasePresenter<V extends IBaseContract.IView> implements IB
                 .subscribe(subscriber);
     }
 
+    protected <T> void executeRxHttp(@NonNull IObservableCreator<T> creator, @NonNull HttpObserver<T> observer){
+        executeRxHttp(creator, observer, false);
+    }
+
+    protected <T> void executeRxHttp(@NonNull IObservableCreator<T> creator, @NonNull HttpObserver<T> observer,
+                                     boolean readCache){
+        executeRxHttp(creator, observer, readCache, null);
+    }
+
+    private Map<String, Integer>requestTimes = new HashMap<>();
+
+    protected <T> void executeRxHttp(@NonNull final IObservableCreator<T> creator, @NonNull final HttpObserver<T> observer,
+                                     final boolean readCache, final ProgressDialog progressDialog){
+        requestTimes.put(creator.toString(), 1);
+
+        final HttpObserver<T> tmpObserver = new HttpObserver<T>() {
+            @Override
+            public void onError(@NotNull Throwable error) {
+                if (!isUnauthorized(error)){
+                    observer.onError(error);
+                }
+            }
+
+            @Override
+            public void onSuccess(@NotNull HttpResponse<T> response) {
+                if (response.isSuccessful()){
+                    if (readCache && response.isFromCache() && NetUtils.INSTANCE.isNetworkAvailable()
+                            && requestTimes.get(creator.toString()) < 2){
+                        requestTimes.put(creator.toString(), 2);
+                        executeRxHttp(creator.create(true), getSubscriber(this, progressDialog));
+                    }
+                    observer.onSuccess(response);
+                }else if(response.getOriginalResponse().code() == 404){
+                    onError(new PageNotFoundException());
+                }else if (response.getOriginalResponse().code() == 504){
+                    onError(new HttpError(ErrorCode.CACHE_AND_NETWORK_UNAVAILABLE));
+                }else if (response.getOriginalResponse().code() == 401){
+                    onError(new UnauthorizedException());
+                }else {
+                    onError(new Error(response.getOriginalResponse().message()));
+                }
+            }
+
+            @Override
+            public void onSubscribe(@NotNull Disposable d) {
+                registerDisposable(d);
+            }
+        };
+
+        boolean cacheFirstAvailable = PreUtils.INSTANCE.isCacheFirstAvailable();
+        executeRxHttp(creator.create(!cacheFirstAvailable || !readCache),
+                getSubscriber(tmpObserver, progressDialog));
+    }
+
+    private <T> HttpSubscriber<T> getSubscriber(HttpObserver<T> observer, ProgressDialog progressDialog){
+        return progressDialog == null ? new HttpSubscriber<>(observer) : new HttpProgressSubscriber<>(progressDialog, observer);
+    }
+
+    protected String getLoadingMsg(){
+        return getString(R.string.loading).concat("...");
+    }
+
     @NotNull
     @Override
     public Context getContext() {
@@ -164,5 +238,23 @@ public abstract class BasePresenter<V extends IBaseContract.IView> implements IB
         if (null != mCompositeDisposable){
             mCompositeDisposable.clear();
         }
+    }
+
+    /**
+     * 检查是否为未授权异常
+     * */
+    private boolean isUnauthorized(Throwable throwable){
+        if (throwable instanceof UnauthorizedException){
+            if (isViewAttached()){
+                getView().showError(throwable.getMessage());
+                daoSession.getAuthUserDao().delete(AppData.INSTANCE.getAuthUser());
+                AppData.INSTANCE.setAuthUser(null);
+                AppData.INSTANCE.setLoggedUser(null);
+                getView().showLoginPage();
+                return true;
+            }
+        }
+
+        return false;
     }
 }

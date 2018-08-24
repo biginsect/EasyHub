@@ -1,5 +1,6 @@
 package com.biginsect.easygithub.ui.base
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import com.biginsect.easygithub.mvp.MvpPresenter
@@ -26,6 +27,12 @@ interface IBaseContract {
         fun hideLoading()
 
         fun showLoginPage()
+
+        fun showProgressDialog(msg: String)
+
+        fun dismissProgressDialog()
+
+        fun getProgressDialog(msg: String): ProgressDialog
     }
 
     interface IPresenter<V: IView> : MvpPresenter<V> {
