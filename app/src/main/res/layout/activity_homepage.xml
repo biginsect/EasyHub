@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/drawer_layout_left"
-    tools:context="com.biginsect.easygithub.ui.activity.HomePageActivity">
+    tools:context="com.biginsect.easyhub.ui.activity.HomePageActivity">
 
     <!--主布局-->
     <android.support.design.widget.CoordinatorLayout
