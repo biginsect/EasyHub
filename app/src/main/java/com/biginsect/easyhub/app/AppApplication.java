@@ -40,7 +40,7 @@ public class AppApplication extends Application {
                 .showThreadInfo(false)
                 .methodCount(0)
                 .methodOffset(0)
-                .tag("MyGitHub_Logger")
+                .tag("Easy_Logger")
                 .build();
         Logger.addLogAdapter(new AndroidLogAdapter(strategy){
             @Override
