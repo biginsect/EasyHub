@@ -16,7 +16,7 @@ public class GreenDaoManager {
     private static DaoMaster daoMaster;
     private static SQLiteDatabase db;
     /**flag*/
-    private boolean isInit;
+    private boolean isInit = false;
 
     private GreenDaoManager(){
     }

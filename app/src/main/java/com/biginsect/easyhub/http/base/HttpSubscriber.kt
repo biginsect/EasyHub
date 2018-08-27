@@ -1,5 +1,6 @@
 package com.biginsect.easyhub.http.base
 
+import com.orhanobut.logger.Logger
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import retrofit2.Response
@@ -7,28 +8,21 @@ import retrofit2.Response
 /**
  * @author big insect
  */
-open class HttpSubscriber<T> : Observer<Response<T>> {
-    private var actual: HttpObserver<T>? = null
-
-    constructor()
-
-    constructor(observer: HttpObserver<T>?){
-        actual = observer
-    }
+open class HttpSubscriber<T>(private val observer: HttpObserver<T>) : Observer<Response<T>> {
 
     override fun onComplete() {
-
+        Logger.d("onComplete ", " ---- HttpSubscriber")
     }
 
     override fun onSubscribe(d: Disposable) {
-        actual?.onSubscribe(d)
+        observer.onSubscribe(d)
     }
 
     override fun onNext(t: Response<T>) {
-        actual?.onSuccess(HttpResponse(t))
+        observer.onSuccess(HttpResponse(t))
     }
 
     override fun onError(e: Throwable) {
-        actual?.onError(error = e)
+        observer.onError( e)
     }
 }
