@@ -13,8 +13,7 @@ abstract class BaseMvpFragment<V : MvpView, P : MvpPresenter<V>>: Fragment()
         , MvpDelegateCallback<V, P>, MvpView {
     private var mvpDelegate: FragmentMvpDelegate<V, P>? = null
 
-
-    protected fun getDelegate():FragmentMvpDelegate<V, P>{
+    private fun getDelegate():FragmentMvpDelegate<V, P>{
         if (null == mvpDelegate){
             mvpDelegate = FragmentMvpDelegateImpl(this, this, true, true)
         }

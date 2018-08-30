@@ -26,7 +26,7 @@
             </intent-filter>
 
         </activity>
-        <activity android:name="com.biginsect.easyhub.ui.activity.LoginPageActivity"
+        <activity android:name="com.biginsect.easyhub.ui.activity.LoginActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@style/LoginTheme">

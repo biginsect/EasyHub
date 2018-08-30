@@ -11,7 +11,7 @@ class ActivityMvpDelegateImpl< V : MvpView, P : MvpPresenter<V>>(@NonNull delega
     companion object{
         var DEBUG = false
         internal const val KEY_MOSBY_VIEW_ID = "com.hannesdorfmann.mosby3.activity.mvp.id"
-        internal const val TAG:String = "ActivityMvpDelegateImpl"
+        internal const val TAG = "ActivityMvpDelegateImpl"
         fun retainPresenterInstance(keepPresenterInstance: Boolean, activity: Activity?):Boolean{
             return keepPresenterInstance && (activity?.isChangingConfigurations!! || activity.isFinishing)
         }

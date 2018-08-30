@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.biginsect.easyhub.constant.ToastType;
 import com.biginsect.easyhub.mvp.BaseMvpFragment;
-import com.biginsect.easyhub.ui.activity.LoginPageActivity;
+import com.biginsect.easyhub.ui.activity.LoginActivity;
 import com.biginsect.easyhub.util.ToastUtils;
 import com.thirtydegreesray.dataautoaccess.DataAutoAccess;
 
@@ -96,7 +96,7 @@ public abstract class BaseFragment<V extends IBaseContract.IView, P extends IBas
     @Override
     public void showLoginPage() {
         getActivity().finishAffinity();
-        Intent intent = new Intent(getActivity(), LoginPageActivity.class);
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
     }
 

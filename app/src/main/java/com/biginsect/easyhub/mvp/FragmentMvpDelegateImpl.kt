@@ -21,7 +21,7 @@ class FragmentMvpDelegateImpl<V : MvpView, P : MvpPresenter<V>>(fragment: Fragme
     internal var mosbyViewId: String? = null
     internal var fragment: Fragment? = null
     internal var keepPresenterOnBackStack :Boolean = false
-    internal  var  keepPresenterInstanceDuringScreenOrientationChanges: Boolean = false
+    internal var  keepPresenterInstanceDuringScreenOrientationChanges: Boolean = false
     private var onViewCreatedCalled = false
     private var delegateCallback : MvpDelegateCallback<V, P>? = null
 

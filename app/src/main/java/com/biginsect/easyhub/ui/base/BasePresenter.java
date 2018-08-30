@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
@@ -30,8 +31,6 @@ import com.biginsect.easyhub.util.PreUtils;
 import com.thirtydegreesray.dataautoaccess.DataAutoAccess;
 
 import org.apache.http.conn.ConnectTimeoutException;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
 import java.net.SocketTimeoutException;
@@ -149,14 +148,14 @@ public abstract class BasePresenter<V extends IBaseContract.IView> implements IB
 
         final HttpObserver<T> tmpObserver = new HttpObserver<T>() {
             @Override
-            public void onError(@NotNull Throwable error) {
+            public void onError(@NonNull Throwable error) {
                 if (!isUnauthorized(error)){
                     observer.onError(error);
                 }
             }
 
             @Override
-            public void onSuccess(@NotNull HttpResponse<T> response) {
+            public void onSuccess(@NonNull HttpResponse<T> response) {
                 if (response.isSuccessful()){
                     if (readCache && response.isFromCache() && NetUtils.INSTANCE.isNetworkAvailable()
                             && requestTimes.get(creator.toString()) < 2){
@@ -176,7 +175,7 @@ public abstract class BasePresenter<V extends IBaseContract.IView> implements IB
             }
 
             @Override
-            public void onSubscribe(@NotNull Disposable d) {
+            public void onSubscribe(@NonNull Disposable d) {
                 registerDisposable(d);
             }
         };
@@ -194,7 +193,7 @@ public abstract class BasePresenter<V extends IBaseContract.IView> implements IB
         return getString(R.string.loading).concat("...");
     }
 
-    @NotNull
+    @NonNull
     @Override
     public Context getContext() {
         if (getView() instanceof Context){

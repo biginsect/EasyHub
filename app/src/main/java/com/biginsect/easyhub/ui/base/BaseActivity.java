@@ -13,7 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.biginsect.easyhub.app.AppData;
 import com.biginsect.easyhub.mvp.BaseMvpActivity;
 import com.biginsect.easyhub.constant.ToastType;
-import com.biginsect.easyhub.ui.activity.LoginPageActivity;
+import com.biginsect.easyhub.ui.activity.LoginActivity;
 import com.biginsect.easyhub.ui.activity.SplashActivity;
 import com.biginsect.easyhub.util.ActivitiesManager;
 import com.biginsect.easyhub.util.ToastUtils;
@@ -155,7 +155,7 @@ public abstract class BaseActivity<V extends IBaseContract.IView, P extends IBas
     @Override
     public void showLoginPage() {
         finishDelay();
-        Intent intent = new Intent(getActivity(), LoginPageActivity.class);
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
     }
 

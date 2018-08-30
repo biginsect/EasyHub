@@ -8,16 +8,16 @@ import android.view.ViewGroup
 import com.biginsect.easyhub.util.ListUtils
 
 /**
+ * 基类，支持长按和点击事件，展示视图使用addData()方法
  * @author big insect
  */
 abstract class BaseAdapter<VH : BaseViewHolder, D: Any>(protected var context: Context)
-    : RecyclerView.Adapter<VH>(),
-        BaseViewHolder.OnItemClickListener, BaseViewHolder.OnItemLongClickListener {
+    : RecyclerView.Adapter<VH>(), BaseViewHolder.OnItemClickListener,
+        BaseViewHolder.OnItemLongClickListener {
     protected lateinit var dataList:ArrayList<D>
     protected lateinit var fragment: BaseFragment<*, *>
     private var mClickListener : BaseViewHolder.OnItemClickListener? = null
     private var mLongClickListener : BaseViewHolder.OnItemLongClickListener? = null
-
 
     constructor(context: Context, fragment: BaseFragment<*, *>) : this(context) {
         this.fragment = fragment

@@ -19,7 +19,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * @date 2017/12/26
  */
 
-public class HomePageListAdapter extends BaseAdapter<HomePageListAdapter.ProjectListViewHolder, ProjectListUsers> {
+
+public class HomePageListAdapter extends BaseAdapter<HomePageListAdapter.ViewHolder, ProjectListUsers> {
 
     public HomePageListAdapter(Context context){
        super(context);
@@ -27,12 +28,12 @@ public class HomePageListAdapter extends BaseAdapter<HomePageListAdapter.Project
 
     @NotNull
     @Override
-    public ProjectListViewHolder getViewHolder(@NotNull View itemView) {
-        return new ProjectListViewHolder(itemView);
+    public ViewHolder getViewHolder(@NotNull View itemView) {
+        return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NotNull ProjectListViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
     }
 
@@ -41,7 +42,7 @@ public class HomePageListAdapter extends BaseAdapter<HomePageListAdapter.Project
         return R.layout.list_item_homepage;
     }
 
-    static class ProjectListViewHolder extends BaseViewHolder{
+    static class ViewHolder extends BaseViewHolder{
         /**用户头像*/
         @BindView(R.id.avatar) CircleImageView userPicture;
         /**用户名*/
@@ -51,7 +52,7 @@ public class HomePageListAdapter extends BaseAdapter<HomePageListAdapter.Project
         /**用户动态信息*/
         @BindView(R.id.his_dynamic) TextView userDynamic;
 
-        public ProjectListViewHolder(View view){
+        public ViewHolder(View view){
             super(view);
         }
     }

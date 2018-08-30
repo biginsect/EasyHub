@@ -4,7 +4,7 @@ import com.biginsect.easyhub.BuildConfig
 import com.biginsect.easyhub.util.BlankUtils
 
 /**
- *相关配置，url
+ * 相关配置，url
  * @author big insect
  * @date  2018/8/9.
  */
@@ -33,7 +33,7 @@ object AppConfig {
 
     const val FORCE_NETWORK = "forceNetwork"
 
-    val COMMON_PAGE_URL_LIST: List<String> = listOf("https://github.com/trending")
+    private val COMMON_PAGE_URL_LIST: List<String> = listOf("https://github.com/trending")
 
     fun isCommonPageUrl(url: String?): Boolean{
         if (BlankUtils.isBlankString(url)){
