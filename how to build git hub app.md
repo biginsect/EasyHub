@@ -20,6 +20,11 @@ step3:
     GET https://api.github.com/user?access_token=...
 
 
+相关的api以及参数
+    https://developer.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/
+
+    https://developer.github.com/v3/
+
 
 
 拦截器相关:https://blog.csdn.net/qq_33463102/article/details/60869879

@@ -1,5 +1,6 @@
 package com.biginsect.easyhub.ui.base;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,8 +16,6 @@ import com.thirtydegreesray.dataautoaccess.DataAutoAccess;
 
 import org.jetbrains.annotations.NotNull;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 /**
@@ -27,8 +26,8 @@ import butterknife.Unbinder;
 public abstract class BaseFragment<V extends IBaseContract.IView, P extends IBaseContract.IPresenter<V>>
         extends BaseMvpFragment<V, P> implements IBaseContract.IView{
     protected View mRootView;
-    private Unbinder unbinder;
     protected P presenter;
+    private ProgressDialog mProgressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,6 @@ public abstract class BaseFragment<V extends IBaseContract.IView, P extends IBas
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayoutId(), container, false);
-        unbinder = ButterKnife.bind(this, mRootView);
         initView(mRootView);
         initFragment(savedInstanceState);
         return mRootView;
@@ -63,7 +61,6 @@ public abstract class BaseFragment<V extends IBaseContract.IView, P extends IBas
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     @Override
@@ -118,6 +115,31 @@ public abstract class BaseFragment<V extends IBaseContract.IView, P extends IBas
     @Override
     public void showSuccess(@NotNull String msg) {
         ToastUtils.INSTANCE.showShortToast(getActivity(), msg, ToastType.SUCCESS);
+    }
+
+    @NotNull
+    @Override
+    public ProgressDialog getProgressDialog(@NotNull String msg) {
+        if (null == mProgressDialog){
+            mProgressDialog = new ProgressDialog(getActivity());
+            mProgressDialog.setCancelable(false);
+        }
+        mProgressDialog.setMessage(msg);
+
+        return mProgressDialog;
+    }
+
+    @Override
+    public void showProgressDialog(@NotNull String msg) {
+        getProgressDialog(msg);
+        mProgressDialog.show();
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        if (null != mProgressDialog){
+            mProgressDialog.dismiss();
+        }
     }
 
     @Override

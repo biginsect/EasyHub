@@ -11,13 +11,19 @@ import com.biginsect.easyhub.util.ListUtils
  * 基类，支持长按和点击事件，展示视图使用addData()方法
  * @author big insect
  */
-abstract class BaseAdapter<VH : BaseViewHolder, D: Any>(protected var context: Context)
-    : RecyclerView.Adapter<VH>(), BaseViewHolder.OnItemClickListener,
+abstract class BaseAdapter<VH : BaseViewHolder, D: Any>(context: Context)
+    : RecyclerView.Adapter<VH>(),
+        BaseViewHolder.OnItemClickListener,
         BaseViewHolder.OnItemLongClickListener {
-    protected lateinit var dataList:ArrayList<D>
-    protected lateinit var fragment: BaseFragment<*, *>
-    private var mClickListener : BaseViewHolder.OnItemClickListener? = null
-    private var mLongClickListener : BaseViewHolder.OnItemLongClickListener? = null
+
+    internal val mContext = context
+    internal lateinit var dataList:ArrayList<D>
+
+    internal lateinit var fragment: BaseFragment<*, *>
+    private set
+
+    var onItemClickListener : BaseViewHolder.OnItemClickListener? = null
+    var onItemLongClickListener : BaseViewHolder.OnItemLongClickListener? = null
 
     constructor(context: Context, fragment: BaseFragment<*, *>) : this(context) {
         this.fragment = fragment
@@ -30,31 +36,23 @@ abstract class BaseAdapter<VH : BaseViewHolder, D: Any>(protected var context: C
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        if (null != mClickListener){
+        if (null != onItemClickListener){
             holder.setOnItemClickListener(this)
         }
-        if (null != mLongClickListener) {
+        if (null != onItemLongClickListener) {
             holder.setOnItemLongClickListener(this)
         }
     }
 
     override fun onItemClick(position: Int, view: View?) {
-        mClickListener?.onItemClick(position, view)
+        onItemClickListener?.onItemClick(position, view)
     }
 
     override fun onItemLongClick(position: Int, view: View?): Boolean {
-        if(null != mLongClickListener){
-            return mLongClickListener!!.onItemLongClick(position, view)
+        if(null != onItemLongClickListener){
+            return onItemLongClickListener!!.onItemLongClick(position, view)
         }
         return false
-    }
-
-    fun setOnItemClickListener(listener: BaseViewHolder.OnItemClickListener?){
-        this.mClickListener = listener
-    }
-
-    fun setOnItemLongClickListener(listener: BaseViewHolder.OnItemLongClickListener?){
-        this.mLongClickListener = listener
     }
 
     override fun getItemCount(): Int {
@@ -75,10 +73,10 @@ abstract class BaseAdapter<VH : BaseViewHolder, D: Any>(protected var context: C
     /**
      * 获取布局ID
      * */
-    abstract fun getLayoutId():Int
+    protected abstract fun getLayoutId():Int
 
     /**
      * 构建ViewHolder
      * */
-    abstract fun getViewHolder(itemView:View):VH
+    protected abstract fun getViewHolder(itemView:View):VH
 }

@@ -7,10 +7,9 @@ import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.biginsect.easyhub.R
 import com.biginsect.easyhub.constant.ToastType
-import com.biginsect.easyhub.ui.adapter.HomePageListAdapter
+import com.biginsect.easyhub.ui.adapter.EventListAdapter
 import com.biginsect.easyhub.ui.base.BaseListActivity
 import com.biginsect.easyhub.ui.contract.IHomePageContract
 import com.biginsect.easyhub.ui.presenter.HomePagePresenter
@@ -23,7 +22,7 @@ import kotlinx.android.synthetic.main.toolbar_homepage.*
  * @author big insect
  * @date 2018/8/30.
  */
-class HomePageActivity :BaseListActivity<IHomePageContract.IHomePageView, IHomePageContract.IHomePagePresenter, HomePageListAdapter>(),
+class HomePageActivity :BaseListActivity<IHomePageContract.IHomePageView, IHomePageContract.IHomePagePresenter, EventListAdapter>(),
         IHomePageContract.IHomePageView{
 
     private var mLastBackPressedTime = 0L
@@ -66,16 +65,9 @@ class HomePageActivity :BaseListActivity<IHomePageContract.IHomePageView, IHomeP
         return R.layout.activity_homepage
     }
 
-    override fun showDetail(position: Int, view: View?) {
 
-    }
-
-    override fun onLongClickShow(position: Int, view: View?): Boolean {
-        return false
-    }
-
-    override fun getAdapter(): HomePageListAdapter {
-        return HomePageListAdapter(this)
+    override fun getAdapter(): EventListAdapter {
+        return EventListAdapter(this)
     }
 
     override fun createPresenter(): IHomePageContract.IHomePagePresenter {

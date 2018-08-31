@@ -10,7 +10,8 @@ import android.view.View;
  */
 
 public abstract class BaseListActivity<V extends IBaseContract.IView, P extends IBaseContract.IPresenter<V>, A extends BaseAdapter>
-        extends BaseActivity<V, P> {
+        extends BaseActivity<V, P>
+        implements BaseViewHolder.OnItemLongClickListener, BaseViewHolder.OnItemClickListener{
     protected A mAdapter;
 
     @Override
@@ -18,40 +19,24 @@ public abstract class BaseListActivity<V extends IBaseContract.IView, P extends 
         super.onCreate(savedInstanceState);
         mAdapter = getAdapter();
         if (null != mAdapter){
-            mAdapter.setOnItemClickListener(new BaseViewHolder.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position, View view) {
-                    showDetail(position, view);
-                }
-            });
-
-            mAdapter.setOnItemLongClickListener(new BaseViewHolder.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(int position, View view) {
-                    return onLongClickShow(position, view);
-                }
-            });
+            mAdapter.setOnItemClickListener(this);
+            mAdapter.setOnItemLongClickListener(this);
         }
     }
 
     @Override
     abstract protected int getLayoutId();
 
-    /**
-     * 点击列表项展示相关内容
-     * @param position
-     * @param view
-     * */
-    protected abstract void showDetail(int position, View view);
+    @Override
+    public boolean onItemLongClick(int position, View view) {
+        return false;
+    }
 
-    /**
-     * 长按item响应
-     * @param position
-     * @param view
-     * @return <p>if false</p> 此次事件还被其他监听器响应
-     * <p>if true</p> 此次事件已被消耗，无法响应其他监听器
-     * */
-    protected abstract boolean onLongClickShow(int position, View view);
+    @Override
+    public void onItemClick(int position, View view) {
+
+    }
+
 
     /**
      * 获取适配器

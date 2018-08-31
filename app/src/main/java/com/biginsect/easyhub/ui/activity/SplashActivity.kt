@@ -13,14 +13,6 @@ import com.biginsect.easyhub.ui.presenter.SplashPresenter
 class SplashActivity :BaseActivity<ISplashContract.ISplashView, ISplashContract.ISplashPresenter>(),
         ISplashContract.ISplashView{
 
-    override fun showHomePage() {
-        finishDelay()
-        val uri = intent.data
-        if(null == uri){
-            startActivity(Intent(activity, HomePageActivity::class.java))
-        }
-    }
-
     override fun createPresenter(): ISplashContract.ISplashPresenter {
         presenter = SplashPresenter()
         return presenter
@@ -42,5 +34,13 @@ class SplashActivity :BaseActivity<ISplashContract.ISplashView, ISplashContract.
     override fun showLoginPage() {
         finishDelay()
         startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+    override fun showHomePage() {
+        finishDelay()
+        val uri = intent.data
+        if(null == uri){
+            startActivity(Intent(activity, HomePageActivity::class.java))
+        }
     }
 }

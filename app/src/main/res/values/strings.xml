@@ -4,6 +4,12 @@
     <string name="page_not_found">Page is not found!</string>
     <string name="unauthorized">UNAUTHORIZED!</string>
 
+    <string name="just_now">just now</string>
+    <string name="seconds_ago">seconds ago</string>
+    <string name="minutes_ago">minutes ago</string>
+    <string name="hours_ago">hours_ago</string>
+    <string name="days_ago">days ago</string>
+
     <string name="no_network_msg">Loading the date failed, please check your network status and retry!</string>
     <string name="time_out_msg">Loading the date timeout, please check your network status and retry!</string>
 

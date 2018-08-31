@@ -9,21 +9,28 @@
     tools:context="com.biginsect.easyhub.ui.activity.HomePageActivity">
 
     <!--主布局-->
-    <android.support.design.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <include layout="@layout/toolbar_homepage"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_project_list"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swl_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
-    </android.support.design.widget.CoordinatorLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_project_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    </LinearLayout>
 
     <!--左侧滑菜单-->
 <android.support.design.widget.NavigationView
