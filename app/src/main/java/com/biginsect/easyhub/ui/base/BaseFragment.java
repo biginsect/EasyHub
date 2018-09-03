@@ -3,6 +3,7 @@ package com.biginsect.easyhub.ui.base;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 public abstract class BaseFragment<V extends IBaseContract.IView, P extends IBaseContract.IPresenter<V>>
         extends BaseMvpFragment<V, P> implements IBaseContract.IView{
     protected View mRootView;
-    protected P presenter;
+
     private ProgressDialog mProgressDialog;
 
     @Override
@@ -63,16 +64,6 @@ public abstract class BaseFragment<V extends IBaseContract.IView, P extends IBas
         super.onDestroyView();
     }
 
-    @Override
-    public void setPresenter(P presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
-    public P getPresenter() {
-        return presenter;
-    }
-
     protected abstract void initFragment(Bundle savedInstanceState);
 
     /**
@@ -87,6 +78,11 @@ public abstract class BaseFragment<V extends IBaseContract.IView, P extends IBas
      * */
     protected abstract int getLayoutId();
 
+    /**
+     * create presenter
+     * @return target
+     * */
+    @NonNull
     @Override
     abstract public P createPresenter();
 

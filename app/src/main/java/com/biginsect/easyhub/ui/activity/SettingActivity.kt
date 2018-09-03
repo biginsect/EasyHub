@@ -34,8 +34,8 @@ class SettingActivity : BaseActivity<ISettingContract.ISettingView, ISettingCont
                 .setCancelable(true)
                 .setTitle(R.string.warning)
                 .setMessage(R.string.warning_logout)
-                .setNegativeButton(R.string.cancel) { dialog, which -> dialog?.dismiss() }
-                .setPositiveButton(R.string.okay){dialog, which ->
+                .setNegativeButton(R.string.cancel) { dialog, _ -> dialog?.dismiss() }
+                .setPositiveButton(R.string.okay){ dialog, _ ->
                     setResult(Activity.RESULT_CANCELED)
                     presenter.logout()
                     dialog.dismiss()

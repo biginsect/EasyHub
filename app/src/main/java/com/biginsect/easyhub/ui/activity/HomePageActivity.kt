@@ -38,7 +38,7 @@ class HomePageActivity :BaseListActivity<IHomePageContract.IHomePageView, IHomeP
 
     private fun setRecyclerView(){
         rv_project_list.layoutManager = LinearLayoutManager(this)
-        rv_project_list.adapter = mAdapter
+        rv_project_list.adapter = adapter
     }
 
     private fun setDrawerLayout(){
@@ -55,6 +55,7 @@ class HomePageActivity :BaseListActivity<IHomePageContract.IHomePageView, IHomeP
     private fun setToolbar(){
         setSupportActionBar(home_page_toolbar)
         val actionBar = supportActionBar
+
         if (null != actionBar){
             actionBar.setHomeButtonEnabled(true)
             actionBar.setDisplayHomeAsUpEnabled(true)
@@ -65,8 +66,7 @@ class HomePageActivity :BaseListActivity<IHomePageContract.IHomePageView, IHomeP
         return R.layout.activity_homepage
     }
 
-
-    override fun getAdapter(): EventListAdapter {
+    override fun getAdapter(): EventListAdapter? {
         return EventListAdapter(this)
     }
 
@@ -96,8 +96,8 @@ class HomePageActivity :BaseListActivity<IHomePageContract.IHomePageView, IHomeP
                 .setCancelable(true)
                 .setTitle(R.string.warning)
                 .setMessage(R.string.warning_logout)
-                .setNegativeButton(R.string.cancel) { dialog, which -> dialog?.dismiss() }
-                .setPositiveButton(R.string.okay){dialog, which ->
+                .setNegativeButton(R.string.cancel) { dialog, _ -> dialog?.dismiss() }
+                .setPositiveButton(R.string.okay){ dialog, _ ->
                     setResult(Activity.RESULT_CANCELED)
                     presenter.logout()
                     dialog.dismiss()

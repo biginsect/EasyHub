@@ -15,12 +15,7 @@ object AppData {
     @AutoAccess(dataName = "appData_authUser") var authUser :AuthUser? = null
 
     @AutoAccess(dataName = "appData_systemDefaultLocal")
-    var systemDefaultLocal :Locale? = null
-     private set(value){
-        if (field == null){
-            field = Locale.getDefault()
-        }
-    }
+    val systemDefaultLocal :Locale = Locale.getDefault()
 
     val accessToken = authUser?.accessToken
 }

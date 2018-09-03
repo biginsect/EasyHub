@@ -17,9 +17,9 @@ class ActivityMvpDelegateImpl< V : MvpView, P : MvpPresenter<V>>(@NonNull delega
         }
     }
     private var delegateCallback: MvpDelegateCallback<V, P>? = null
-    protected var keepPresenterInstance:Boolean = false
-    protected var activity:Activity? = null
-    protected var mosbyViewId:String? = null
+    private var keepPresenterInstance = false
+    private var activity:Activity? = null
+    private var mosbyViewId:String? = null
 
     init{
         when {
@@ -34,7 +34,7 @@ class ActivityMvpDelegateImpl< V : MvpView, P : MvpPresenter<V>>(@NonNull delega
     }
 
     private fun createViewIdAndCreatePresenter():P{
-        val presenter:P? = this.delegateCallback?.createPresenter()
+        val presenter = this.delegateCallback?.createPresenter()
 
         when(presenter){
             null ->  throw NullPointerException("Presenter returned from createPresenter() is null. Activity is " + this.activity)

@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.biginsect.easyhub.app.AppData;
-import com.biginsect.easyhub.mvp.BaseMvpActivity;
 import com.biginsect.easyhub.constant.ToastType;
+import com.biginsect.easyhub.mvp.BaseMvpActivity;
 import com.biginsect.easyhub.ui.activity.LoginActivity;
 import com.biginsect.easyhub.ui.activity.SplashActivity;
 import com.biginsect.easyhub.util.ActivitiesManager;

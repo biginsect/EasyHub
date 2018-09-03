@@ -18,10 +18,10 @@ class FragmentMvpDelegateImpl<V : MvpView, P : MvpPresenter<V>>(fragment: Fragme
         internal const val KEY_MOSBY_VIEW_ID = "com.hannesdorfmann.mosby3.fragment.mvp.id"
 
     }
-    internal var mosbyViewId: String? = null
-    internal var fragment: Fragment? = null
-    internal var keepPresenterOnBackStack :Boolean = false
-    internal var  keepPresenterInstanceDuringScreenOrientationChanges: Boolean = false
+    private var mosbyViewId: String? = null
+    private var fragment: Fragment? = null
+    private var keepPresenterOnBackStack :Boolean = false
+    private var  keepPresenterInstanceDuringScreenOrientationChanges = false
     private var onViewCreatedCalled = false
     private var delegateCallback : MvpDelegateCallback<V, P>? = null
 
@@ -41,7 +41,7 @@ class FragmentMvpDelegateImpl<V : MvpView, P : MvpPresenter<V>>(fragment: Fragme
     }
 
     private fun createViewIdAndCreatePresenter():P{
-        val presenter :P?= this.delegateCallback?.createPresenter()
+        val presenter = this.delegateCallback?.createPresenter()
         if(null == presenter){
             throw NullPointerException("Presenter returned from createPresenter() is null. Activity is "+ this.getActivity())
         }else{

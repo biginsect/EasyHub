@@ -22,6 +22,7 @@ object StringUtils {
      * */
     fun getTimeString(context: Context, date: Date):String{
         val timeInterval = System.currentTimeMillis() - date.time
+
         val milliseconds = 1000.0f
         val seconds = 60 * milliseconds
         val minutes = 60 * seconds
@@ -36,8 +37,7 @@ object StringUtils {
             in hours..days -> context.getString(R.string.days_ago)
 
             else ->{
-                val dateFormat = SimpleDateFormat("MMM d, yyyy", Locale.ENGLISH)
-                dateFormat.format(date)
+                SimpleDateFormat("MMM d, yyyy", Locale.ENGLISH).format(date)
             }
         }
     }

@@ -13,14 +13,14 @@ public abstract class BaseListFragment <V extends IBaseContract.IView, P extends
         extends BaseFragment<V, P> implements IBaseContract.IView,
         BaseViewHolder.OnItemClickListener,
         BaseViewHolder.OnItemLongClickListener{
-    protected A mAdapter;
+    protected A adapter;
 
     @Override
     protected void initFragment(Bundle savedInstanceState) {
-        mAdapter = getAdapter();
-        if (null != mAdapter){
-            mAdapter.setOnItemClickListener(this);
-            mAdapter.setOnItemClickListener(this);
+        adapter = getAdapter();
+        if (null != adapter){
+            adapter.setOnItemClickListener(this);
+            adapter.setOnItemClickListener(this);
         }
     }
 
