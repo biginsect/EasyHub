@@ -77,8 +77,8 @@ class HomePageActivity :BaseListActivity<IHomePageContract.IHomePageView, IHomeP
     }
 
     override fun restartApp() {
-        activity.finishAffinity()
-        startActivity(Intent(activity, SplashActivity::class.java))
+        getActivity().finishAffinity()
+        startActivity(Intent(getActivity(), SplashActivity::class.java))
     }
 
     override fun onBackPressed() {

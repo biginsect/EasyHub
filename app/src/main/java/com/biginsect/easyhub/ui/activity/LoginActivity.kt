@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_login_page.*
  * @author big insect
  * @date 2018/8/30.
  */
-class LoginActivity :BaseActivity<ILoginContract.ILoginView, ILoginContract.ILoginPresenter>(),
+class LoginActivity : BaseActivity<ILoginContract.ILoginView, ILoginContract.ILoginPresenter>(),
         ILoginContract.ILoginView, View.OnClickListener{
     private lateinit var name :String
     private lateinit var pwd :String
@@ -61,7 +61,7 @@ class LoginActivity :BaseActivity<ILoginContract.ILoginView, ILoginContract.ILog
 
     override fun onLoginSuccess() {
         finishDelay(1000)
-        startActivity(Intent(activity, HomePageActivity::class.java))
+        startActivity(Intent(getActivity(), HomePageActivity::class.java))
     }
 
     override fun getTokenSuccess(authToken: AuthToken) {

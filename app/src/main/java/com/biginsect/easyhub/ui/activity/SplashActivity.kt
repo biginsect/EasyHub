@@ -10,7 +10,7 @@ import com.biginsect.easyhub.ui.presenter.SplashPresenter
  * @author big insect
  * @date 2018/8/30.
  */
-class SplashActivity :BaseActivity<ISplashContract.ISplashView, ISplashContract.ISplashPresenter>(),
+class SplashActivity : BaseActivity<ISplashContract.ISplashView, ISplashContract.ISplashPresenter>(),
         ISplashContract.ISplashView{
 
     override fun createPresenter(): ISplashContract.ISplashPresenter {
@@ -40,7 +40,7 @@ class SplashActivity :BaseActivity<ISplashContract.ISplashView, ISplashContract.
         finishDelay()
         val uri = intent.data
         if(null == uri){
-            startActivity(Intent(activity, HomePageActivity::class.java))
+            startActivity(Intent(getActivity(), HomePageActivity::class.java))
         }
     }
 }
