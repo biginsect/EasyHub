@@ -7,8 +7,8 @@ import com.biginsect.easyhub.dao.AuthUserDao
 import com.biginsect.easyhub.http.base.HttpObserver
 import com.biginsect.easyhub.http.base.HttpResponse
 import com.biginsect.easyhub.http.base.IObservableCreator
-import com.biginsect.easyhub.ui.base.BasePresenter
 import com.biginsect.easyhub.ui.contract.ISplashContract
+import com.biginsect.easyhub.ui.presenter.base.BasePresenter
 import com.biginsect.easyhub.util.ListUtils
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable

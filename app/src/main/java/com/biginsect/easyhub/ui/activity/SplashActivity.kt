@@ -2,7 +2,7 @@ package com.biginsect.easyhub.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import com.biginsect.easyhub.ui.base.BaseActivity
+import com.biginsect.easyhub.ui.activity.base.BaseActivity
 import com.biginsect.easyhub.ui.contract.ISplashContract
 import com.biginsect.easyhub.ui.presenter.SplashPresenter
 

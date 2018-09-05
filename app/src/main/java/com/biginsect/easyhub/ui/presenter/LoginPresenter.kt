@@ -14,8 +14,8 @@ import com.biginsect.easyhub.http.base.GitHubRetrofit
 import com.biginsect.easyhub.http.base.HttpObserver
 import com.biginsect.easyhub.http.base.HttpResponse
 import com.biginsect.easyhub.http.base.HttpSubscriber
-import com.biginsect.easyhub.ui.base.BasePresenter
 import com.biginsect.easyhub.ui.contract.ILoginContract
+import com.biginsect.easyhub.ui.presenter.base.BasePresenter
 import com.biginsect.easyhub.util.ListUtils
 import io.reactivex.disposables.Disposable
 import okhttp3.Credentials

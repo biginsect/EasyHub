@@ -10,7 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.biginsect.easyhub.R
 import com.biginsect.easyhub.constant.ToastType
 import com.biginsect.easyhub.ui.adapter.EventListAdapter
-import com.biginsect.easyhub.ui.base.BaseListActivity
+import com.biginsect.easyhub.ui.activity.base.BaseListActivity
 import com.biginsect.easyhub.ui.contract.IHomePageContract
 import com.biginsect.easyhub.ui.presenter.HomePagePresenter
 import com.biginsect.easyhub.util.ActivitiesManager
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.layout_appbar.*
  * @author big insect
  * @date 2018/8/30.
  */
-class HomePageActivity :BaseListActivity<IHomePageContract.IHomePageView, IHomePageContract.IHomePagePresenter, EventListAdapter>(),
+class HomePageActivity : BaseListActivity<IHomePageContract.IHomePageView, IHomePageContract.IHomePagePresenter, EventListAdapter>(),
         IHomePageContract.IHomePageView{
 
     private var mLastBackPressedTime = 0L

@@ -1,4 +1,4 @@
-package com.biginsect.easyhub.ui.base
+package com.biginsect.easyhub.ui.adapter.base
 
 import android.content.Context
 import android.support.annotation.StringRes
@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.biginsect.easyhub.ui.fragment.base.BaseFragment
 import com.biginsect.easyhub.util.ListUtils
 
 /**

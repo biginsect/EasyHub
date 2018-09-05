@@ -1,4 +1,4 @@
-package com.biginsect.easyhub.ui.base;
+package com.biginsect.easyhub.ui.adapter.base;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

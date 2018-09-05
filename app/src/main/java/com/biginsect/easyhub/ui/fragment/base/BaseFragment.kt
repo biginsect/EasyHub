@@ -1,4 +1,4 @@
-package com.biginsect.easyhub.ui.base
+package com.biginsect.easyhub.ui.fragment.base
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.biginsect.easyhub.constant.ToastType
 import com.biginsect.easyhub.mvp.BaseMvpFragment
 import com.biginsect.easyhub.ui.activity.LoginActivity
+import com.biginsect.easyhub.ui.contract.base.IBaseContract
 import com.biginsect.easyhub.util.ToastUtils
 import com.thirtydegreesray.dataautoaccess.DataAutoAccess
 

@@ -1,8 +1,9 @@
-package com.biginsect.easyhub.ui.base
+package com.biginsect.easyhub.ui.activity.base
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.biginsect.easyhub.R
+import com.biginsect.easyhub.ui.contract.base.IBaseContract
 import com.orhanobut.logger.Logger
 
 /**

@@ -7,7 +7,7 @@ import android.view.View
 import com.biginsect.easyhub.R
 import com.biginsect.easyhub.bean.response.AuthToken
 import com.biginsect.easyhub.constant.ToastType
-import com.biginsect.easyhub.ui.base.BaseActivity
+import com.biginsect.easyhub.ui.activity.base.BaseActivity
 import com.biginsect.easyhub.ui.contract.ILoginContract
 import com.biginsect.easyhub.ui.presenter.LoginPresenter
 import com.biginsect.easyhub.util.BlankUtils

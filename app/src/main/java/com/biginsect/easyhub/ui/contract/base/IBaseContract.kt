@@ -1,4 +1,4 @@
-package com.biginsect.easyhub.ui.base
+package com.biginsect.easyhub.ui.contract.base
 
 import android.app.ProgressDialog
 import android.content.Context

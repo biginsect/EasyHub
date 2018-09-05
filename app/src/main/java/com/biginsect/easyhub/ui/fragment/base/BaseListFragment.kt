@@ -1,7 +1,10 @@
-package com.biginsect.easyhub.ui.base
+package com.biginsect.easyhub.ui.fragment.base
 
 import android.os.Bundle
 import android.view.View
+import com.biginsect.easyhub.ui.adapter.base.BaseAdapter
+import com.biginsect.easyhub.ui.adapter.base.BaseViewHolder
+import com.biginsect.easyhub.ui.contract.base.IBaseContract
 
 /**
  * @author big insect
@@ -9,8 +12,8 @@ import android.view.View
  */
 
 abstract class BaseListFragment<V: IBaseContract.IView, P: IBaseContract.IPresenter<V>, A: BaseAdapter<*, *>>
-    :BaseFragment<V, P>(), IBaseContract.IView,
-        BaseViewHolder.OnItemLongClickListener, BaseViewHolder.OnItemClickListener{
+    : BaseFragment<V, P>(), IBaseContract.IView,
+        BaseViewHolder.OnItemLongClickListener, BaseViewHolder.OnItemClickListener {
 
     internal var adapter: A? = null
         private set

@@ -4,7 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import com.biginsect.easyhub.R
-import com.biginsect.easyhub.ui.base.BaseActivity
+import com.biginsect.easyhub.ui.activity.base.BaseActivity
 import com.biginsect.easyhub.ui.contract.ISettingContract
 import com.biginsect.easyhub.ui.presenter.SettingPresenter
 

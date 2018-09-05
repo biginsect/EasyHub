@@ -1,4 +1,4 @@
-package com.biginsect.easyhub.ui.base
+package com.biginsect.easyhub.ui.activity.base
 
 import android.app.ProgressDialog
 import android.content.Context
@@ -13,6 +13,7 @@ import com.biginsect.easyhub.constant.ToastType
 import com.biginsect.easyhub.mvp.BaseMvpActivity
 import com.biginsect.easyhub.ui.activity.LoginActivity
 import com.biginsect.easyhub.ui.activity.SplashActivity
+import com.biginsect.easyhub.ui.contract.base.IBaseContract
 import com.biginsect.easyhub.util.ActivitiesManager
 import com.biginsect.easyhub.util.ToastUtils
 import com.orhanobut.logger.Logger
@@ -24,10 +25,10 @@ import com.thirtydegreesray.dataautoaccess.DataAutoAccess
  */
 
 abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<V>>
-    :BaseMvpActivity<V, P>(), IBaseContract.IView{
+    :BaseMvpActivity<V, P>(), IBaseContract.IView {
 
     private val tag = "BaseActivity"
-    internal var currentActivity:BaseActivity<V, P>? = null
+    internal var currentActivity: BaseActivity<V, P>? = null
     private var mProgressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -163,7 +164,7 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
     }
 
 
-    internal fun getActivity():BaseActivity<V, P>{
+    internal fun getActivity(): BaseActivity<V, P> {
         return this
     }
 

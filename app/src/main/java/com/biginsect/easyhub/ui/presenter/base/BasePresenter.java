@@ -1,4 +1,4 @@
-package com.biginsect.easyhub.ui.base;
+package com.biginsect.easyhub.ui.presenter.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -25,6 +25,7 @@ import com.biginsect.easyhub.http.error.ErrorCode;
 import com.biginsect.easyhub.http.error.HttpError;
 import com.biginsect.easyhub.http.error.PageNotFoundException;
 import com.biginsect.easyhub.http.error.UnauthorizedException;
+import com.biginsect.easyhub.ui.contract.base.IBaseContract;
 import com.biginsect.easyhub.util.BlankUtils;
 import com.biginsect.easyhub.util.NetUtils;
 import com.biginsect.easyhub.util.PreUtils;

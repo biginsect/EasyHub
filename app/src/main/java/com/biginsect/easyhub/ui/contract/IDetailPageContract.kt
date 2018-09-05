@@ -1,6 +1,6 @@
 package com.biginsect.easyhub.ui.contract
 
-import com.biginsect.easyhub.ui.base.IBaseContract
+import com.biginsect.easyhub.ui.contract.base.IBaseContract
 
 /**
  * @author big insect
@@ -11,7 +11,7 @@ interface IDetailPageContract {
 
     }
 
-    interface IDetailPresenter:IBaseContract.IPresenter<IDetailView>{
+    interface IDetailPresenter: IBaseContract.IPresenter<IDetailView>{
 
     }
 }

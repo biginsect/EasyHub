@@ -5,8 +5,8 @@ import android.view.View
 import com.biginsect.easyhub.R
 import com.biginsect.easyhub.app.GlideApp
 import com.biginsect.easyhub.bean.UserEvents
-import com.biginsect.easyhub.ui.base.BaseAdapter
-import com.biginsect.easyhub.ui.base.BaseViewHolder
+import com.biginsect.easyhub.ui.adapter.base.BaseAdapter
+import com.biginsect.easyhub.ui.adapter.base.BaseViewHolder
 import com.biginsect.easyhub.util.StringUtils
 import kotlinx.android.synthetic.main.list_item_homepage.view.*
 
@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.list_item_homepage.view.*
  * @author big insect
  * @date 2018/8/31.
  */
-class EventListAdapter(context: Context):BaseAdapter<EventListAdapter.ViewHolder, UserEvents>(context) {
+class EventListAdapter(context: Context): BaseAdapter<EventListAdapter.ViewHolder, UserEvents>(context) {
 
     override fun getLayoutId(): Int {
         return R.layout.list_item_homepage

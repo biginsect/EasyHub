@@ -1,6 +1,6 @@
 package com.biginsect.easyhub.ui.contract
 
-import com.biginsect.easyhub.ui.base.IBaseContract
+import com.biginsect.easyhub.ui.contract.base.IBaseContract
 
 /**
  * @author big insect
