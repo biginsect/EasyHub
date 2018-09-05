@@ -16,7 +16,7 @@ import com.biginsect.easyhub.ui.presenter.HomePagePresenter
 import com.biginsect.easyhub.util.ActivitiesManager
 import com.biginsect.easyhub.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_homepage.*
-import kotlinx.android.synthetic.main.toolbar_homepage.*
+import kotlinx.android.synthetic.main.layout_appbar.*
 
 /**
  * @author big insect
@@ -46,27 +46,28 @@ class HomePageActivity :BaseListActivity<IHomePageContract.IHomePageView, IHomeP
             drawer_layout_left.closeDrawers()
             true
         }
-        val drawerToggle = ActionBarDrawerToggle(this, drawer_layout_left, home_page_toolbar,
+        val drawerToggle = ActionBarDrawerToggle(this, drawer_layout_left, toolbar,
                 R.string.drawer_layout_open, R.string.drawer_layout_close)
         drawerToggle.syncState()
         drawer_layout_left.addDrawerListener(drawerToggle)
     }
 
     private fun setToolbar(){
-        setSupportActionBar(home_page_toolbar)
+        setSupportActionBar(toolbar)
         val actionBar = supportActionBar
 
         if (null != actionBar){
             actionBar.setHomeButtonEnabled(true)
             actionBar.setDisplayHomeAsUpEnabled(true)
         }
+        setToolbarTitle(getString(R.string.project_list))
     }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_homepage
     }
 
-    override fun getAdapter(): EventListAdapter? {
+    override fun getAdapter(): EventListAdapter {
         return EventListAdapter(this)
     }
 

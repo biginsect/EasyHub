@@ -9,7 +9,7 @@ import android.view.View
  */
 
 abstract class BaseListActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<V>, A: BaseAdapter<*, *>>
-    : BaseActivity<V, P>(),
+    : BaseActivity<V, P>(), IBaseContract.IView,
         BaseViewHolder.OnItemClickListener, BaseViewHolder.OnItemLongClickListener{
 
     internal var adapter: A? = null
@@ -34,5 +34,5 @@ abstract class BaseListActivity<V: IBaseContract.IView, P: IBaseContract.IPresen
 
     abstract override fun getLayoutId(): Int
 
-    abstract fun getAdapter(): A?
+    abstract fun getAdapter(): A
 }

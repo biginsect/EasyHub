@@ -12,33 +12,33 @@ import butterknife.ButterKnife;
 
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener,View.OnLongClickListener {
-    private OnItemClickListener mOnItemClickListener;
-    private OnItemLongClickListener mOnItemLongClickListener;
+    private OnItemClickListener onItemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
 
     public BaseViewHolder(View itemView){
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
-        this.mOnItemClickListener = mOnItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
-    public void setOnItemLongClickListener(OnItemLongClickListener mOnItemLongClickListener) {
-        this.mOnItemLongClickListener = mOnItemLongClickListener;
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
     }
 
     @Override
     public void onClick(View v) {
-        if (null != mOnItemClickListener && getAdapterPosition() != RecyclerView.NO_POSITION){
-            mOnItemClickListener.onItemClick(getAdapterPosition(), v);
+        if (null != onItemClickListener && getAdapterPosition() != RecyclerView.NO_POSITION){
+            onItemClickListener.onItemClick(getAdapterPosition(), v);
         }
     }
 
     @Override
     public boolean onLongClick(View v) {
-        return null != mOnItemLongClickListener && getAdapterPosition() != RecyclerView.NO_POSITION
-                && mOnItemLongClickListener.onItemLongClick(getAdapterPosition(), v);
+        return null != onItemLongClickListener && getAdapterPosition() != RecyclerView.NO_POSITION
+                && onItemLongClickListener.onItemLongClick(getAdapterPosition(), v);
     }
 
     public interface OnItemClickListener{

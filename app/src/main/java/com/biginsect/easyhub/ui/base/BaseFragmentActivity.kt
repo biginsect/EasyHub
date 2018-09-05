@@ -36,7 +36,7 @@ abstract class BaseFragmentActivity<V: IBaseContract.IView, P: IBaseContract.IPr
         }
     }
 
-    override fun onAttachFragment(fragment: android.app.Fragment) {
+    override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)
         Logger.d("onAttachFragment")
     }

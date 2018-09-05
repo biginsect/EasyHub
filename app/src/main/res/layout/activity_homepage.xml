@@ -15,7 +15,7 @@
         android:orientation="vertical"
         >
 
-        <include layout="@layout/toolbar_homepage"/>
+        <include layout="@layout/layout_appbar"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swl_refresh"
