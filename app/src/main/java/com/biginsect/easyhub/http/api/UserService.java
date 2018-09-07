@@ -27,6 +27,10 @@ public interface UserService {
     @GET("user")
     Observable<Response<User>> getUserInfo(@Header("forceNetwork") boolean forceNetwork);
 
+    /**
+     * events 列表，主页展示内容
+     * */
+    @GET("events")
     Observable<Response<ArrayList<UserEvents>>> getEvents(
             @Header("forceNetwork") boolean forceNetwork,
             @Query("page") int page

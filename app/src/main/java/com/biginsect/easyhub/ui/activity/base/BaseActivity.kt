@@ -28,7 +28,7 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
     :BaseMvpActivity<V, P>(), IBaseContract.IView {
 
     private val tag = "BaseActivity"
-    internal var currentActivity: BaseActivity<V, P>? = null
+    protected var currentActivity: BaseActivity<V, P>? = null
     private var mProgressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

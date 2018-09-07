@@ -14,7 +14,7 @@ import com.orhanobut.logger.Logger
 abstract class BaseFragmentActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<V>, F: Fragment>
     : BaseActivity<V, P>() {
 
-    lateinit var fragment: F
+    protected lateinit var fragment: F
     private set
 
     private val tagFragment = "fragment"

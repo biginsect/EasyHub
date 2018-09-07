@@ -67,7 +67,7 @@ class HomePageActivity : BaseListActivity<IHomePageContract.IHomePageView, IHome
         return R.layout.activity_homepage
     }
 
-    override fun getAdapter(): EventListAdapter {
+    override fun createAdapter(): EventListAdapter {
         return EventListAdapter(this)
     }
 

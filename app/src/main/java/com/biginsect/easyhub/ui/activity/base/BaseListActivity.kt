@@ -15,12 +15,12 @@ abstract class BaseListActivity<V: IBaseContract.IView, P: IBaseContract.IPresen
     : BaseActivity<V, P>(), IBaseContract.IView,
         BaseViewHolder.OnItemClickListener, BaseViewHolder.OnItemLongClickListener {
 
-    internal var adapter: A? = null
+    protected var adapter: A? = null
     private set
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        adapter = getAdapter()
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
+        adapter = createAdapter()
         if (null != adapter){
             adapter!!.onItemLongClickListener = this
             adapter!!.onItemClickListener = this
@@ -37,5 +37,5 @@ abstract class BaseListActivity<V: IBaseContract.IView, P: IBaseContract.IPresen
 
     abstract override fun getLayoutId(): Int
 
-    abstract fun getAdapter(): A
+    abstract fun createAdapter(): A
 }
