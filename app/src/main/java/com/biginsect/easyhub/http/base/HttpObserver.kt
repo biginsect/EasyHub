@@ -11,5 +11,5 @@ interface HttpObserver<T> {
 
     fun onSuccess(response: HttpResponse<T>)
 
-    fun onSubscribe(d:Disposable)
+    fun onSubscribe(d: Disposable)
 }

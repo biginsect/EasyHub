@@ -3,33 +3,32 @@ package com.biginsect.easyhub.util
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
+import java.lang.ref.SoftReference
 import java.util.*
 
 /**
  * @author big insect
  */
 object ActivitiesManager {
-    private var mActivityList:LinkedList<Activity> = LinkedList()
+    private val mActivityList: LinkedList<SoftReference<Activity>> = LinkedList()
 
-    fun addActivity(activity: Activity){
-        mActivityList.add(activity)
+    fun addActivity(softActivity: SoftReference<Activity>){
+        mActivityList.add(softActivity)
     }
 
-    fun removeActivity(activity: Activity){
-        mActivityList.remove(activity)
-    }
-
-    fun finishActivity(activity: Activity){
-        mActivityList.remove(activity)
-        activity.finish()
+    fun finishActivity(softActivity: SoftReference<Activity>?){
+       mActivityList.remove(softActivity)
     }
 
     private fun finishAll(){
-        while (!mActivityList.isEmpty()){
-            val activity :Activity = mActivityList[mActivityList.size - 1]
-            mActivityList.remove(activity)
-            activity.finish()
+        var i = mActivityList.size - 1
+        while (i >= 0){
+            val softActivity = mActivityList[i]
+            softActivity.get()?.finish()
+            i--
         }
+
+        mActivityList.clear()
     }
 
     fun appExit(context: Context){

@@ -102,9 +102,9 @@ abstract class BaseFragment<V: IBaseContract.IView, P: IBaseContract.IPresenter<
 
     abstract override fun createPresenter(): P
 
-    internal abstract fun initFragment(savedInstanceState: Bundle?)
+    protected abstract fun initFragment(savedInstanceState: Bundle?)
 
-    internal abstract fun initView(view: View)
+    protected abstract fun initView(view: View)
 
-    internal abstract fun getLayoutId():Int
+    protected abstract fun getLayoutId():Int
 }

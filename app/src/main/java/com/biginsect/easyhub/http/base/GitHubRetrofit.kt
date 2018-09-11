@@ -20,7 +20,8 @@ object  GitHubRetrofit {
     private val TAG = "GitHubRetrofit"
     private var mMap = HashMap<String, Retrofit>()
     private var token:String? = null
-    private const val CACHE_MAX_SIZE = 32*1000L
+    private const val CACHE_MAX_SIZE = 32 * 1024 * 1024L
+    private const val TIME_OUT = 32*1000L
 
     private fun createRetrofit(baseUrl :String, isJson: Boolean){
         val cache = Cache(FileUtils.getHttpCache(AppApplication.getInstance()),
@@ -29,7 +30,7 @@ object  GitHubRetrofit {
         val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(AppInterceptor())
                 .addNetworkInterceptor(NetworkInterceptor())
-                .connectTimeout(CACHE_MAX_SIZE, TimeUnit.MILLISECONDS)
+                .connectTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
                 .cache(cache)
                 .build()
 
@@ -41,14 +42,14 @@ object  GitHubRetrofit {
         if (isJson){
             builder.addConverterFactory(GsonConverterFactory.create())
         }else{
-            builder.addConverterFactory(SimpleXmlConverterFactory.create())
+            builder.addConverterFactory(SimpleXmlConverterFactory.createNonStrict())
         }
 
         mMap["$baseUrl-$isJson"] = builder.build()
     }
 
     fun createRetrofit(baseUrl: String, token: String?, isJson: Boolean): Retrofit {
-        GitHubRetrofit.token = token
+        this.token = token
         val key = "$baseUrl-$isJson"
         if (!mMap.containsKey(key)){
             createRetrofit(baseUrl, isJson)
@@ -123,16 +124,20 @@ object  GitHubRetrofit {
             var requestCacheControl = request.cacheControl().toString()
 
             val forceNetwork = request.header(AppConfig.FORCE_NETWORK)
-            if (BlankUtils.isBlankString(forceNetwork)){
+            if (!BlankUtils.isBlankString(forceNetwork)){
                 requestCacheControl = getCacheInfo()
             }
 
 
-            //设置缓存
-            return  response.newBuilder()
+
+            return  if (BlankUtils.isBlankString(requestCacheControl)) {
+                response
+            }else{//设置缓存
+                response.newBuilder()
                         .header("Cache-Control", requestCacheControl)
                         .removeHeader("Pragma")
                         .build()
+            }
         }
     }
 

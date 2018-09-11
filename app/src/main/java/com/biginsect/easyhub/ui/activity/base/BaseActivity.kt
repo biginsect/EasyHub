@@ -1,5 +1,6 @@
 package com.biginsect.easyhub.ui.activity.base
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -18,6 +19,7 @@ import com.biginsect.easyhub.util.ActivitiesManager
 import com.biginsect.easyhub.util.ToastUtils
 import com.orhanobut.logger.Logger
 import com.thirtydegreesray.dataautoaccess.DataAutoAccess
+import java.lang.ref.SoftReference
 
 /**
  * @author big insect
@@ -28,6 +30,7 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
     :BaseMvpActivity<V, P>(), IBaseContract.IView {
 
     private val tag = "BaseActivity"
+    private var mSoftActivity: SoftReference<Activity>? = null
     protected var currentActivity: BaseActivity<V, P>? = null
     private var mProgressDialog: ProgressDialog? = null
 
@@ -56,7 +59,8 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
 
         initActivity()
         initView(savedInstanceState)
-        ActivitiesManager.addActivity(this)
+        mSoftActivity = SoftReference(this)
+        ActivitiesManager.addActivity(mSoftActivity!!)
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -81,11 +85,13 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
             currentActivity = null
         }
 
-        ActivitiesManager.removeActivity(this)
+        ActivitiesManager.finishActivity(mSoftActivity)
+        mSoftActivity = null
     }
 
     override fun finish() {
-        ActivitiesManager.removeActivity(this)
+        ActivitiesManager.finishActivity(mSoftActivity)
+        mSoftActivity = null
         super.finish()
     }
 
@@ -164,19 +170,19 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
     }
 
 
-    internal fun getActivity(): BaseActivity<V, P> {
+    protected fun getActivity(): BaseActivity<V, P> {
         return this
     }
 
-    internal abstract fun getLayoutId(): Int
+    protected abstract fun getLayoutId(): Int
 
     @CallSuper
-    internal open fun initView(savedInstanceState: Bundle?){
+    protected open fun initView(savedInstanceState: Bundle?){
 
     }
 
     @CallSuper
-    internal open fun initActivity(){
+    protected open fun initActivity(){
 
     }
 }
