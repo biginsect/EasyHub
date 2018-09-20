@@ -3,7 +3,6 @@ package com.biginsect.easyhub.ui.adapter.base;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import butterknife.ButterKnife;
 
 /**
  * @author biginsect
@@ -17,7 +16,6 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder
 
     public BaseViewHolder(View itemView){
         super(itemView);
-        ButterKnife.bind(this, itemView);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

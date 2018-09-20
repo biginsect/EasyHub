@@ -9,8 +9,8 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import com.biginsect.easyhub.R
 import com.biginsect.easyhub.constant.ToastType
-import com.biginsect.easyhub.ui.adapter.EventListAdapter
 import com.biginsect.easyhub.ui.activity.base.BaseListActivity
+import com.biginsect.easyhub.ui.adapter.EventListAdapter
 import com.biginsect.easyhub.ui.contract.IHomePageContract
 import com.biginsect.easyhub.ui.presenter.HomePagePresenter
 import com.biginsect.easyhub.util.ActivitiesManager

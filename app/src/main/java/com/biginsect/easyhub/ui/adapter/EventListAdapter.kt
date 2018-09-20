@@ -5,17 +5,19 @@ import android.view.View
 import com.biginsect.easyhub.R
 import com.biginsect.easyhub.app.GlideApp
 import com.biginsect.easyhub.bean.UserEvents
+import com.biginsect.easyhub.bean.UserEvents.EventType.*
 import com.biginsect.easyhub.ui.adapter.base.BaseAdapter
 import com.biginsect.easyhub.ui.adapter.base.BaseViewHolder
 import com.biginsect.easyhub.util.StringUtils
 import kotlinx.android.synthetic.main.list_item_homepage.view.*
 
 /**
- * 主页user列表适配器
+ * 主页列表适配器
  * @author big insect
- * @date 2018/8/31.
+ * @date 2018/9/20.
  */
-class EventListAdapter(context: Context): BaseAdapter<EventListAdapter.ViewHolder, UserEvents>(context) {
+
+class EventListAdapter(context: Context):BaseAdapter<EventListAdapter.ViewHolder, UserEvents>(context) {
 
     override fun getLayoutId(): Int {
         return R.layout.list_item_homepage
@@ -30,11 +32,60 @@ class EventListAdapter(context: Context): BaseAdapter<EventListAdapter.ViewHolde
         val event = dataList[position]
 
         with(holder.itemView){
-            GlideApp.with(mContext).load(event.actor.avatarUrl).into(holder.itemView.avatar)
-            user_name.text = event.actor.login
-            update_at.text = StringUtils.getTimeString(mContext, event.createdAt)
+            GlideApp.with(mContext).load(event.actor.avatarUrl).into(user_avatar)
+            user_name.text = event.actor.name
+            activity_time.text = StringUtils.getTimeString(mContext, event.createdAt)
+
+            holder.setAction(event)
         }
     }
 
-    class ViewHolder(itemView: View): BaseViewHolder(itemView)
+    class ViewHolder(itemView: View):BaseViewHolder(itemView){
+        fun setAction(event: UserEvents){
+
+            when(event.type){
+
+                CommitComment -> TODO()
+                Create -> TODO()
+                Delete -> TODO()
+                Fork -> TODO()
+                Gollum -> TODO()
+                Installation -> TODO()
+                InstallationRepositories -> TODO()
+                IssueComment -> TODO()
+                Issues -> TODO()
+                MarketplacePurchase -> TODO()
+                Member -> TODO()
+                OrgBlock -> TODO()
+                ProjectCard -> TODO()
+                ProjectColumn -> TODO()
+                Project -> TODO()
+                Public -> TODO()
+                PullRequest -> TODO()
+                PullRequestReview -> TODO()
+                PullRequestReviewComment -> TODO()
+                Push -> TODO()
+                Release -> TODO()
+                Watch -> TODO()
+                Deployment -> TODO()
+                DeploymentStatus -> TODO()
+                Membership -> TODO()
+                Milestone -> TODO()
+                Organization -> TODO()
+                PageBuild -> TODO()
+                Repository -> TODO()
+                Status -> TODO()
+                Team -> TODO()
+                TeamAdd -> TODO()
+                Label -> TODO()
+                Download -> TODO()
+                Follow -> TODO()
+                ForkApply -> TODO()
+                Gist -> TODO()
+                else ->{
+
+                }
+            }
+        }
+    }
 }

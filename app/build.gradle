@@ -85,15 +85,13 @@ dependencies {
 
     implementation "com.android.support:appcompat-v7:${ANDROID_SUPPORT_VERSION}"
     implementation "com.android.support:design:${ANDROID_SUPPORT_VERSION}"
+    implementation "com.android.support:cardview-v7:${ANDROID_SUPPORT_VERSION}"
     implementation "com.android.support.constraint:constraint-layout:${CONSTRAINT_VERSION}"
     testImplementation "junit:junit:${JUNIT_VERSION}"
     androidTestImplementation "com.android.support.test:runner:${RUNNER_VERSION}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${ESPRESSO_CORE_VERSION}"
     implementation "com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"
 
-    //butterKnife
-    implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
-    annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     //网络加载
     implementation "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}"
     //glide

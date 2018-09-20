@@ -4,4 +4,5 @@
     <attr name="title_color" format="color|reference"/>
     <attr name="appbar_theme" format="reference"/>
     <attr name="popup_theme" format="reference"/>
+    <attr name="card_view_background" format="color|reference"/>
 </resources>
