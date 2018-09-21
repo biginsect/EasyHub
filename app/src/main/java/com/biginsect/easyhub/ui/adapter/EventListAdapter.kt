@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.View
 import com.biginsect.easyhub.R
 import com.biginsect.easyhub.app.GlideApp
-import com.biginsect.easyhub.bean.UserEvents
-import com.biginsect.easyhub.bean.UserEvents.EventType.*
+import com.biginsect.easyhub.bean.Event
+import com.biginsect.easyhub.bean.Event.EventType.*
 import com.biginsect.easyhub.ui.adapter.base.BaseAdapter
 import com.biginsect.easyhub.ui.adapter.base.BaseViewHolder
 import com.biginsect.easyhub.util.StringUtils
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.list_item_homepage.view.*
  * @date 2018/9/20.
  */
 
-class EventListAdapter(context: Context):BaseAdapter<EventListAdapter.ViewHolder, UserEvents>(context) {
+class EventListAdapter(context: Context):BaseAdapter<EventListAdapter.ViewHolder, Event>(context) {
 
     override fun getLayoutId(): Int {
         return R.layout.list_item_homepage
@@ -40,12 +40,13 @@ class EventListAdapter(context: Context):BaseAdapter<EventListAdapter.ViewHolder
         }
     }
 
-    class ViewHolder(itemView: View):BaseViewHolder(itemView){
-        fun setAction(event: UserEvents){
+    inner class ViewHolder(itemView: View):BaseViewHolder(itemView){
+        fun setAction(event: Event){
+            var actionStr:String
 
             when(event.type){
 
-                CommitComment -> TODO()
+                CommitComment -> actionStr = String.format(getString(R.string.created_comment_on_commit))
                 Create -> TODO()
                 Delete -> TODO()
                 Fork -> TODO()

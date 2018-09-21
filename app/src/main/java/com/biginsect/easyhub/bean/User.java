@@ -14,49 +14,80 @@ import java.util.Date;
 
 public class User implements Parcelable{
 
-    public User(){
-
+    public enum UserType{
+        User, Organiazation
     }
-
-    /**区分个人和组织*/
-    public static final int TYPE_USER = -1;
-    public static final int TYPE_ORGANIZATION = -2;
-
 
     private String login;
     private String id;
     private String name;
+    @SerializedName("avatar_url") private String avatarUrl;
+    @SerializedName("html_url") private String htmlUrl;
+    private UserType type;
     private String company;
+    private String blog;
     private String location;
     private String email;
-    private int type;
-    @SerializedName("html_url") private String htmlUrl;
-    @SerializedName("avatar_url")private String avatarUrl;
-    @SerializedName("followers_url") private String followersUrl;
-    @SerializedName("following_url") private String followingUrl;
+    private String bio;
+    @SerializedName("public_repos") private int publicRepos;
+    @SerializedName("public_gists") private int publicGists;
+    private int followers;
+    private int following;
     @SerializedName("created_at") private Date createdAt;
     @SerializedName("updated_at") private Date updatedAt;
-    @SerializedName("repos_url") private String reposUrl;
-    @SerializedName("starred_url") private String starredUrl;
+
+    public User(){
+
+    }
 
     protected User(Parcel in) {
         login = in.readString();
         id = in.readString();
         name = in.readString();
+        avatarUrl = in.readString();
+        htmlUrl = in.readString();
+        int tmpType = in.readInt();
+        type = tmpType == -1 ? null : UserType.values()[tmpType];
         company = in.readString();
+        blog = in.readString();
         location = in.readString();
         email = in.readString();
-        type = in.readInt();
-        htmlUrl = in.readString();
-        avatarUrl = in.readString();
-        followersUrl = in.readString();
-        followingUrl = in.readString();
-        reposUrl = in.readString();
-        starredUrl = in.readString();
+        bio = in.readString();
+        publicRepos = in.readInt();
+        publicGists = in.readInt();
+        followers = in.readInt();
+        following = in.readInt();
         long tmpCreatedAt = in.readLong();
-        this.createdAt = tmpCreatedAt == -1? null : new Date(tmpCreatedAt);
-        long tmpUpdatedAt = in.readLong();
-        this.updatedAt = tmpUpdatedAt == -1? null : new Date(tmpUpdatedAt);
+        createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+        long tmpUpdateAt = in.readLong();
+        updatedAt = tmpUpdateAt == -1 ? null : new Date(tmpUpdateAt);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(login);
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(avatarUrl);
+        dest.writeString(htmlUrl);
+        dest.writeInt(type == null ? -1 : type.ordinal());
+        dest.writeString(company);
+        dest.writeString(blog);
+        dest.writeString(location);
+        dest.writeString(email);
+        dest.writeString(bio);
+        dest.writeInt(publicRepos);
+        dest.writeInt(publicGists);
+        dest.writeInt(followers);
+        dest.writeInt(following);
+        dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
+        dest.writeLong(updatedAt != null ? updatedAt.getTime() : -1);
+
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -72,31 +103,13 @@ public class User implements Parcelable{
     };
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
+    public boolean equals(Object obj) {
+        if (null != obj && obj instanceof User){
+            User user = (User)obj;
+            return user.getLogin().equals(login);
+        }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(login);
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeString(company);
-        dest.writeString(location);
-        dest.writeString(email);
-        dest.writeInt(type);
-        dest.writeString(htmlUrl);
-        dest.writeString(avatarUrl);
-        dest.writeString(followersUrl);
-        dest.writeString(followingUrl);
-        dest.writeString(reposUrl);
-        dest.writeString(starredUrl);
-        dest.writeLong(this.createdAt != null ? this.createdAt.getTime(): -1);
-        dest.writeLong(this.updatedAt != null ? this.updatedAt.getTime(): -1);
-    }
-
-    public boolean isUser(){
-        return TYPE_USER == type;
+        return super.equals(obj);
     }
 
     public String getLogin() {
@@ -123,12 +136,44 @@ public class User implements Parcelable{
         this.name = name;
     }
 
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getHtmlUrl() {
+        return htmlUrl;
+    }
+
+    public void setHtmlUrl(String htmlUrl) {
+        this.htmlUrl = htmlUrl;
+    }
+
+    public UserType getType() {
+        return type;
+    }
+
+    public void setType(UserType type) {
+        this.type = type;
+    }
+
     public String getCompany() {
         return company;
     }
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public String getBlog() {
+        return blog;
+    }
+
+    public void setBlog(String blog) {
+        this.blog = blog;
     }
 
     public String getLocation() {
@@ -147,44 +192,44 @@ public class User implements Parcelable{
         this.email = email;
     }
 
-    public int getType() {
-        return type;
+    public String getBio() {
+        return bio;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
-    public String getHtmlUrl() {
-        return htmlUrl;
+    public int getPublicRepos() {
+        return publicRepos;
     }
 
-    public void setHtmlUrl(String htmlUrl) {
-        this.htmlUrl = htmlUrl;
+    public void setPublicRepos(int publicRepos) {
+        this.publicRepos = publicRepos;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public int getPublicGists() {
+        return publicGists;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+    public void setPublicGists(int publicGists) {
+        this.publicGists = publicGists;
     }
 
-    public String getFollowersUrl() {
-        return followersUrl;
+    public int getFollowers() {
+        return followers;
     }
 
-    public void setFollowersUrl(String followersUrl) {
-        this.followersUrl = followersUrl;
+    public void setFollowers(int followers) {
+        this.followers = followers;
     }
 
-    public String getFollowingUrl() {
-        return followingUrl;
+    public int getFollowing() {
+        return following;
     }
 
-    public void setFollowingUrl(String followingUrl) {
-        this.followingUrl = followingUrl;
+    public void setFollowing(int following) {
+        this.following = following;
     }
 
     public Date getCreatedAt() {
@@ -203,29 +248,41 @@ public class User implements Parcelable{
         this.updatedAt = updatedAt;
     }
 
-    public String getReposUrl() {
-        return reposUrl;
-    }
-
-    public void setReposUrl(String reposUrl) {
-        this.reposUrl = reposUrl;
-    }
-
-    public String getStarredUrl() {
-        return starredUrl;
-    }
-
-    public void setStarredUrl(String starredUrl) {
-        this.starredUrl = starredUrl;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (null != obj && obj instanceof User){
-            User user = (User)obj;
-            return user.getLogin().equals(login);
-        }
-
-        return super.equals(obj);
+    public boolean isUser(){
+        return UserType.User.equals(type);
     }
 }
+
+/**
+ "login": "octocat",
+ "id": 1,
+ "node_id": "MDQ6VXNlcjE=",
+ "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+ "gravatar_id": "",
+ "url": "https://api.github.com/users/octocat",
+ "html_url": "https://github.com/octocat",
+ "followers_url": "https://api.github.com/users/octocat/followers",
+ "following_url": "https://api.github.com/users/octocat/following{/other_user}",
+ "gists_url": "https://api.github.com/users/octocat/gists{/gist_id}",
+ "starred_url": "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+ "subscriptions_url": "https://api.github.com/users/octocat/subscriptions",
+ "organizations_url": "https://api.github.com/users/octocat/orgs",
+ "repos_url": "https://api.github.com/users/octocat/repos",
+ "events_url": "https://api.github.com/users/octocat/events{/privacy}",
+ "received_events_url": "https://api.github.com/users/octocat/received_events",
+ "type": "User",
+ "site_admin": false,
+ "name": "monalisa octocat",
+ "company": "GitHub",
+ "blog": "https://github.com/blog",
+ "location": "San Francisco",
+ "email": "octocat@github.com",
+ "hireable": false,
+ "bio": "There once was...",
+ "public_repos": 2,
+ "public_gists": 1,
+ "followers": 20,
+ "following": 0,
+ "created_at": "2008-01-14T04:33:35Z",
+ "updated_at": "2008-01-14T04:33:35Z"
+ */

@@ -1,7 +1,7 @@
 package com.biginsect.easyhub.http.api;
 
 import com.biginsect.easyhub.bean.User;
-import com.biginsect.easyhub.bean.UserEvents;
+import com.biginsect.easyhub.bean.Event;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public interface UserService {
      * events 列表，主页展示内容
      * */
     @GET("events")
-    Observable<Response<ArrayList<UserEvents>>> getEvents(
+    Observable<Response<ArrayList<Event>>> getEvents(
             @Header("forceNetwork") boolean forceNetwork,
             @Query("page") int page
     );

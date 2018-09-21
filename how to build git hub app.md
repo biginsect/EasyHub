@@ -22,7 +22,7 @@ step3:
 
 相关的api以及参数
     https://developer.github.com/apps/building-github-apps/identifying-and-authorizing-users-for-github-apps/
-
+    /**各个实体类对应的json*/
     https://developer.github.com/v3/
 
 
