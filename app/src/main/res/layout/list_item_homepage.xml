@@ -54,9 +54,17 @@
             android:id="@+id/action"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="?android:textColorPrimary"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            />
+        <TextView
+            android:id="@+id/activity_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="?android:textColorSecondary"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="4dp"
             android:maxLines="4"
             android:ellipsize="end"

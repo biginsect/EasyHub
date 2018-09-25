@@ -131,6 +131,14 @@ public class Event implements Parcelable{
         this.actor = actor;
     }
 
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -139,12 +147,36 @@ public class Event implements Parcelable{
         this.createdAt = createdAt;
     }
 
-    public EventType getType() {
-        return type;
+    public boolean isPublic() {
+        return isPublic;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    public EventPayload getPayload() {
+        return payload;
+    }
+
+    public void setPayload(EventPayload payload) {
+        this.payload = payload;
+    }
+
+    public Repository getRepo() {
+        return repo;
+    }
+
+    public void setRepo(Repository repo) {
+        this.repo = repo;
+    }
+
+    public User getOrg() {
+        return org;
+    }
+
+    public void setOrg(User org) {
+        this.org = org;
     }
 
     /*

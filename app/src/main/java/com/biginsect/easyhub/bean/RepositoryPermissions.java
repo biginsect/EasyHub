@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 /**
  * repository相关权限
- * @author lipeng-ds3
+ * @author biginsect
  * @date 2018/9/21.
  */
 

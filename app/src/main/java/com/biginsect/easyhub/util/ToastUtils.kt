@@ -18,7 +18,7 @@ object ToastUtils {
     private var lastTime = 0L
     private var current = 0L
 
-    private fun showToast(context: Context, msg: String?, type: Int, time: Int){
+    private fun showToast(context: Context, msg: String?, type: ToastType, time: Int){
 
         if (null == msg || msg.trim().isEmpty()){
             Logger.d(TAG, "message is null")
@@ -35,7 +35,6 @@ object ToastUtils {
                 ToastType.WARNING -> Toasty.warning(context, msg, time)
                 ToastType.NORMAL -> Toasty.normal(context, msg, time)
                 ToastType.INFO -> Toasty.info(context, msg, time)
-                else -> null
             }
 
             mToast?.show()
@@ -56,7 +55,6 @@ object ToastUtils {
                     ToastType.WARNING -> Toasty.warning(context, msg, time)
                     ToastType.NORMAL -> Toasty.normal(context, msg, time)
                     ToastType.INFO -> Toasty.info(context, msg, time)
-                    else -> null
                 }
 
                 mToast?.show()
@@ -64,11 +62,11 @@ object ToastUtils {
         }
     }
 
-    fun showLongToast(context: Context, msg: String?, type: Int){
+    fun showLongToast(context: Context, msg: String?, type: ToastType){
         showToast(context, msg, type, Toast.LENGTH_LONG)
     }
 
-    fun showShortToast(context: Context, msg: String?, type: Int){
+    fun showShortToast(context: Context, msg: String?, type: ToastType){
         showToast(context, msg, type, Toast.LENGTH_SHORT)
     }
 

@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 /**
- * @author lipeng-ds3
+ * @author biginsect
  * @date 2018/9/21.
  */
 

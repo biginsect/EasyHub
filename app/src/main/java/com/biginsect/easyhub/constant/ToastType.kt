@@ -4,15 +4,15 @@ package com.biginsect.easyhub.constant
  * @author biginsect
  * @date 2018/8/10.
  */
- object ToastType {
+ enum class ToastType {
     /**成功*/
-    const val SUCCESS = -1
+    SUCCESS,
     /**错误*/
-    const val ERROR = -2
+    ERROR,
     /**警告*/
-    const val WARNING = -3
+    WARNING,
     /**普通类型*/
-    const val NORMAL = -4
+    NORMAL,
     /**信息类型*/
-    const val INFO = -5
+    INFO
 }

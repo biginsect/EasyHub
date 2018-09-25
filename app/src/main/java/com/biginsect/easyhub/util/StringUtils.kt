@@ -41,4 +41,12 @@ object StringUtils {
             }
         }
     }
+
+    fun upCaseFirstChar(str: String?):String?{
+        if (BlankUtils.isBlankString(str)){
+            return null
+        }
+
+        return str!!.substring(0, 1).toUpperCase() + str.substring(1)
+    }
 }

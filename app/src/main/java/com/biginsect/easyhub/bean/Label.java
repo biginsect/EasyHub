@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * @author lipeng-ds3
+ * @author biginsect
  * @date 2018/9/21.
  */
 
