@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SplashTheme"
-        tools:replace="android:supportsRtl">
+        tools:replace="android:supportsRtl, android:allowBackup">
         <activity android:name="com.biginsect.easyhub.ui.activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>

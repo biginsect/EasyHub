@@ -44,7 +44,6 @@ abstract class BaseFragment<V: IBaseContract.IView, P: IBaseContract.IPresenter<
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(getLayoutId(), container, false)
-        initView(rootView)
         initFragment(savedInstanceState)
 
         return rootView
@@ -103,8 +102,6 @@ abstract class BaseFragment<V: IBaseContract.IView, P: IBaseContract.IPresenter<
     abstract override fun createPresenter(): P
 
     protected abstract fun initFragment(savedInstanceState: Bundle?)
-
-    protected abstract fun initView(view: View)
 
     protected abstract fun getLayoutId():Int
 }

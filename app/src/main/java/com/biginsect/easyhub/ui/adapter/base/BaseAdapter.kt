@@ -19,7 +19,7 @@ abstract class BaseAdapter<VH : BaseViewHolder, D: Any>(context: Context)
         BaseViewHolder.OnItemLongClickListener {
 
     protected val mContext = context
-    protected lateinit var dataList:ArrayList<D>
+    internal lateinit var dataList:ArrayList<D>
 
     protected lateinit var fragment: BaseFragment<*, *>
     private set

@@ -17,14 +17,14 @@ object PreUtils {
 
     private val isDisableLoadingImage = getDefaultSp(AppApplication.getInstance()).getBoolean(DISABLE_LOADING_IMAGE, false)
 
-    private fun getDefaultSp(context: Context): SharedPreferences{
-        return PreferenceManager.getDefaultSharedPreferences(context)
-    }
-
     /**
      * wifi 网络下才加载图片
      * */
     fun isLoadImageAvailable(): Boolean{
         return NetUtils.netStatus == NetUtils.TYPE_WIFI || !isDisableLoadingImage
+    }
+
+    private fun getDefaultSp(context: Context): SharedPreferences{
+        return PreferenceManager.getDefaultSharedPreferences(context)
     }
 }
