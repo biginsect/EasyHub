@@ -28,6 +28,7 @@ object AppConfig {
     /**gitHub鉴权成功之后，重定向到url*/
     const val REDIRECT_URL = ""
 
+    const val HTTP_CACHE_MAX_AGE = 32 * 1024 * 1024
     /**缓存最长存放时间*/
     const val CACHE_MAX_AGE = 4 * 7 * 24 * 60 *60
 
