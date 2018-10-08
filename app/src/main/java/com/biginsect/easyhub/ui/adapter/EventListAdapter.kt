@@ -16,6 +16,7 @@ import com.biginsect.easyhub.bean.EventPayload.TypeMemberEventAction.*
 import com.biginsect.easyhub.ui.adapter.base.BaseAdapter
 import com.biginsect.easyhub.ui.adapter.base.BaseViewHolder
 import com.biginsect.easyhub.ui.widget.EllipsizeLineSpan
+import com.biginsect.easyhub.util.PreUtils
 import com.biginsect.easyhub.util.StringUtils
 import kotlinx.android.synthetic.main.list_item_homepage.view.*
 import java.util.regex.Pattern
@@ -41,7 +42,10 @@ class EventListAdapter(context: Context):BaseAdapter<EventListAdapter.ViewHolder
         val event = dataList[position]
 
         with(holder.itemView){
-            GlideApp.with(mContext).load(event.actor.avatarUrl).into(user_avatar)
+            GlideApp.with(mContext)
+                    .load(event.actor.avatarUrl)
+                    .onlyRetrieveFromCache(!PreUtils.isLoadImageAvailable())
+                    .into(user_avatar)
             user_name.text = event.actor.name
             activity_time.text = StringUtils.getTimeString(mContext, event.createdAt)
 

@@ -12,7 +12,7 @@ import android.util.Log
  */
 object NetUtils {
     private const val TYPE_DISCONNECTED = 0
-    private const val TYPE_WIFI = 1
+    const val TYPE_WIFI = 1
     private const val TYPE_MOBILE = 2
 
     var netStatus:Int = -1
