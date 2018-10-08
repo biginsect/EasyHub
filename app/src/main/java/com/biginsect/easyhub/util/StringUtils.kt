@@ -23,18 +23,19 @@ object StringUtils {
     fun getTimeString(context: Context, date: Date):String{
         val timeInterval = System.currentTimeMillis() - date.time
 
-        val milliseconds = 1000.0f
+        val milliseconds = 1000L
         val seconds = 60 * milliseconds
         val minutes = 60 * seconds
         val hours = 24 * minutes
         val days = 30 * hours
 
         return when(timeInterval){
-            in 0f..milliseconds -> context.getString(R.string.just_now)
-            in milliseconds..seconds -> context.getString(R.string.seconds_ago)
-            in seconds..minutes -> context.getString(R.string.minutes_ago)
-            in minutes..hours -> context.getString(R.string.hours_ago)
-            in hours..days -> context.getString(R.string.days_ago)
+            /**until 取半开区间（包含前者不包含后者）*/
+            in 0 until milliseconds -> context.getString(R.string.just_now)
+            in milliseconds until seconds -> context.getString(R.string.seconds_ago)
+            in seconds until minutes -> context.getString(R.string.minutes_ago)
+            in minutes until hours -> context.getString(R.string.hours_ago)
+            in hours until days -> context.getString(R.string.days_ago)
 
             else ->{
                 SimpleDateFormat("MMM d, yyyy", Locale.ENGLISH).format(date)
@@ -42,6 +43,9 @@ object StringUtils {
         }
     }
 
+    /**
+     * 首个字母大写
+     * */
     fun upCaseFirstChar(str: String?):String?{
         if (BlankUtils.isBlankString(str)){
             return null

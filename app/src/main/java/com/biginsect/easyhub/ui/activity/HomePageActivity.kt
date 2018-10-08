@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import com.biginsect.easyhub.R
+import com.biginsect.easyhub.app.AppData
 import com.biginsect.easyhub.constant.ToastType
 import com.biginsect.easyhub.ui.activity.base.BaseListActivity
 import com.biginsect.easyhub.ui.adapter.EventListAdapter
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.layout_appbar.*
 
 /**
+ * 应当只作为容器，放置activity，starred等列表内容
  * @author big insect
  * @date 2018/8/30.
  */
@@ -29,6 +31,13 @@ class HomePageActivity : BaseListActivity<IHomePageContract.IHomePageView, IHome
     /**两次点击时间间隔在此范围内则退出app*/
     private val mTimeInterval = 1000L
 
+    override fun initActivity() {
+        super.initActivity()
+        if(null != AppData.loggedUser){
+
+        }
+    }
+
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         setToolbar()
@@ -38,7 +47,7 @@ class HomePageActivity : BaseListActivity<IHomePageContract.IHomePageView, IHome
 
     private fun setRecyclerView(){
         rv_project_list.layoutManager = LinearLayoutManager(this)
-        rv_project_list.adapter = adapter
+        rv_project_list.adapter = mAdapter
     }
 
     private fun setDrawerLayout(){
@@ -55,11 +64,8 @@ class HomePageActivity : BaseListActivity<IHomePageContract.IHomePageView, IHome
     private fun setToolbar(){
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
-
-        if (null != actionBar){
-            actionBar.setHomeButtonEnabled(true)
-            actionBar.setDisplayHomeAsUpEnabled(true)
-        }
+        actionBar?.setHomeButtonEnabled(true)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
         setToolbarTitle(getString(R.string.project_list))
     }
 

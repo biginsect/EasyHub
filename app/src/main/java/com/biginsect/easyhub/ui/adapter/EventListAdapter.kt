@@ -129,7 +129,7 @@ class EventListAdapter(context: Context):BaseAdapter<EventListAdapter.ViewHolder
                     descSpan = SpannableStringBuilder("")
                     val count = event.payload.commits.size
                     val maxLines = 4
-                    val max = if(count >maxLines){maxLines - 1 } else count
+                    val max = if(count > maxLines){ maxLines - 1 } else count
 
                     for (i in 0 until max){
                         val commit = event.payload.commits[i]
