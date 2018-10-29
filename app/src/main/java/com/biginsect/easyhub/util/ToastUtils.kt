@@ -27,16 +27,7 @@ object ToastUtils {
 
         if (null == mToast) {
             lastTime = System.currentTimeMillis()
-
-            mToast = when (type) {
-
-                ToastType.SUCCESS -> Toasty.success(context, msg, time)
-                ToastType.ERROR -> Toasty.error(context, msg, time)
-                ToastType.WARNING -> Toasty.warning(context, msg, time)
-                ToastType.NORMAL -> Toasty.normal(context, msg, time)
-                ToastType.INFO -> Toasty.info(context, msg, time)
-            }
-
+            mToast = setToast(context, msg, type, time)
             mToast?.show()
         }else{
             current = System.currentTimeMillis()
@@ -48,15 +39,7 @@ object ToastUtils {
             }else{
                 oldMsg = msg
                 /**msg改变，reset*/
-                mToast = when (type) {
-
-                    ToastType.SUCCESS -> Toasty.success(context, msg, time)
-                    ToastType.ERROR -> Toasty.error(context, msg, time)
-                    ToastType.WARNING -> Toasty.warning(context, msg, time)
-                    ToastType.NORMAL -> Toasty.normal(context, msg, time)
-                    ToastType.INFO -> Toasty.info(context, msg, time)
-                }
-
+                mToast = setToast(context, msg, type, time)
                 mToast?.show()
             }
         }
@@ -72,5 +55,15 @@ object ToastUtils {
 
     fun cancel(){
         mToast?.cancel()
+    }
+
+    private fun setToast(context: Context, msg: String, type: ToastType, time: Int): Toast{
+        return when(type){
+            ToastType.ERROR -> Toasty.error(context, msg, time)
+            ToastType.SUCCESS -> Toasty.success(context, msg, time)
+            ToastType.WARNING -> Toasty.warning(context, msg, time)
+            ToastType.NORMAL -> Toasty.normal(context, msg, time)
+            ToastType.INFO -> Toasty.info(context, msg, time)
+        }
     }
 }

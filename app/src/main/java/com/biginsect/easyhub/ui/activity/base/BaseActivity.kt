@@ -96,15 +96,11 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
     }
 
     internal fun setToolbarBackAvailable(){
-        if(null != supportActionBar){
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     internal fun setToolbarTitle(title: String){
-        if(null != supportActionBar){
-            supportActionBar!!.title = title
-        }
+        supportActionBar?.title = title
     }
 
     internal fun finishDelay(mill: Int){
