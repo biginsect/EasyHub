@@ -2,18 +2,18 @@ package com.biginsect.easyhub.ui.activity
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import com.biginsect.easyhub.R
-import com.biginsect.easyhub.ui.activity.base.BaseActivity
+import com.biginsect.easyhub.ui.activity.base.BaseFragmentActivity
 import com.biginsect.easyhub.ui.contract.ISettingContract
+import com.biginsect.easyhub.ui.fragment.SettingFragment
 import com.biginsect.easyhub.ui.presenter.SettingPresenter
 
 /**
  * @author big insect
  * @date 2018/8/30.
  */
-class SettingActivity : BaseActivity<ISettingContract.ISettingView, ISettingContract.ISettingPresenter>(),
-        ISettingContract.ISettingView{
+class SettingActivity : BaseFragmentActivity<ISettingContract.ISettingView, ISettingContract.ISettingPresenter, SettingFragment>(),
+        ISettingContract.ISettingView, SettingFragment.SettingsCallback{
 
     override fun createPresenter(): ISettingContract.ISettingPresenter {
         presenter = SettingPresenter()
@@ -29,17 +29,12 @@ class SettingActivity : BaseActivity<ISettingContract.ISettingView, ISettingCont
         setToolbarTitle(getString(R.string.setting))
     }
 
-    private fun logout(){
-        AlertDialog.Builder(this)
-                .setCancelable(true)
-                .setTitle(R.string.warning)
-                .setMessage(R.string.warning_logout)
-                .setNegativeButton(R.string.cancel) { dialog, _ -> dialog?.dismiss() }
-                .setPositiveButton(R.string.okay){ dialog, _ ->
-                    setResult(Activity.RESULT_CANCELED)
-                    presenter.logout()
-                    dialog.dismiss()
-                }
-                .show()
+    override fun createFragment(): SettingFragment {
+        return SettingFragment()
+    }
+
+    override fun onLogout() {
+        setResult(Activity.RESULT_CANCELED)
+        presenter.logout()
     }
 }

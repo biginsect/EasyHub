@@ -91,7 +91,8 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:${RUNNER_VERSION}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${ESPRESSO_CORE_VERSION}"
     implementation "com.android.support:recyclerview-v7:${ANDROID_SUPPORT_VERSION}"
-
+    implementation "com.android.support:preference-v7:${ANDROID_SUPPORT_VERSION}"
+    implementation "com.android.support:preference-v14:${ANDROID_SUPPORT_VERSION}"
     //网络加载
     implementation "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}"
     //glide
