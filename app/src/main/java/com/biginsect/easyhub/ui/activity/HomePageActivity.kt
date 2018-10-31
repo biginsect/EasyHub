@@ -4,9 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import com.biginsect.easyhub.R
 import com.biginsect.easyhub.app.AppData
 import com.biginsect.easyhub.constant.ToastType
@@ -16,6 +19,7 @@ import com.biginsect.easyhub.ui.contract.IHomePageContract
 import com.biginsect.easyhub.ui.presenter.HomePagePresenter
 import com.biginsect.easyhub.util.ActivitiesManager
 import com.biginsect.easyhub.util.ToastUtils
+import com.biginsect.easyhub.util.ViewUtils
 import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.layout_appbar.*
 
@@ -31,6 +35,8 @@ class HomePageActivity : BaseListActivity<IHomePageContract.IHomePageView, IHome
     /**两次点击时间间隔在此范围内则退出app*/
     private val mTimeInterval = 1000L
 
+    private val SETTING_REQUEST_CODE = 100
+
     override fun initActivity() {
         super.initActivity()
         if(null != AppData.loggedUser){
@@ -41,6 +47,7 @@ class HomePageActivity : BaseListActivity<IHomePageContract.IHomePageView, IHome
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         setToolbar()
+        setNavMenu(R.menu.nav_homepage_menu)
         setRecyclerView()
         setDrawerLayout()
     }
@@ -51,9 +58,9 @@ class HomePageActivity : BaseListActivity<IHomePageContract.IHomePageView, IHome
     }
 
     private fun setDrawerLayout(){
-        homepage_nav.setNavigationItemSelectedListener {
+        homepage_nav.setNavigationItemSelectedListener { item ->
             drawer_layout_left.closeDrawers()
-            true
+            this@HomePageActivity.onNavigationItemSelected(item)
         }
         val drawerToggle = ActionBarDrawerToggle(this, drawer_layout_left, toolbar,
                 R.string.drawer_layout_open, R.string.drawer_layout_close)
@@ -95,6 +102,33 @@ class HomePageActivity : BaseListActivity<IHomePageContract.IHomePageView, IHome
         }else{
             mLastBackPressedTime = System.currentTimeMillis()
             ToastUtils.showLongToast(this, "Press again to exit.", ToastType.INFO)
+        }
+    }
+
+    private fun onNavigationItemSelected(item: MenuItem): Boolean{
+        ViewUtils.selectMenuItem(homepage_nav.menu, item.itemId, true)
+        drawer_layout_left.closeDrawer(GravityCompat.START)
+        Handler().postDelayed({
+            handleNavigationItemClicked(item)
+        }, 250)
+
+        return true
+    }
+
+    private fun handleNavigationItemClicked(item: MenuItem){
+        val id = item.itemId
+        when(id){
+            R.id.nav_setting -> SettingActivity.show(getActivity(), SETTING_REQUEST_CODE)
+            R.id.nav_logout -> logout()
+        }
+    }
+
+    private fun setNavMenu(menuId: Int){
+        if (drawer_layout_left != null && homepage_nav != null){
+            homepage_nav.inflateMenu(menuId)
+            if(drawer_layout_left.indexOfChild(homepage_nav) == -1){
+                drawer_layout_left.addView(homepage_nav)
+            }
         }
     }
 

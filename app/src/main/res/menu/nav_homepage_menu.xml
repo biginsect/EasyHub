@@ -15,4 +15,28 @@
             android:icon="@drawable/issues"
             android:title="@string/nav_issues"/>
     </group>
+
+    <group
+        android:id="@+id/setting"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/setting"
+            android:title="@string/setting"/>
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/about"
+            android:title="@string/about"/>
+    </group>
+
+    <group
+        android:id="@+id/my_account"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:checkable="false"
+            android:icon="@drawable/logout"
+            android:title="@string/logout"/>
+    </group>
 </menu>

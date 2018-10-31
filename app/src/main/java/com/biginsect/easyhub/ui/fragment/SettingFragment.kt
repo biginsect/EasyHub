@@ -1,7 +1,6 @@
 package com.biginsect.easyhub.ui.fragment
 
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.preference.Preference
@@ -50,6 +49,13 @@ class SettingFragment : PreferenceFragmentCompat(),
         }
     }
 
+    /**
+     * 重设主题 or 背景颜色之后重新载入app
+     * */
+    private fun recreateMain(){
+        callback.onRecreate()
+    }
+
     private fun logout(){
         AlertDialog.Builder(context)
                 .setCancelable(true)
@@ -64,5 +70,7 @@ class SettingFragment : PreferenceFragmentCompat(),
 
     interface SettingsCallback{
         fun onLogout()
+
+        fun onRecreate()
     }
 }

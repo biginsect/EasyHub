@@ -36,6 +36,8 @@
 
     <string name="loading">loading</string>
     <string name="setting">Setting</string>
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
     <string name="warning">Warning</string>
     <string name="warning_logout">Confirm to logout?</string>
     <string name="cancel">Cancel</string>
