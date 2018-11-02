@@ -16,7 +16,7 @@ import com.biginsect.easyhub.R
 class SettingFragment : PreferenceFragmentCompat(),
         Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
 
-    private lateinit var callback: SettingFragment.SettingsCallback
+    private  var callback: SettingFragment.SettingsCallback? = null
     private val logout = "logout"
     private val startPage = "startPage"
 
@@ -49,11 +49,16 @@ class SettingFragment : PreferenceFragmentCompat(),
         }
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        callback = null
+    }
+
     /**
      * 重设主题 or 背景颜色之后重新载入app
      * */
     private fun recreateMain(){
-        callback.onRecreate()
+        callback?.onRecreate()
     }
 
     private fun logout(){
@@ -63,12 +68,12 @@ class SettingFragment : PreferenceFragmentCompat(),
                 .setMessage(R.string.warning_logout)
                 .setNegativeButton(R.string.cancel) { dialog, _ -> dialog?.dismiss() }
                 .setPositiveButton(R.string.okay) {dialog, _ ->
-                    callback.onLogout()
+                    callback?.onLogout()
                     dialog?.dismiss() }
                 .show()
     }
 
-    interface SettingsCallback{
+    interface SettingsCallback {
         fun onLogout()
 
         fun onRecreate()
