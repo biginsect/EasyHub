@@ -1,11 +1,14 @@
 package com.biginsect.easyhub.ui.fragment
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
 import com.biginsect.easyhub.R
+import com.biginsect.easyhub.util.PreUtils
+import java.util.*
 
 
 /**
@@ -18,16 +21,22 @@ class SettingFragment : PreferenceFragmentCompat(),
 
     private  var callback: SettingFragment.SettingsCallback? = null
     private val logout = "logout"
-    private val startPage = "startPage"
+
+    private lateinit var nameList: List<String>
+    private lateinit var idList: List<String>
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         callback = context as SettingsCallback
+        /**符号“*” 表示伸展可变数量参数, kotlin 必须*/
+        nameList = Arrays.asList(*resources.getStringArray(R.array.start_pages_name))
+        idList = Arrays.asList(*resources.getStringArray(R.array.start_pages_id))
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         findPreference(logout).onPreferenceClickListener = this
-        findPreference(startPage).onPreferenceClickListener = this
+        findPreference(PreUtils.START_PAGE).onPreferenceClickListener = this
+        findPreference(PreUtils.START_PAGE).summary = nameList[getStartPageIndex()]
     }
 
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
@@ -41,7 +50,8 @@ class SettingFragment : PreferenceFragmentCompat(),
                 true
             }
 
-            startPage -> {
+            PreUtils.START_PAGE -> {
+                showChooseStartPageDialog()
                 true
             }
 
@@ -71,6 +81,24 @@ class SettingFragment : PreferenceFragmentCompat(),
                     callback?.onLogout()
                     dialog?.dismiss() }
                 .show()
+    }
+
+    private fun showChooseStartPageDialog(){
+        AlertDialog.Builder(context)
+                .setCancelable(true)
+                .setTitle(R.string.start_page)
+                .setSingleChoiceItems(R.array.start_pages_name, getStartPageIndex()) { dialog, which ->
+                    dialog.dismiss()
+                    PreUtils.set(PreUtils.START_PAGE, idList[which])
+                    findPreference(PreUtils.START_PAGE).summary = nameList[which]
+                }
+                .setNegativeButton(R.string.cancel) { _, _ -> }
+                .show()
+    }
+
+    private fun getStartPageIndex(): Int{
+        val startPage = PreUtils.getStartPage()
+        return idList.indexOf(startPage)
     }
 
     interface SettingsCallback {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="start_pages_id">
+        <item>profile</item>
+        <item>notifications</item>
+        <item>issues</item>
+    </array>
+
+    <array name="start_pages_name">
+        <item>@string/nav_profile</item>
+        <item>@string/nav_notifications</item>
+        <item>@string/nav_issues</item>
+    </array>
+</resources>

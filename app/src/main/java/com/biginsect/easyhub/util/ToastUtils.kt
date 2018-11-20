@@ -14,9 +14,6 @@ import es.dmoral.toasty.Toasty
 object ToastUtils {
     private const val  TAG = "ToastUtils"
     private var mToast: Toast? = null
-    private var oldMsg = ""
-    private var lastTime = 0L
-    private var current = 0L
 
     private fun showToast(context: Context, msg: String?, type: ToastType, time: Int){
 
@@ -25,24 +22,13 @@ object ToastUtils {
             return
         }
 
-        if (null == mToast) {
-            lastTime = System.currentTimeMillis()
+        if(mToast == null){
             mToast = setToast(context, msg, type, time)
-            mToast?.show()
         }else{
-            current = System.currentTimeMillis()
-
-            if (oldMsg == msg){
-                if (time < lastTime - current){
-                    mToast?.show()
-                }
-            }else{
-                oldMsg = msg
-                /**msg改变，reset*/
-                mToast = setToast(context, msg, type, time)
-                mToast?.show()
-            }
+            mToast?.setText(msg)
         }
+
+        mToast?.show()
     }
 
     fun showLongToast(context: Context, msg: String?, type: ToastType){
