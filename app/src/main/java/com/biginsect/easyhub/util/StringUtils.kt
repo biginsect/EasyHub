@@ -11,6 +11,25 @@ import java.util.*
  */
 object StringUtils {
 
+    fun getLocale(language: String): Locale{
+        val array = language.split(Regex("-"))
+
+        return if (array.size > 1){
+            val country = array[1].replaceFirst("r", "")
+            Locale(array[0], country)
+        }else{
+            Locale(language)
+        }
+    }
+
+    fun getDateStr(date: Date?): String{
+        val locale = getLocale(PreUtils.getLanguage())
+        val regex = "MMM d, yyyy"
+        val format = SimpleDateFormat(regex, locale)
+
+        return format.format(date)
+    }
+
     /**
      * 根据event的时间，设置展示的内容
      * 1.just now

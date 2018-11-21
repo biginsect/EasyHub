@@ -12,7 +12,9 @@ import com.biginsect.easyhub.app.AppApplication
 object PreUtils {
     private const val CACHE_FIRST_ENABLE = "cacheFirstEnable"
     private const val DISABLE_LOADING_IMAGE = "disableLoadingImage"
+    const val LANGUAGE = "language"
     const val START_PAGE = "startPage"
+    const val FIRST_USE = "firstUse"
 
     val isCacheFirstAvailable = getDefaultSp(AppApplication.getInstance()).getBoolean(CACHE_FIRST_ENABLE, true)
 
@@ -37,11 +39,19 @@ object PreUtils {
         edit.apply()
     }
 
+    fun getLanguage(): String{
+        return getDefaultSp().getString(LANGUAGE, "en")
+    }
+
     /**
      * wifi 网络下才加载图片
      * */
     fun isLoadImageAvailable(): Boolean{
         return NetUtils.netStatus == NetUtils.TYPE_WIFI || !isDisableLoadingImage
+    }
+
+    fun isFirstUse(): Boolean{
+        return getDefaultSp().getBoolean(FIRST_USE, true)
     }
 
     fun getStartPage():String{

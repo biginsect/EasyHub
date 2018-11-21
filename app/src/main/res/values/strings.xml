@@ -46,6 +46,9 @@
     <!--setting-->
     <string name="start_page">Start Page</string>
 
+    <!--Profile-->
+    <string name="joined_at">Joined at</string>
+
     <string name="created_comment_on_commit">Created comment on commit in %s</string>
     <string name="created_comment_on_issue">Created comment on issue %d in %s</string>
     <string name="created_repo">Created repository %s</string>

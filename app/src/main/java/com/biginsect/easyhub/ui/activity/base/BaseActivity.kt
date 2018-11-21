@@ -31,7 +31,7 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
 
     private val tag = "BaseActivity"
     private var mSoftActivity: SoftReference<Activity>? = null
-    protected var currentActivity: BaseActivity<V, P>? = null
+    private var currentActivity: BaseActivity<V, P>? = null
     private var mProgressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -10,17 +10,18 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
+import android.view.View
 import com.biginsect.easyhub.R
 import com.biginsect.easyhub.app.AppData
+import com.biginsect.easyhub.app.GlideApp
 import com.biginsect.easyhub.constant.ToastType
 import com.biginsect.easyhub.ui.activity.base.BaseListActivity
 import com.biginsect.easyhub.ui.adapter.EventListAdapter
 import com.biginsect.easyhub.ui.contract.IHomePageContract
 import com.biginsect.easyhub.ui.presenter.HomePagePresenter
-import com.biginsect.easyhub.util.ActivitiesManager
-import com.biginsect.easyhub.util.ToastUtils
-import com.biginsect.easyhub.util.ViewUtils
+import com.biginsect.easyhub.util.*
 import kotlinx.android.synthetic.main.activity_homepage.*
+import kotlinx.android.synthetic.main.drawer_left_homepage.*
 import kotlinx.android.synthetic.main.layout_appbar.*
 
 /**
@@ -50,6 +51,16 @@ class HomePageActivity : BaseListActivity<IHomePageContract.IHomePageView, IHome
         setNavMenu(R.menu.nav_homepage_menu)
         setRecyclerView()
         setDrawerLayout()
+
+        val loginUser = AppData.loggedUser
+        GlideApp.with(getActivity())
+                .load(loginUser?.avatarUrl)
+                .onlyRetrieveFromCache(!PreUtils.isLoadImageAvailable())
+                .into(im_my_picture)
+        tv_name.text = if (BlankUtils.isBlankString(loginUser?.name)){loginUser?.login}else{loginUser?.name}
+        val joinTime = getString(R.string.joined_at) + " " + StringUtils.getDateStr(loginUser?.createdAt)
+        tv_join_time.text = if(BlankUtils.isBlankString(loginUser?.bio)){joinTime}else{loginUser?.bio}
+        tab_layout.visibility = View.GONE
     }
 
     private fun setRecyclerView(){

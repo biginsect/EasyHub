@@ -5,4 +5,5 @@
     <attr name="appbar_theme" format="reference"/>
     <attr name="popup_theme" format="reference"/>
     <attr name="card_view_background" format="color|reference"/>
+    <attr name="icon_color" format="color|reference"/>
 </resources>

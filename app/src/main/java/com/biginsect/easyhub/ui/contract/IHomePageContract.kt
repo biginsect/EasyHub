@@ -18,5 +18,7 @@ interface IHomePageContract {
          * 退出
          * */
         fun logout()
+
+        fun isFirstUseAndNoNewsUser(): Boolean
     }
 }
