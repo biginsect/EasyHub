@@ -2,13 +2,16 @@ package com.biginsect.easyhub.constant;
 
 /**
  * github开放API
+ *
  * @author biginsect
  * @date 2018/1/8
  */
 
 public class ServerApi {
-    private ServerApi(){
+
+    private ServerApi() {
     }
+
     public static final String BASE_URL = "https://api.github.com/";
 
     public static final String CURRENT_USER_URL = BASE_URL + "user";
@@ -35,7 +38,7 @@ public class ServerApi {
     public static final String REPOSITORY_URL = "https://api.github.com/repos/{owner}/{repo}";
     public static final String REPOSITORY_SEARCH_URL = "https://api.github.com/search/repositories?q={query}{&page,per_page,sort,order}";
     public static final String CURRENT_USER_REPOSITORIES_URL = "https://api.github.com/user/repos{?type,page,per_page,sort}";
-    public static final String STARRED_URL = CURRENT_USER_URL+ "/starred{/owner}{/repo}";
+    public static final String STARRED_URL = CURRENT_USER_URL + "/starred{/owner}{/repo}";
     public static final String STARRED_GISTS_URL = BASE_URL + "gists/starred";
     public static final String TEAM_URL = BASE_URL + "teams";
     public static final String USER_URL = BASE_URL + "users/{user}";

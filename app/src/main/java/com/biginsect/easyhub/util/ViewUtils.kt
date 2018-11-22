@@ -11,27 +11,28 @@ import android.view.Menu
 object ViewUtils {
 
 
-    fun selectMenuItem(menu: Menu, @IdRes itemId: Int, findStub: Boolean){
+    fun selectMenuItem(menu: Menu, @IdRes itemId: Int, findStub: Boolean) {
         var find = false
         val menuSize = menu.size()
-        for (i in 0..menuSize){
-            if (findStub){
+        for (i in 0..menuSize) {
+            if (!findStub) {
                 menu.getItem(i).isChecked = menu.getItem(i).itemId == itemId
-            }else{
-                if (menu.getItem(i).itemId == itemId){
+            } else {
+                if (menu.getItem(i).itemId == itemId) {
                     find = true
                 }
             }
         }
 
-        if (findStub){
-            if (find){
+        if (findStub) {
+            if (find) {
                 selectMenuItem(menu, itemId, false)
-            }else{
-                for (i in 0..menuSize){
+            } else {
+                for (i in 0..menuSize) {
                     val subMenu = menu.getItem(i).subMenu
-                    if (subMenu != null)
+                    if (subMenu != null) {
                         selectMenuItem(subMenu, itemId, true)
+                    }
                 }
             }
         }

@@ -8,7 +8,7 @@ import com.biginsect.easyhub.ui.contract.base.IBaseContract
  * @author big insect
  */
 interface ILoginContract {
-    interface ILoginView : IBaseContract.IView{
+    interface ILoginView : IBaseContract.IView {
         /**
          * 成功获取到token
          * */
@@ -25,11 +25,11 @@ interface ILoginContract {
         fun onLoginSuccess()
     }
 
-    interface ILoginPresenter : IBaseContract.IPresenter<ILoginView>{
+    interface ILoginPresenter : IBaseContract.IPresenter<ILoginView> {
         /**
          * check之后登录跳转
          * */
-        fun login(name :String ,password: String)
+        fun login(name: String, password: String)
 
         /**
          * 鉴权之后获取token

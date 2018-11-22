@@ -8,7 +8,7 @@ import com.biginsect.easyhub.ui.contract.base.IBaseContract
  */
 
 interface IActivityContract {
-    interface IActivityView: IBaseContract.IView
+    interface IActivityView : IBaseContract.IView
 
-    interface IActivityPresenter: IBaseContract.IPresenter<IActivityView>
+    interface IActivityPresenter : IBaseContract.IPresenter<IActivityView>
 }

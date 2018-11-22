@@ -10,7 +10,8 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public abstract class BaseMvpActivity<V extends MvpView, P extends MvpPresenter<V>>
-        extends AppCompatActivity implements MvpView, MvpDelegateCallback<V, P>{
+        extends AppCompatActivity implements MvpView, MvpDelegateCallback<V, P> {
+
     protected ActivityMvpDelegate mMvpDelegate;
     protected P presenter;
     protected boolean retainInstance;
@@ -77,15 +78,16 @@ public abstract class BaseMvpActivity<V extends MvpView, P extends MvpPresenter<
 
     /**
      * 创建presenter
+     *
      * @return target
-     * */
+     */
     @NonNull
     @Override
     public abstract P createPresenter();
 
     @SuppressWarnings("unchecked")
-    protected ActivityMvpDelegate<V, P> getMvpDelegate(){
-        if (mMvpDelegate == null){
+    protected ActivityMvpDelegate<V, P> getMvpDelegate() {
+        if (mMvpDelegate == null) {
             mMvpDelegate = new ActivityMvpDelegateImpl(this, true, this);
         }
         return mMvpDelegate;
@@ -106,6 +108,6 @@ public abstract class BaseMvpActivity<V extends MvpView, P extends MvpPresenter<
     @Nullable
     @Override
     public V getMvpView() {
-        return (V)this;
+        return (V) this;
     }
 }

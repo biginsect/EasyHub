@@ -7,9 +7,9 @@ import com.biginsect.easyhub.ui.contract.base.IBaseContract
  * @date 2018/8/17.
  */
 interface ISettingContract {
-    interface ISettingView: IBaseContract.IView
+    interface ISettingView : IBaseContract.IView
 
-    interface ISettingPresenter: IBaseContract.IPresenter<ISettingView> {
+    interface ISettingPresenter : IBaseContract.IPresenter<ISettingView> {
         /**
          * 退出登录
          * */

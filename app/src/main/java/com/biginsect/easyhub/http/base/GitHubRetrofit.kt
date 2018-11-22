@@ -3,9 +3,9 @@ package com.biginsect.easyhub.http.base
 import com.biginsect.easyhub.app.AppApplication
 import com.biginsect.easyhub.app.AppConfig
 import com.biginsect.easyhub.app.AppData
-import com.biginsect.easyhub.util.BlankUtils
 import com.biginsect.easyhub.util.FileUtils
 import com.biginsect.easyhub.util.NetUtils
+import com.biginsect.easyhub.util.StringUtils
 import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
@@ -83,7 +83,7 @@ object  GitHubRetrofit {
             }
 
             /**添加访问token*/
-            if (!BlankUtils.isBlankString(token)){
+            if (!StringUtils.isBlankString(token)){
                 val auth = if (token!!.startsWith("Basic")){
                     token as String
                 }else{
@@ -98,7 +98,7 @@ object  GitHubRetrofit {
 
             /**强制使用网络请求数据*/
             val force = request.header(AppConfig.FORCE_NETWORK)
-            if (!BlankUtils.isBlankString(force) && !NetUtils.isNetworkAvailable()){//
+            if (!StringUtils.isBlankString(force) && !NetUtils.isNetworkAvailable()){//
                 request = request.newBuilder()
                         .cacheControl(CacheControl.FORCE_CACHE)
                         .build()
@@ -124,13 +124,13 @@ object  GitHubRetrofit {
             var requestCacheControl = request.cacheControl().toString()
 
             val forceNetwork = request.header(AppConfig.FORCE_NETWORK)
-            if (!BlankUtils.isBlankString(forceNetwork)){
+            if (!StringUtils.isBlankString(forceNetwork)){
                 requestCacheControl = getCacheInfo()
             }
 
 
 
-            return  if (BlankUtils.isBlankString(requestCacheControl)) {
+            return  if (StringUtils.isBlankString(requestCacheControl)) {
                 response
             }else{//设置缓存
                 response.newBuilder()

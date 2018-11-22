@@ -13,6 +13,7 @@ import java.util.List;
  */
 
 public class AuthToken {
+
     private int id;
     private String url;
     private String token;

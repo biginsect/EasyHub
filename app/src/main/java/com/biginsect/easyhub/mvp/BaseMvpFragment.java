@@ -16,14 +16,14 @@ import android.view.View;
 
 public abstract class BaseMvpFragment<V extends MvpView, P extends MvpPresenter<V>>
         extends Fragment
-        implements MvpView, MvpDelegateCallback<V , P> {
+        implements MvpView, MvpDelegateCallback<V, P> {
 
     protected FragmentMvpDelegate mvpDelegate;
     protected P presenter;
 
     @SuppressWarnings("unchecked")
-    protected FragmentMvpDelegate<V, P> getMvpDelegate(){
-        if (null == mvpDelegate){
+    protected FragmentMvpDelegate<V, P> getMvpDelegate() {
+        if (null == mvpDelegate) {
             mvpDelegate = new FragmentMvpDelegateImpl(this, this, true, true);
         }
 
@@ -106,7 +106,7 @@ public abstract class BaseMvpFragment<V extends MvpView, P extends MvpPresenter<
     @Nullable
     @Override
     public V getMvpView() {
-        return (V)this;
+        return (V) this;
     }
 
     @Nullable
@@ -122,8 +122,9 @@ public abstract class BaseMvpFragment<V extends MvpView, P extends MvpPresenter<
 
     /**
      * create presenter
+     *
      * @return target
-     * */
+     */
     @NonNull
     @Override
     public abstract P createPresenter();

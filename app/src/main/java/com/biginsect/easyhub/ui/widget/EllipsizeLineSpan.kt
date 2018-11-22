@@ -13,7 +13,7 @@ import android.text.style.ReplacementSpan
  * @date 2018/9/25.
  */
 
-class EllipsizeLineSpan(private val bottomMargin: Int) : ReplacementSpan(), LineBackgroundSpan, LineHeightSpan{
+class EllipsizeLineSpan(private val bottomMargin: Int) : ReplacementSpan(), LineBackgroundSpan, LineHeightSpan {
     private val mClipRect = Rect()
 
     override fun drawBackground(c: Canvas?, p: Paint?, left: Int, right: Int, top: Int, baseline: Int, bottom: Int, text: CharSequence?, start: Int, end: Int, lnum: Int) {
@@ -21,7 +21,7 @@ class EllipsizeLineSpan(private val bottomMargin: Int) : ReplacementSpan(), Line
     }
 
     override fun getSize(paint: Paint, text: CharSequence?, start: Int, end: Int, fm: Paint.FontMetricsInt?): Int {
-        if (fm != null){
+        if (fm != null) {
             paint.getFontMetricsInt(fm)
         }
         val textWidth = Math.ceil(paint.measureText(text, start, end).toDouble()).toInt()
@@ -32,9 +32,9 @@ class EllipsizeLineSpan(private val bottomMargin: Int) : ReplacementSpan(), Line
     override fun draw(canvas: Canvas, text: CharSequence?, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int, paint: Paint) {
         val textWidth = paint.measureText(text, start, end).toDouble()
 
-        if (x + Math.ceil(textWidth).toInt() < mClipRect.right){
+        if (x + Math.ceil(textWidth).toInt() < mClipRect.right) {
             canvas.drawText(text, start, end, x, y.toFloat(), paint)
-        }else{
+        } else {
             val ellipsisWidth = paint.measureText("\u2026")
             val newEnd = start + paint.breakText(text, start, end, true,
                     mClipRect.right - x - ellipsisWidth, null)

@@ -17,16 +17,16 @@ import kotlinx.android.synthetic.main.fragment_project_list.*
  * @author big insect
  * @date 2018/8/31.
  */
-class ActivityFragment: BaseListFragment<IActivityContract.IActivityView, IActivityContract.IActivityPresenter, EventListAdapter>(),
-        IActivityContract.IActivityView{
+class ActivityFragment : BaseListFragment<IActivityContract.IActivityView, IActivityContract.IActivityPresenter, EventListAdapter>(),
+        IActivityContract.IActivityView {
     /**标志位，避免重复设置滑动状态增加开销*/
     private var mIsScrolling = false
 
-    enum class ActivityType{
+    enum class ActivityType {
         NEWS, GLOBAL_NEWS
     }
 
-    fun create(type: ActivityType, user: String): ActivityFragment{
+    fun create(type: ActivityType, user: String): ActivityFragment {
         val fragment = ActivityFragment()
         fragment.arguments = BundleHelper.builder().put("type", type)
                 .put("user", user).build()
@@ -39,11 +39,11 @@ class ActivityFragment: BaseListFragment<IActivityContract.IActivityView, IActiv
         rv_project_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING || newState == RecyclerView.SCROLL_STATE_SETTLING){
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING || newState == RecyclerView.SCROLL_STATE_SETTLING) {
                     mIsScrolling = true
                     Glide.with(this@ActivityFragment).pauseRequests()
-                }else if (newState == RecyclerView.SCROLL_STATE_IDLE){
-                    if (mIsScrolling){
+                } else if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (mIsScrolling) {
                         Glide.with(this@ActivityFragment).resumeRequests()
                     }
 

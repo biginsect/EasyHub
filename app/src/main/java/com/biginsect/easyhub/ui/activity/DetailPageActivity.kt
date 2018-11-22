@@ -10,7 +10,7 @@ import com.biginsect.easyhub.ui.presenter.DetailPresenter
  * @author big insect
  * @date 2018/8/20.
  */
-class DetailPageActivity: BaseActivity<IDetailPageContract.IDetailView, IDetailPageContract.IDetailPresenter>(),
+class DetailPageActivity : BaseActivity<IDetailPageContract.IDetailView, IDetailPageContract.IDetailPresenter>(),
         IDetailPageContract.IDetailView {
 
     override fun createPresenter(): IDetailPageContract.IDetailPresenter {

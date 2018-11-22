@@ -13,19 +13,19 @@ import com.biginsect.easyhub.util.ListUtils
  * 基类，支持长按和点击事件，展示视图使用addData()方法
  * @author big insect
  */
-abstract class BaseAdapter<VH : BaseViewHolder, D: Any>(context: Context)
+abstract class BaseAdapter<VH : BaseViewHolder, D : Any>(context: Context)
     : RecyclerView.Adapter<VH>(),
         BaseViewHolder.OnItemClickListener,
         BaseViewHolder.OnItemLongClickListener {
 
     protected val mContext = context
-    internal lateinit var dataList:ArrayList<D>
+    internal lateinit var dataList: ArrayList<D>
 
     protected lateinit var fragment: BaseFragment<*, *>
-    private set
+        private set
 
-    internal var onItemClickListener : BaseViewHolder.OnItemClickListener? = null
-    internal var onItemLongClickListener : BaseViewHolder.OnItemLongClickListener? = null
+    internal var onItemClickListener: BaseViewHolder.OnItemClickListener? = null
+    internal var onItemLongClickListener: BaseViewHolder.OnItemLongClickListener? = null
 
     constructor(context: Context, fragment: BaseFragment<*, *>) : this(context) {
         this.fragment = fragment
@@ -38,7 +38,7 @@ abstract class BaseAdapter<VH : BaseViewHolder, D: Any>(context: Context)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        if (null != onItemClickListener){
+        if (null != onItemClickListener) {
             holder.setOnItemClickListener(this)
         }
         if (null != onItemLongClickListener) {
@@ -51,7 +51,7 @@ abstract class BaseAdapter<VH : BaseViewHolder, D: Any>(context: Context)
     }
 
     override fun onItemLongClick(position: Int, view: View?): Boolean {
-        if(null != onItemLongClickListener){
+        if (null != onItemLongClickListener) {
             return onItemLongClickListener!!.onItemLongClick(position, view)
         }
         return false
@@ -65,13 +65,14 @@ abstract class BaseAdapter<VH : BaseViewHolder, D: Any>(context: Context)
         return position.toLong()
     }
 
-    protected fun getString(@StringRes resId: Int): String{
+    protected fun getString(@StringRes resId: Int): String {
         return mContext.getString(resId)
     }
+
     /**
      * 获取到数据，通知视图更新
      * */
-    fun addData(dataList: ArrayList<D>){
+    fun addData(dataList: ArrayList<D>) {
         this.dataList = dataList
         notifyDataSetChanged()
     }
@@ -79,10 +80,10 @@ abstract class BaseAdapter<VH : BaseViewHolder, D: Any>(context: Context)
     /**
      * 获取布局ID
      * */
-    protected abstract fun getLayoutId():Int
+    protected abstract fun getLayoutId(): Int
 
     /**
      * 构建ViewHolder
      * */
-    protected abstract fun getViewHolder(itemView:View):VH
+    protected abstract fun getViewHolder(itemView: View): VH
 }

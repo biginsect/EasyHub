@@ -6,7 +6,8 @@ package com.biginsect.easyhub.bean.filter;
  */
 
 
-public enum  TrendingSince {
+public enum TrendingSince {
+
     Daily,
     Weekly,
     Monthly

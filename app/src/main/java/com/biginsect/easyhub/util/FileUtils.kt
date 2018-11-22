@@ -10,15 +10,15 @@ import java.io.File
 object FileUtils {
     private const val DIR_NAME_CACHE = "http_response"
 
-    private fun getCacheDir(context: Context, dirName :String): File{
-        val cacheFile  = File(context.externalCacheDir, dirName)
-        if (!cacheFile.exists()){
+    private fun getCacheDir(context: Context, dirName: String): File {
+        val cacheFile = File(context.externalCacheDir, dirName)
+        if (!cacheFile.exists()) {
             cacheFile.mkdir()
         }
         return cacheFile
     }
 
-    fun getHttpCache(context: Context):File{
+    fun getHttpCache(context: Context): File {
         return getCacheDir(context, DIR_NAME_CACHE)
     }
 }

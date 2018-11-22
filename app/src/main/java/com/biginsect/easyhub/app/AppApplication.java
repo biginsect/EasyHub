@@ -15,6 +15,7 @@ import com.orhanobut.logger.PrettyFormatStrategy;
  */
 
 public class AppApplication extends Application {
+
     @SuppressLint("StaticFieldLeak")
     private static Application instance;
     private final static String TAG = AppApplication.class.getSimpleName();
@@ -35,16 +36,16 @@ public class AppApplication extends Application {
         return instance;
     }
 
-    private void initLogger(){
+    private void initLogger() {
         PrettyFormatStrategy strategy = PrettyFormatStrategy.newBuilder()
                 .showThreadInfo(false)
                 .methodCount(0)
                 .methodOffset(0)
                 .tag("Easy_Logger")
                 .build();
-        Logger.addLogAdapter(new AndroidLogAdapter(strategy){
+        Logger.addLogAdapter(new AndroidLogAdapter(strategy) {
             @Override
-            public boolean  isLoggable(int priority, String tag){
+            public boolean isLoggable(int priority, String tag) {
                 return BuildConfig.DEBUG;
             }
         });

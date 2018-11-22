@@ -4,31 +4,28 @@ package com.biginsect.easyhub.util
  * @author big insect
  */
 object ListUtils {
-    fun <T> getSize(list: List<T>?):Int{
+    fun <T> getSize(list: List<T>?): Int {
         return list?.size ?: 0
     }
 
-    fun <T> isEmpty(list: List<T>?):Boolean{
+    fun <T> isEmpty(list: List<T>?): Boolean {
         return list == null || list.isEmpty()
     }
 
     /**
      * separator is ","
      * */
-    fun listToString(list: List<String>): String{
+    fun listToString(list: List<String>): String {
         val stringBuilder = StringBuilder("")
-        if (getSize(list) == 0){
+        if (getSize(list) == 0) {
             return stringBuilder.toString()
         }
         val listSize = getSize(list)
-        var i = 0
-        while (i < listSize){
+        for (i in 0..listSize){
             stringBuilder.append(list[i])
             if (i != listSize - 1){
                 stringBuilder.append(",")
             }
-
-            i++
         }
 
         return stringBuilder.toString()

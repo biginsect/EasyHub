@@ -7,29 +7,31 @@ import com.biginsect.easyhub.app.AppConfig;
 
 /**
  * @author biginsect
- * @date  2018/8/9.
+ * @date 2018/8/9.
  */
 
-public class GreenDaoManager {
+public final class GreenDaoManager {
 
     private static DaoSession daoSession;
     private static DaoMaster daoMaster;
     private static SQLiteDatabase db;
-    /**flag*/
+    /**
+     * flag
+     */
     private boolean isInit = false;
 
-    private GreenDaoManager(){
+    private GreenDaoManager() {
     }
 
-    private static final class DaoManagerHolder{
+    private static final class DaoManagerHolder {
         private static final GreenDaoManager INSTANCE = new GreenDaoManager();
     }
 
-    public static GreenDaoManager getInstance(){
+    public static GreenDaoManager getInstance() {
         return DaoManagerHolder.INSTANCE;
     }
 
-    public void init(Context context){
+    public void init(Context context) {
         if (!isInit) {
             DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(context, AppConfig.DB_NAME, null);
             db = devOpenHelper.getWritableDatabase();
@@ -40,15 +42,15 @@ public class GreenDaoManager {
         }
     }
 
-    public  DaoMaster getDaoMaster() {
+    public DaoMaster getDaoMaster() {
         return daoMaster;
     }
 
-    public  DaoSession getDaoSession() {
+    public DaoSession getDaoSession() {
         return daoSession;
     }
 
-    public  SQLiteDatabase getDb() {
+    public SQLiteDatabase getDb() {
         return db;
     }
 }

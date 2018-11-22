@@ -10,8 +10,8 @@ import com.biginsect.easyhub.constant.ToastType
 import com.biginsect.easyhub.ui.activity.base.BaseActivity
 import com.biginsect.easyhub.ui.contract.ILoginContract
 import com.biginsect.easyhub.ui.presenter.LoginPresenter
-import com.biginsect.easyhub.util.BlankUtils
 import com.biginsect.easyhub.util.NetUtils
+import com.biginsect.easyhub.util.StringUtils
 import com.biginsect.easyhub.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_login_page.*
 
@@ -94,14 +94,14 @@ class LoginActivity : BaseActivity<ILoginContract.ILoginView, ILoginContract.ILo
         name = et_user_name.text.toString()
         pwd = et_user_password.text.toString()
 
-        if(BlankUtils.isBlankString(name)){
+        if(StringUtils.isBlankString(name)){
             result = false
             til_username_wrapper.error = getString(R.string.name_error)
         }else{
             til_username_wrapper.isErrorEnabled = false
         }
 
-        if (BlankUtils.isBlankString(pwd)){
+        if (StringUtils.isBlankString(pwd)){
             result = false
             til_password_wrapper.error = getString(R.string.pass_word_error)
         }else{

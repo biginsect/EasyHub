@@ -5,18 +5,19 @@ import android.os.Parcelable;
 
 /**
  * repository相关权限
+ *
  * @author biginsect
  * @date 2018/9/21.
  */
 
 
-public class RepositoryPermissions implements Parcelable{
+public class RepositoryPermissions implements Parcelable {
 
     private boolean admin;
     private boolean push;
     private boolean pull;
 
-    public RepositoryPermissions(){
+    public RepositoryPermissions() {
 
     }
 

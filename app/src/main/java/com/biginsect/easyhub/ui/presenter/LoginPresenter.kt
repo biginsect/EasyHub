@@ -26,25 +26,25 @@ import java.util.*
  * @author big insect
  * @date 2018/8/21.
  */
-class LoginPresenter: BasePresenter<ILoginContract.ILoginView>(), ILoginContract.ILoginPresenter{
+class LoginPresenter : BasePresenter<ILoginContract.ILoginView>(), ILoginContract.ILoginPresenter {
 
     override fun login(name: String, password: String) {
         val authRequest = AuthRequest.createAuth()
         val token = Credentials.basic(name, password)
 
-        val authSubscriber = HttpSubscriber(object :HttpObserver<AuthToken>{
+        val authSubscriber = HttpSubscriber(object : HttpObserver<AuthToken> {
             override fun onError(error: Throwable) {
-                if (isViewAttached){
+                if (isViewAttached) {
                     view.showError(getErrorMsg(error))
                 }
             }
 
             override fun onSuccess(response: HttpResponse<AuthToken>) {
                 val authToken = response.body()
-                if (isViewAttached){
-                    if (null != authToken){
+                if (isViewAttached) {
+                    if (null != authToken) {
                         view.getTokenSuccess(authToken)
-                    }else{
+                    } else {
                         view.getTokenFailed(response.originalResponse.message())
                     }
                 }
@@ -61,7 +61,7 @@ class LoginPresenter: BasePresenter<ILoginContract.ILoginView>(), ILoginContract
 
     override fun getToken(intent: Intent) {
         val uri = intent.data
-        if (null != uri){
+        if (null != uri) {
             val code = uri.getQueryParameter("code")
             val state = uri.getQueryParameter("state")
             getToken(code, state)
@@ -69,17 +69,17 @@ class LoginPresenter: BasePresenter<ILoginContract.ILoginView>(), ILoginContract
     }
 
     override fun getUserInfo(authToken: AuthToken) {
-        val userSubscriber = HttpSubscriber(object: HttpObserver<User>{
+        val userSubscriber = HttpSubscriber(object : HttpObserver<User> {
             override fun onError(error: Throwable) {
-                if (isViewAttached){
+                if (isViewAttached) {
                     view.showError(getErrorMsg(error))
                 }
             }
 
             override fun onSuccess(response: HttpResponse<User>) {
                 val user = response.body()
-                if (isViewAttached){
-                    if (null != user){
+                if (isViewAttached) {
+                    if (null != user) {
                         saveUserInfo(authToken, user)
                         view.onLoginSuccess()
                     }
@@ -102,7 +102,7 @@ class LoginPresenter: BasePresenter<ILoginContract.ILoginView>(), ILoginContract
                 "&scope=${AppConfig.OAUTH2_SCOPE}&state=$randomState"
     }
 
-    private fun saveUserInfo(authToken: AuthToken, user: User){
+    private fun saveUserInfo(authToken: AuthToken, user: User) {
         val updateUser = "UPDATE ${daoSession.authUserDao.tablename} SET " +
                 "${AuthUserDao.Properties.Selected.columnName} = 0"
         daoSession.authUserDao.database.execSQL(updateUser)
@@ -134,20 +134,20 @@ class LoginPresenter: BasePresenter<ILoginContract.ILoginView>(), ILoginContract
      * @param code 登录后跳转至github授权网页，需要用户授权并返回参数code
      * @param state 随机字符串
      * */
-    private fun getToken(code: String, state: String){
-        val tokenSubscriber = HttpSubscriber(object: HttpObserver<OAuthToken>{
+    private fun getToken(code: String, state: String) {
+        val tokenSubscriber = HttpSubscriber(object : HttpObserver<OAuthToken> {
             override fun onError(error: Throwable) {
-                if (isViewAttached){
+                if (isViewAttached) {
                     view.getTokenFailed(getErrorMsg(error))
                 }
             }
 
             override fun onSuccess(response: HttpResponse<OAuthToken>) {
                 val oAuthToken = response.body()
-                if (isViewAttached){
-                    if (null != oAuthToken){
+                if (isViewAttached) {
+                    if (null != oAuthToken) {
                         view.getTokenSuccess(AuthToken.createAuthToken(oAuthToken))
-                    }else{
+                    } else {
                         view.getTokenFailed(response.originalResponse.message())
                     }
                 }
@@ -164,12 +164,12 @@ class LoginPresenter: BasePresenter<ILoginContract.ILoginView>(), ILoginContract
         executeRxHttp(observable, tokenSubscriber)
     }
 
-    private fun getLoginService():LoginService{
+    private fun getLoginService(): LoginService {
         return GitHubRetrofit.createRetrofit(AppConfig.GIT_HUB_BASE_URL, null)
                 .create(LoginService::class.java)
     }
 
-    private fun getLoginService(token: String):LoginService{
+    private fun getLoginService(token: String): LoginService {
         return GitHubRetrofit.createRetrofit(AppConfig.BASE_API_URL, token)
                 .create(LoginService::class.java)
     }

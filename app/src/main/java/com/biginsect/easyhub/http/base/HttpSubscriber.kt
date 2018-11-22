@@ -23,6 +23,6 @@ open class HttpSubscriber<T>(private val observer: HttpObserver<T>) : Observer<R
     }
 
     override fun onError(e: Throwable) {
-        observer.onError( e)
+        observer.onError(e)
     }
 }

@@ -10,11 +10,12 @@ import android.view.View;
  */
 
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder
-        implements View.OnClickListener,View.OnLongClickListener {
+        implements View.OnClickListener, View.OnLongClickListener {
+
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
-    public BaseViewHolder(View itemView){
+    public BaseViewHolder(View itemView) {
         super(itemView);
     }
 
@@ -28,7 +29,7 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public void onClick(View v) {
-        if (null != onItemClickListener && getAdapterPosition() != RecyclerView.NO_POSITION){
+        if (null != onItemClickListener && getAdapterPosition() != RecyclerView.NO_POSITION) {
             onItemClickListener.onItemClick(getAdapterPosition(), v);
         }
     }
@@ -39,11 +40,11 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder
                 && onItemLongClickListener.onItemLongClick(getAdapterPosition(), v);
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(int position, View view);
     }
 
-    public interface OnItemLongClickListener{
+    public interface OnItemLongClickListener {
         boolean onItemLongClick(int position, View view);
     }
 }

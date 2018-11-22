@@ -5,14 +5,14 @@ import android.support.annotation.NonNull
 /**
  * @author big insect
  */
-interface MvpDelegateCallback<V: MvpView, P: MvpPresenter<V>> {
+interface MvpDelegateCallback<V : MvpView, P : MvpPresenter<V>> {
 
     @NonNull
-    fun createPresenter():P?
+    fun createPresenter(): P?
 
-    fun getPresenter():P?
+    fun getPresenter(): P?
 
-    fun setPresenter(presenter:P?)
+    fun setPresenter(presenter: P?)
 
-    fun getMvpView():V?
+    fun getMvpView(): V?
 }

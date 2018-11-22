@@ -3,7 +3,7 @@ package com.biginsect.easyhub.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.biginsect.easyhub.util.BlankUtils;
+import com.biginsect.easyhub.util.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -172,7 +172,7 @@ public class EventPayload implements Parcelable{
     }
 
     public String getBranch(){
-        return BlankUtils.INSTANCE.isBlankString(ref) ? null : ref.substring(ref.lastIndexOf("/") + 1);
+        return StringUtils.INSTANCE.isBlankString(ref) ? null : ref.substring(ref.lastIndexOf("/") + 1);
     }
 
     public String getHead() {

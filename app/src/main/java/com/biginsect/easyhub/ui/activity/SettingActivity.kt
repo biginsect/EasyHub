@@ -20,12 +20,13 @@ import kotlinx.android.synthetic.main.activity_base_fragment.*
  * @date 2018/8/30.
  */
 class SettingActivity : BaseFragmentActivity<ISettingContract.ISettingView, ISettingContract.ISettingPresenter, SettingFragment>(),
-        ISettingContract.ISettingView, SettingFragment.SettingsCallback{
+        ISettingContract.ISettingView, SettingFragment.SettingsCallback {
 
-    @AutoAccess private var recreated = false
+    @AutoAccess
+    private var recreated = false
 
     companion object {
-        fun show(activity: Activity, requestCode: Int){
+        fun show(activity: Activity, requestCode: Int) {
             val intent = Intent(activity, SettingActivity::class.java)
             activity.startActivityForResult(intent, requestCode)
         }
@@ -39,7 +40,7 @@ class SettingActivity : BaseFragmentActivity<ISettingContract.ISettingView, ISet
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         setToolbarTitle(getString(R.string.setting))
-        if (recreated){
+        if (recreated) {
             layout_root.post { startAnimation() }
             setResult(Activity.RESULT_OK)
             recreated = false
@@ -61,14 +62,14 @@ class SettingActivity : BaseFragmentActivity<ISettingContract.ISettingView, ISet
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
-        if (recreated){
+        if (recreated) {
             super.onSaveInstanceState(outState)
-        }else{
+        } else {
             finish()
         }
     }
 
-    private fun startAnimation(){
+    private fun startAnimation() {
         val cx = layout_root.width / 2
         val cy = layout_root.height / 2
         val endRadius = Math.hypot(cx.toDouble(), cy.toDouble()).toFloat()

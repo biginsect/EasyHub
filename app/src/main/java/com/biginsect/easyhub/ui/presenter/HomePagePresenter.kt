@@ -8,13 +8,13 @@ import com.biginsect.easyhub.util.PreUtils
 /**
  * @author big insect
  */
-class HomePagePresenter : BasePresenter<IHomePageContract.IHomePageView>() ,IHomePageContract.IHomePagePresenter {
+class HomePagePresenter : BasePresenter<IHomePageContract.IHomePageView>(), IHomePageContract.IHomePagePresenter {
 
     override fun logout() {
         daoSession.authUserDao.delete(AppData.authUser)
         AppData.authUser = null
         AppData.loggedUser = null
-        if (isViewAttached){
+        if (isViewAttached) {
             view.restartApp()
         }
     }
@@ -22,7 +22,7 @@ class HomePagePresenter : BasePresenter<IHomePageContract.IHomePageView>() ,IHom
     override fun isFirstUseAndNoNewsUser(): Boolean {
         val user = AppData.loggedUser
         if (user?.following == 0 && user.publicGists == 0
-                && user.publicGists == 0 && PreUtils.isFirstUse()){
+                && user.publicGists == 0 && PreUtils.isFirstUse()) {
             PreUtils.set(PreUtils.FIRST_USE, false)
             return true
         }

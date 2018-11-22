@@ -8,6 +8,7 @@ import io.reactivex.disposables.Disposable
  * @author big insect
  */
 class HttpProgressSubscriber<T>(dialog: AlertDialog?, observer: HttpObserver<T>) : HttpSubscriber<T>(observer) {
+
     private var mDialog = dialog
 
     override fun onSubscribe(d: Disposable) {

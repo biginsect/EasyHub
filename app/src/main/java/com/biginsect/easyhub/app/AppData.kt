@@ -10,12 +10,15 @@ import java.util.*
  * @author big insect
  */
 object AppData {
-    @AutoAccess(dataName = "appData_loggedUser") var loggedUser :User? = null
 
-    @AutoAccess(dataName = "appData_authUser") var authUser :AuthUser? = null
+    @AutoAccess(dataName = "appData_loggedUser")
+    var loggedUser: User? = null
+
+    @AutoAccess(dataName = "appData_authUser")
+    var authUser: AuthUser? = null
 
     @AutoAccess(dataName = "appData_systemDefaultLocal")
-    val systemDefaultLocal :Locale = Locale.getDefault()
+    val systemDefaultLocal: Locale = Locale.getDefault()
 
     val accessToken = authUser?.accessToken
 }

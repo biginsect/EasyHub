@@ -11,12 +11,12 @@ import com.biginsect.easyhub.ui.contract.base.IBaseContract
  * @date 2018/9/3.
  */
 
-abstract class BaseListActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<V>, A: BaseAdapter<*, *>>
+abstract class BaseListActivity<V : IBaseContract.IView, P : IBaseContract.IPresenter<V>, A : BaseAdapter<*, *>>
     : BaseActivity<V, P>(), IBaseContract.IView,
         BaseViewHolder.OnItemClickListener, BaseViewHolder.OnItemLongClickListener {
 
     protected var mAdapter: A? = null
-    private set
+        private set
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)

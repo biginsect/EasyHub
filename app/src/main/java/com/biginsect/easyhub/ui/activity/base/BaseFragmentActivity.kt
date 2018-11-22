@@ -11,11 +11,11 @@ import com.orhanobut.logger.Logger
  * @date 2018/9/3.
  */
 
-abstract class BaseFragmentActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<V>, F: Fragment>
+abstract class BaseFragmentActivity<V : IBaseContract.IView, P : IBaseContract.IPresenter<V>, F : Fragment>
     : BaseActivity<V, P>() {
 
     protected lateinit var fragment: F
-    private set
+        private set
 
     private val tagFragment = "fragment"
 
@@ -25,13 +25,13 @@ abstract class BaseFragmentActivity<V: IBaseContract.IView, P: IBaseContract.IPr
         setToolbarBackAvailable()
 
         val tmpFragment = supportFragmentManager.findFragmentByTag(tagFragment)
-        if (null == tmpFragment){
+        if (null == tmpFragment) {
             fragment = createFragment()
             supportFragmentManager.beginTransaction()
                     .add(R.id.container, fragment, tagFragment)
                     .commit()
             Logger.d("current fragment is null")
-        }else{
+        } else {
             fragment = tmpFragment as F
             Logger.d("current fragment is not null")
         }
@@ -46,5 +46,5 @@ abstract class BaseFragmentActivity<V: IBaseContract.IView, P: IBaseContract.IPr
         return R.layout.activity_base_fragment
     }
 
-    protected abstract fun createFragment():F
+    protected abstract fun createFragment(): F
 }

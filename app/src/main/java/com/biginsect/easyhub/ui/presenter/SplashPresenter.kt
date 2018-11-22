@@ -19,7 +19,7 @@ import java.util.*
  * @author big insect
  * @date 2018/8/21.
  */
-class SplashPresenter: BasePresenter<ISplashContract.ISplashView>(), ISplashContract.ISplashPresenter {
+class SplashPresenter : BasePresenter<ISplashContract.ISplashView>(), ISplashContract.ISplashPresenter {
 
     /**缓存*/
     private lateinit var authUser: AuthUser
@@ -32,35 +32,43 @@ class SplashPresenter: BasePresenter<ISplashContract.ISplashView>(), ISplashCont
                 .where(AuthUserDao.Properties.Selected.eq(true))
                 .limit(1)
                 .list()
-        var selectedUser = if (!ListUtils.isEmpty(users)){users[0] }else {null }
+        var selectedUser = if (!ListUtils.isEmpty(users)) {
+            users[0]
+        } else {
+            null
+        }
 
-        if (null == selectedUser){
+        if (null == selectedUser) {
             val firstAccount = authUserDao.queryBuilder()
                     .limit(1)
                     .list()
-            selectedUser = if (!ListUtils.isEmpty(firstAccount)){ firstAccount[0]}else{ null}
+            selectedUser = if (!ListUtils.isEmpty(firstAccount)) {
+                firstAccount[0]
+            } else {
+                null
+            }
         }
 
-        if (null != selectedUser && isExpired(selectedUser)){
+        if (null != selectedUser && isExpired(selectedUser)) {
             authUserDao.delete(selectedUser)
             selectedUser = null
         }
 
-        if (null != selectedUser){
+        if (null != selectedUser) {
             AppData.authUser = selectedUser
             /***/
             getUserInfo()
-        }else if (isViewAttached){
+        } else if (isViewAttached) {
             view.showLoginPage()
         }
     }
 
-    private fun getUserInfo(){
-        val userSubscribe = object: HttpObserver<User>{
+    private fun getUserInfo() {
+        val userSubscribe = object : HttpObserver<User> {
             override fun onError(error: Throwable) {
                 daoSession.authUserDao.delete(AppData.authUser)
                 AppData.authUser = null
-                if (isViewAttached){
+                if (isViewAttached) {
                     view.showError(getErrorMsg(error))
                     view.showLoginPage()
                 }
@@ -68,16 +76,16 @@ class SplashPresenter: BasePresenter<ISplashContract.ISplashView>(), ISplashCont
 
             override fun onSuccess(response: HttpResponse<User>) {
                 val user = response.body()
-                if (null != authUser && null != user){
+                if (null != authUser && null != user) {
                     authUser.loginId = user.login
                     daoSession.authUserDao.update(authUser)
                 }
 
-                if (!isMainPageShowed){
+                if (!isMainPageShowed) {
                     isMainPageShowed = true
                 }
 
-                if (isViewAttached){
+                if (isViewAttached) {
                     view.showHomePage()
                 }
             }
@@ -87,7 +95,7 @@ class SplashPresenter: BasePresenter<ISplashContract.ISplashView>(), ISplashCont
             }
         }
 
-        executeRxHttp(object: IObservableCreator<User>{
+        executeRxHttp(object : IObservableCreator<User> {
             override fun create(forceNetwork: Boolean): Observable<Response<User>> {
                 return userService.getUserInfo(forceNetwork)
             }
@@ -95,11 +103,11 @@ class SplashPresenter: BasePresenter<ISplashContract.ISplashView>(), ISplashCont
     }
 
     /**是否在职*/
-    private fun isExpired(selectedUser: AuthUser): Boolean{
+    private fun isExpired(selectedUser: AuthUser): Boolean {
         return selectedUser.authTime.time + selectedUser.expireIn * 1000 < System.currentTimeMillis()
     }
 
-    private fun saveAceesToken(accessToken: String, scope: String , expireIn: Int){
+    private fun saveAceesToken(accessToken: String, scope: String, expireIn: Int) {
         val authUser = AuthUser()
         authUser.selected = true
         authUser.scope = scope

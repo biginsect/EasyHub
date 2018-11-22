@@ -5,11 +5,11 @@ import android.support.annotation.UiThread
 /**
  * @author big insect
  */
-interface MvpPresenter <V: MvpView>{
+interface MvpPresenter<V : MvpView> {
 
     @UiThread
-    fun attachView(v :V?)
+    fun attachView(v: V?)
 
     @UiThread
-    fun detachView(isDetach :Boolean)
+    fun detachView(isDetach: Boolean)
 }

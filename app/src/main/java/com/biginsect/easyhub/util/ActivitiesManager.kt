@@ -12,17 +12,17 @@ import java.util.*
 object ActivitiesManager {
     private val mActivityList: LinkedList<SoftReference<Activity>> = LinkedList()
 
-    fun addActivity(softActivity: SoftReference<Activity>){
+    fun addActivity(softActivity: SoftReference<Activity>) {
         mActivityList.add(softActivity)
     }
 
-    fun finishActivity(softActivity: SoftReference<Activity>?){
-       mActivityList.remove(softActivity)
+    fun finishActivity(softActivity: SoftReference<Activity>?) {
+        mActivityList.remove(softActivity)
     }
 
-    private fun finishAll(){
+    private fun finishAll() {
         var i = mActivityList.size - 1
-        while (i >= 0){
+        while (i >= 0) {
             val softActivity = mActivityList[i]
             softActivity.get()?.finish()
             i--
@@ -31,13 +31,13 @@ object ActivitiesManager {
         mActivityList.clear()
     }
 
-    fun appExit(context: Context){
+    fun appExit(context: Context) {
         try {
             finishAll()
             val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
             manager.killBackgroundProcesses(context.packageName)
             System.exit(0)
-        }catch (e:Exception){
+        } catch (e: Exception) {
 
         }
     }

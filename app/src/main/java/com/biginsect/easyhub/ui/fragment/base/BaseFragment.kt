@@ -18,7 +18,7 @@ import com.thirtydegreesray.dataautoaccess.DataAutoAccess
  * @date 2018/9/5.
  */
 
-abstract class BaseFragment<V: IBaseContract.IView, P: IBaseContract.IPresenter<V>>
+abstract class BaseFragment<V : IBaseContract.IView, P : IBaseContract.IPresenter<V>>
     : BaseMvpFragment<V, P>(), IBaseContract.IView {
 
     protected lateinit var rootView: View
@@ -28,7 +28,7 @@ abstract class BaseFragment<V: IBaseContract.IView, P: IBaseContract.IPresenter<
         super.onCreate(savedInstanceState)
         DataAutoAccess.getData(this, savedInstanceState)
         DataAutoAccess.getData(this, arguments)
-        if(null != presenter){
+        if (null != presenter) {
             presenter.onRestoreInstanceState(savedInstanceState)
             presenter.onRestoreInstanceState(arguments)
         }
@@ -72,7 +72,7 @@ abstract class BaseFragment<V: IBaseContract.IView, P: IBaseContract.IPresenter<
     }
 
     override fun getProgressDialog(msg: String): ProgressDialog {
-        if (null == mProgressDialog){
+        if (null == mProgressDialog) {
             mProgressDialog = ProgressDialog(activity)
             mProgressDialog!!.setCancelable(false)
         }
@@ -103,5 +103,5 @@ abstract class BaseFragment<V: IBaseContract.IView, P: IBaseContract.IPresenter<
 
     protected abstract fun initFragment(savedInstanceState: Bundle?)
 
-    protected abstract fun getLayoutId():Int
+    protected abstract fun getLayoutId(): Int
 }

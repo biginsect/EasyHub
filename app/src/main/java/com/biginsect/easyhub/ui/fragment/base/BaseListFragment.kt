@@ -11,7 +11,7 @@ import com.biginsect.easyhub.ui.contract.base.IBaseContract
  * @date 2018/9/3.
  */
 
-abstract class BaseListFragment<V: IBaseContract.IView, P: IBaseContract.IPresenter<V>, A: BaseAdapter<*, *>>
+abstract class BaseListFragment<V : IBaseContract.IView, P : IBaseContract.IPresenter<V>, A : BaseAdapter<*, *>>
     : BaseFragment<V, P>(), IBaseContract.IView,
         BaseViewHolder.OnItemLongClickListener, BaseViewHolder.OnItemClickListener {
 
@@ -20,7 +20,7 @@ abstract class BaseListFragment<V: IBaseContract.IView, P: IBaseContract.IPresen
 
     override fun initFragment(savedInstanceState: Bundle?) {
         adapter = createAdapter()
-        if (null != adapter){
+        if (null != adapter) {
             adapter!!.onItemClickListener = this
             adapter!!.onItemLongClickListener = this
         }

@@ -11,18 +11,18 @@ import java.util.*
  */
 object StringUtils {
 
-    fun getLocale(language: String): Locale{
+    fun getLocale(language: String): Locale {
         val array = language.split(Regex("-"))
 
-        return if (array.size > 1){
+        return if (array.size > 1) {
             val country = array[1].replaceFirst("r", "")
             Locale(array[0], country)
-        }else{
+        } else {
             Locale(language)
         }
     }
 
-    fun getDateStr(date: Date?): String{
+    fun getDateStr(date: Date?): String {
         val locale = getLocale(PreUtils.getLanguage())
         val regex = "MMM d, yyyy"
         val format = SimpleDateFormat(regex, locale)
@@ -39,7 +39,7 @@ object StringUtils {
      * 5.days ago
      * 6.间隔大于30天显示具体日期
      * */
-    fun getTimeString(context: Context, date: Date):String{
+    fun getTimeString(context: Context, date: Date): String {
         val timeInterval = System.currentTimeMillis() - date.time
 
         val milliseconds = 1000L
@@ -48,15 +48,15 @@ object StringUtils {
         val hours = 24 * minutes
         val days = 30 * hours
 
-        return when(timeInterval){
-            /**until 取半开区间（包含前者不包含后者）*/
+        return when (timeInterval) {
+        /**until 取半开区间（包含前者不包含后者）*/
             in 0 until milliseconds -> context.getString(R.string.just_now)
             in milliseconds until seconds -> context.getString(R.string.seconds_ago)
             in seconds until minutes -> context.getString(R.string.minutes_ago)
             in minutes until hours -> context.getString(R.string.hours_ago)
             in hours until days -> context.getString(R.string.days_ago)
 
-            else ->{
+            else -> {
                 SimpleDateFormat("MMM d, yyyy", Locale.ENGLISH).format(date)
             }
         }
@@ -65,11 +65,15 @@ object StringUtils {
     /**
      * 首个字母大写
      * */
-    fun upCaseFirstChar(str: String?):String?{
-        if (BlankUtils.isBlankString(str)){
+    fun upCaseFirstChar(str: String?): String? {
+        if (isBlankString(str)) {
             return null
         }
 
         return str!!.substring(0, 1).toUpperCase() + str.substring(1)
+    }
+
+    fun isBlankString(str: String?): Boolean{
+        return null == str || str.trim() == ""
     }
 }

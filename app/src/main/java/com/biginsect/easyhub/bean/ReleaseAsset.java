@@ -15,6 +15,7 @@ import java.util.Date;
 
 
 public class ReleaseAsset implements Parcelable{
+
     private String url;
     @SerializedName("browser_download_url") private String browserDownloadUrl;
     private String id;

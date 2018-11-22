@@ -26,8 +26,8 @@ import java.lang.ref.SoftReference
  * @date 2018/9/5.
  */
 
-abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<V>>
-    :BaseMvpActivity<V, P>(), IBaseContract.IView {
+abstract class BaseActivity<V : IBaseContract.IView, P : IBaseContract.IPresenter<V>>
+    : BaseMvpActivity<V, P>(), IBaseContract.IView {
 
     private val tag = "BaseActivity"
     private var mSoftActivity: SoftReference<Activity>? = null
@@ -36,9 +36,9 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Logger.d(tag, "-----onCreate()")
-        if ((null == AppData.authUser ||null == AppData.loggedUser)
+        if ((null == AppData.authUser || null == AppData.loggedUser)
                 && this.javaClass != SplashActivity::class.java
-                && this.javaClass != LoginActivity::class.java){
+                && this.javaClass != LoginActivity::class.java) {
             super.onCreate(savedInstanceState)
             finishAffinity()
             startActivity(Intent(getActivity(), SplashActivity::class.java))
@@ -49,11 +49,11 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
         DataAutoAccess.getData(this, savedInstanceState)
         presenter.onRestoreInstanceState(savedInstanceState ?: intent.extras)
 
-        if(null != savedInstanceState && null == AppData.authUser){
+        if (null != savedInstanceState && null == AppData.authUser) {
             DataAutoAccess.getData(AppData, savedInstanceState)
         }
 
-        if (0 != getLayoutId()){
+        if (0 != getLayoutId()) {
             setContentView(getLayoutId())
         }
 
@@ -67,7 +67,7 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
         super.onSaveInstanceState(outState)
         DataAutoAccess.saveData(this, outState)
         presenter?.onSaveInstanceState(outState)
-        if (this == currentActivity){
+        if (this == currentActivity) {
             DataAutoAccess.saveData(AppData, outState)
         }
     }
@@ -81,7 +81,7 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
     override fun onDestroy() {
         Logger.d(tag, "----onDestroy()")
         super.onDestroy()
-        if(this == currentActivity){
+        if (this == currentActivity) {
             currentActivity = null
         }
 
@@ -95,23 +95,23 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
         super.finish()
     }
 
-    internal fun setToolbarBackAvailable(){
+    internal fun setToolbarBackAvailable() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    internal fun setToolbarTitle(title: String){
+    internal fun setToolbarTitle(title: String) {
         supportActionBar?.title = title
     }
 
-    internal fun finishDelay(mill: Int){
+    internal fun finishDelay(mill: Int) {
         Handler().postDelayed({ finish() }, mill.toLong())
     }
 
-    internal fun finishDelay(){
+    internal fun finishDelay() {
         finishDelay(1000)
     }
 
-    internal fun hideSoftKeyboard(view: View){
+    internal fun hideSoftKeyboard(view: View) {
         val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
@@ -146,7 +146,7 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
     }
 
     override fun getProgressDialog(msg: String): ProgressDialog {
-        if (null == mProgressDialog){
+        if (null == mProgressDialog) {
             mProgressDialog = ProgressDialog(getActivity())
             mProgressDialog!!.setCancelable(false)
         }
@@ -173,12 +173,12 @@ abstract class BaseActivity<V: IBaseContract.IView, P: IBaseContract.IPresenter<
     protected abstract fun getLayoutId(): Int
 
     @CallSuper
-    protected open fun initView(savedInstanceState: Bundle?){
+    protected open fun initView(savedInstanceState: Bundle?) {
 
     }
 
     @CallSuper
-    protected open fun initActivity(){
+    protected open fun initActivity() {
 
     }
 }

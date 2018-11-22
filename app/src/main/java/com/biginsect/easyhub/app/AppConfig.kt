@@ -1,7 +1,7 @@
 package com.biginsect.easyhub.app
 
 import com.biginsect.easyhub.BuildConfig
-import com.biginsect.easyhub.util.BlankUtils
+import com.biginsect.easyhub.util.StringUtils
 
 /**
  * 相关配置，url
@@ -37,7 +37,7 @@ object AppConfig {
     private val COMMON_PAGE_URL_LIST: List<String> = listOf("https://github.com/trending")
 
     fun isCommonPageUrl(url: String?): Boolean{
-        if (BlankUtils.isBlankString(url)){
+        if (StringUtils.isBlankString(url)){
             return false
         }
 

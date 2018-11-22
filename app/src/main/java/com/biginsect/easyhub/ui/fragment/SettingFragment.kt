@@ -19,7 +19,7 @@ import java.util.*
 class SettingFragment : PreferenceFragmentCompat(),
         Preference.OnPreferenceClickListener, Preference.OnPreferenceChangeListener {
 
-    private  var callback: SettingFragment.SettingsCallback? = null
+    private var callback: SettingFragment.SettingsCallback? = null
     private val logout = "logout"
 
     private lateinit var nameList: List<String>
@@ -44,8 +44,8 @@ class SettingFragment : PreferenceFragmentCompat(),
     }
 
     override fun onPreferenceClick(preference: Preference?): Boolean {
-        return when(preference?.key){
-            logout ->{
+        return when (preference?.key) {
+            logout -> {
                 logout()
                 true
             }
@@ -67,23 +67,24 @@ class SettingFragment : PreferenceFragmentCompat(),
     /**
      * 重设主题 or 背景颜色之后重新载入app
      * */
-    private fun recreateMain(){
+    private fun recreateMain() {
         callback?.onRecreate()
     }
 
-    private fun logout(){
+    private fun logout() {
         AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle(R.string.warning)
                 .setMessage(R.string.warning_logout)
                 .setNegativeButton(R.string.cancel) { dialog, _ -> dialog?.dismiss() }
-                .setPositiveButton(R.string.okay) {dialog, _ ->
+                .setPositiveButton(R.string.okay) { dialog, _ ->
                     callback?.onLogout()
-                    dialog?.dismiss() }
+                    dialog?.dismiss()
+                }
                 .show()
     }
 
-    private fun showChooseStartPageDialog(){
+    private fun showChooseStartPageDialog() {
         AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle(R.string.start_page)
@@ -96,7 +97,7 @@ class SettingFragment : PreferenceFragmentCompat(),
                 .show()
     }
 
-    private fun getStartPageIndex(): Int{
+    private fun getStartPageIndex(): Int {
         val startPage = PreUtils.getStartPage()
         return idList.indexOf(startPage)
     }

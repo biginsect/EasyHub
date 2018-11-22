@@ -4,7 +4,8 @@ package com.biginsect.easyhub.constant
  * @author biginsect
  * @date 2018/8/10.
  */
- enum class ToastType {
+enum class ToastType {
+
     /**成功*/
     SUCCESS,
     /**错误*/

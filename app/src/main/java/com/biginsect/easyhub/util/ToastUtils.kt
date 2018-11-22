@@ -12,39 +12,39 @@ import es.dmoral.toasty.Toasty
  * @date 2018/8/10.
  */
 object ToastUtils {
-    private const val  TAG = "ToastUtils"
+    private const val TAG = "ToastUtils"
     private var mToast: Toast? = null
 
-    private fun showToast(context: Context, msg: String?, type: ToastType, time: Int){
+    private fun showToast(context: Context, msg: String?, type: ToastType, time: Int) {
 
-        if (null == msg || msg.trim().isEmpty()){
+        if (null == msg || msg.trim().isEmpty()) {
             Logger.d(TAG, "message is null")
             return
         }
 
-        if(mToast == null){
+        if (mToast == null) {
             mToast = setToast(context, msg, type, time)
-        }else{
+        } else {
             mToast?.setText(msg)
         }
 
         mToast?.show()
     }
 
-    fun showLongToast(context: Context, msg: String?, type: ToastType){
+    fun showLongToast(context: Context, msg: String?, type: ToastType) {
         showToast(context, msg, type, Toast.LENGTH_LONG)
     }
 
-    fun showShortToast(context: Context, msg: String?, type: ToastType){
+    fun showShortToast(context: Context, msg: String?, type: ToastType) {
         showToast(context, msg, type, Toast.LENGTH_SHORT)
     }
 
-    fun cancel(){
+    fun cancel() {
         mToast?.cancel()
     }
 
-    private fun setToast(context: Context, msg: String, type: ToastType, time: Int): Toast{
-        return when(type){
+    private fun setToast(context: Context, msg: String, type: ToastType, time: Int): Toast {
+        return when (type) {
             ToastType.ERROR -> Toasty.error(context, msg, time)
             ToastType.SUCCESS -> Toasty.success(context, msg, time)
             ToastType.WARNING -> Toasty.warning(context, msg, time)

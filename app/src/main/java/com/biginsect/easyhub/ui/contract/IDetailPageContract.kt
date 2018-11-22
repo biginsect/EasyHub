@@ -7,11 +7,11 @@ import com.biginsect.easyhub.ui.contract.base.IBaseContract
  * @date 2018/8/20.
  */
 interface IDetailPageContract {
-    interface IDetailView: IBaseContract.IView{
+    interface IDetailView : IBaseContract.IView {
 
     }
 
-    interface IDetailPresenter: IBaseContract.IPresenter<IDetailView>{
+    interface IDetailPresenter : IBaseContract.IPresenter<IDetailView> {
 
     }
 }

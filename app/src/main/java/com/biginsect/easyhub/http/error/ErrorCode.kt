@@ -8,6 +8,7 @@ import com.biginsect.easyhub.app.AppApplication
  * @author big insect
  */
 object ErrorCode {
+
     /**缓存和网络不可用*/
     const val CACHE_AND_NETWORK_UNAVAILABLE = 1
     /**没有找到该页面*/
@@ -22,11 +23,11 @@ object ErrorCode {
         MAP_MSG_ERROR[UNAUTHORIZED] = getString(R.string.unauthorized)
     }
 
-    private fun getString(@StringRes resId: Int): String{
+    private fun getString(@StringRes resId: Int): String {
         return AppApplication.getInstance().resources.getString(resId)
     }
 
-    fun getErrorMsg(code: Int): String{
+    fun getErrorMsg(code: Int): String {
         return MAP_MSG_ERROR[code]!!
     }
 }

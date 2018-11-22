@@ -12,7 +12,7 @@ import com.biginsect.easyhub.mvp.MvpView
  */
 interface IBaseContract {
 
-    interface IView: MvpView {
+    interface IView : MvpView {
 
         fun showInfo(msg: String)
 
@@ -35,12 +35,12 @@ interface IBaseContract {
         fun getProgressDialog(msg: String): ProgressDialog
     }
 
-    interface IPresenter<V: IView> : MvpPresenter<V> {
+    interface IPresenter<V : IView> : MvpPresenter<V> {
 
         fun onSaveInstanceState(outState: Bundle?)
 
         fun onRestoreInstanceState(outState: Bundle?)
 
-        fun getContext():Context
+        fun getContext(): Context
     }
 }

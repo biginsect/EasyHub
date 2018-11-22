@@ -20,8 +20,8 @@ object PreUtils {
 
     private val isDisableLoadingImage = getDefaultSp(AppApplication.getInstance()).getBoolean(DISABLE_LOADING_IMAGE, false)
 
-    fun set(key: String?, value: Any?){
-        if (BlankUtils.isBlankString(key) || null == value){
+    fun set(key: String?, value: Any?) {
+        if (StringUtils.isBlankString(key) || null == value) {
             throw NullPointerException(String.format("Key and value not be null key=%s, value=%s", key, value))
         }
 
@@ -39,30 +39,30 @@ object PreUtils {
         edit.apply()
     }
 
-    fun getLanguage(): String{
+    fun getLanguage(): String {
         return getDefaultSp().getString(LANGUAGE, "en")
     }
 
     /**
      * wifi 网络下才加载图片
      * */
-    fun isLoadImageAvailable(): Boolean{
+    fun isLoadImageAvailable(): Boolean {
         return NetUtils.netStatus == NetUtils.TYPE_WIFI || !isDisableLoadingImage
     }
 
-    fun isFirstUse(): Boolean{
+    fun isFirstUse(): Boolean {
         return getDefaultSp().getBoolean(FIRST_USE, true)
     }
 
-    fun getStartPage():String{
+    fun getStartPage(): String {
         return getDefaultSp(AppApplication.getInstance()).getString(START_PAGE, "Profile")
     }
 
-    private fun getDefaultSp(): SharedPreferences{
+    private fun getDefaultSp(): SharedPreferences {
         return PreferenceManager.getDefaultSharedPreferences(AppApplication.getInstance())
     }
 
-    private fun getDefaultSp(context: Context): SharedPreferences{
+    private fun getDefaultSp(context: Context): SharedPreferences {
         return PreferenceManager.getDefaultSharedPreferences(context)
     }
 }

@@ -26,9 +26,9 @@ import com.biginsect.easyhub.http.error.HttpError;
 import com.biginsect.easyhub.http.error.PageNotFoundException;
 import com.biginsect.easyhub.http.error.UnauthorizedException;
 import com.biginsect.easyhub.ui.contract.base.IBaseContract;
-import com.biginsect.easyhub.util.BlankUtils;
 import com.biginsect.easyhub.util.NetUtils;
 import com.biginsect.easyhub.util.PreUtils;
+import com.biginsect.easyhub.util.StringUtils;
 import com.thirtydegreesray.dataautoaccess.DataAutoAccess;
 
 import org.apache.http.conn.ConnectTimeoutException;
@@ -224,7 +224,7 @@ public abstract class BasePresenter<V extends IBaseContract.IView> implements IB
         }else if (throwable instanceof HttpError){
             msg = throwable.getMessage();
         }else {
-            msg = BlankUtils.INSTANCE.isBlankString(throwable.getMessage()) ? throwable.toString():throwable.getMessage();
+            msg = StringUtils.INSTANCE.isBlankString(throwable.getMessage()) ? throwable.toString():throwable.getMessage();
         }
 
         return msg;

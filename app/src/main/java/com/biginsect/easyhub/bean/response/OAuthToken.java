@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class OAuthToken {
+
     @SerializedName("access_token") private String accessToken;
     private String scope;
 

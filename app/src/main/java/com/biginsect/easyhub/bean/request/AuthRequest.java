@@ -14,6 +14,7 @@ import java.util.List;
  */
 
 public class AuthRequest {
+
     private List<String> scopes;
     private String appId;
     private String redirectUrl;
