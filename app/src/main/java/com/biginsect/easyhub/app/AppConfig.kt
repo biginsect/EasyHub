@@ -9,6 +9,7 @@ import com.biginsect.easyhub.util.StringUtils
  * @date  2018/8/9.
  */
 object AppConfig {
+
     const val DB_NAME  = "GitHub"
 
     const val GIT_HUB_BASE_URL = "https://github.com/"

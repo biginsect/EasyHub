@@ -19,6 +19,13 @@ import kotlinx.android.synthetic.main.fragment_project_list.*
  */
 class ActivityFragment : BaseListFragment<IActivityContract.IActivityView, IActivityContract.IActivityPresenter, EventListAdapter>(),
         IActivityContract.IActivityView {
+
+    companion object {
+        fun create() : ActivityFragment{
+            return ActivityFragment()
+        }
+    }
+
     /**标志位，避免重复设置滑动状态增加开销*/
     private var mIsScrolling = false
 

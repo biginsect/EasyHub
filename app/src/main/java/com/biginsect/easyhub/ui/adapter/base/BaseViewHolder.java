@@ -9,7 +9,7 @@ import android.view.View;
  * @date 2018/8/22.
  */
 
-public abstract class BaseViewHolder extends RecyclerView.ViewHolder
+public class BaseViewHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener, View.OnLongClickListener {
 
     private OnItemClickListener onItemClickListener;

@@ -72,7 +72,7 @@ abstract class BaseAdapter<VH : BaseViewHolder, D : Any>(context: Context)
     /**
      * 获取到数据，通知视图更新
      * */
-    fun addData(dataList: ArrayList<D>) {
+    fun setData(dataList: ArrayList<D>) {
         this.dataList = dataList
         notifyDataSetChanged()
     }
