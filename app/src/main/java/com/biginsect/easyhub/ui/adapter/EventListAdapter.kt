@@ -2,6 +2,7 @@ package com.biginsect.easyhub.ui.adapter
 
 import android.content.Context
 import android.graphics.Typeface
+import android.support.v7.widget.RecyclerView
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
@@ -33,7 +34,7 @@ class EventListAdapter(context: Context) : BaseAdapter<EventListAdapter.ViewHold
         return R.layout.list_item_homepage
     }
 
-    override fun getViewHolder(itemView: View): ViewHolder {
+    override fun getViewHolder(itemView: View, viewType: Int): ViewHolder {
         return ViewHolder(itemView)
     }
 
@@ -54,6 +55,19 @@ class EventListAdapter(context: Context) : BaseAdapter<EventListAdapter.ViewHold
     }
 
     inner class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
+
+        init {
+            itemView.user_avatar.setOnClickListener { showProfile() }
+            itemView.user_name.setOnClickListener { showProfile() }
+        }
+
+        private fun showProfile() {
+            if (adapterPosition != RecyclerView.NO_POSITION) {
+                val loginId = dataList[adapterPosition].actor.login
+                val userAvatar = dataList[adapterPosition].actor.avatarUrl
+
+            }
+        }
 
         fun setAction(event: Event) {
             var actionStr: String? = null

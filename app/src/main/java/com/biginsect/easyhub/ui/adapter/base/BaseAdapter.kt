@@ -34,7 +34,7 @@ abstract class BaseAdapter<VH : BaseViewHolder, D : Any>(context: Context)
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH {
         val view = LayoutInflater.from(parent?.context)
                 .inflate(getLayoutId(), parent, false)
-        return getViewHolder(view)
+        return getViewHolder(view, viewType)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
@@ -85,5 +85,5 @@ abstract class BaseAdapter<VH : BaseViewHolder, D : Any>(context: Context)
     /**
      * 构建ViewHolder
      * */
-    protected abstract fun getViewHolder(itemView: View): VH
+    protected abstract fun getViewHolder(itemView: View, viewType: Int): VH
 }

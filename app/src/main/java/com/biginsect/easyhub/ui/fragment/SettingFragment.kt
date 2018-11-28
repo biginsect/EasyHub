@@ -33,7 +33,9 @@ class SettingFragment : PreferenceFragmentCompat(),
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        findPreference(logout).onPreferenceClickListener = this
+        addPreferencesFromResource(R.xml.fragment_setting)
+        findPreference(PreUtils.THEME).onPreferenceClickListener = this
+        findPreference(PreUtils.LANGUAGE).onPreferenceClickListener = this
         findPreference(PreUtils.START_PAGE).onPreferenceClickListener = this
         findPreference(PreUtils.START_PAGE).summary = nameList[getStartPageIndex()]
     }
@@ -43,7 +45,18 @@ class SettingFragment : PreferenceFragmentCompat(),
     }
 
     override fun onPreferenceClick(preference: Preference?): Boolean {
+
         return when (preference?.key) {
+            PreUtils.THEME ->{
+                showThemeChooser()
+                true
+            }
+
+            PreUtils.LANGUAGE ->{
+                showLanguageList()
+                true
+            }
+
             logout -> {
                 logout()
                 true
@@ -68,6 +81,14 @@ class SettingFragment : PreferenceFragmentCompat(),
      * */
     private fun recreateMain() {
         callback?.onRecreate()
+    }
+
+    private fun showThemeChooser(){
+
+    }
+
+    private fun showLanguageList(){
+
     }
 
     private fun logout() {

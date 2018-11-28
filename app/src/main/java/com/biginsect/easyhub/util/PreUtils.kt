@@ -10,8 +10,15 @@ import com.biginsect.easyhub.app.AppApplication
  * @date 2018/8/24.
  */
 object PreUtils {
+    const val LIGHT_INDIGO = "Light indigo"
+    const val DARK = "Dark"
+    /** default theme*/
+    const val LIGHT_TEAL = "Light teal"
+
     private const val CACHE_FIRST_ENABLE = "cacheFirstEnable"
     private const val DISABLE_LOADING_IMAGE = "disableLoadingImage"
+    const val ACTIVITY_LONG_CLICK_TIP_ABLE = "activityLongClickTipAble"
+    const val THEME = "appTheme"
     const val LANGUAGE = "language"
     const val START_PAGE = "startPage"
     const val FIRST_USE = "firstUse"
@@ -52,6 +59,14 @@ object PreUtils {
 
     fun isFirstUse(): Boolean {
         return getDefaultSp().getBoolean(FIRST_USE, true)
+    }
+
+    fun isActivityLongClickTipAvailable(): Boolean {
+        return getDefaultSp().getBoolean(ACTIVITY_LONG_CLICK_TIP_ABLE, true)
+    }
+
+    fun getTheme(): String{
+        return getDefaultSp().getString(THEME, LIGHT_TEAL)
     }
 
     fun getStartPage(): String {

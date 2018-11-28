@@ -3,6 +3,7 @@ package com.biginsect.easyhub.ui.fragment.base
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,18 +29,14 @@ abstract class BaseFragment<V : IBaseContract.IView, P : IBaseContract.IPresente
         super.onCreate(savedInstanceState)
         DataAutoAccess.getData(this, savedInstanceState)
         DataAutoAccess.getData(this, arguments)
-        if (null != presenter) {
-            presenter.onRestoreInstanceState(savedInstanceState)
-            presenter.onRestoreInstanceState(arguments)
-        }
+        presenter?.onRestoreInstanceState(savedInstanceState)
+        presenter?.onRestoreInstanceState(arguments)
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         DataAutoAccess.saveData(this, outState)
-
         presenter?.onSaveInstanceState(outState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -103,5 +100,6 @@ abstract class BaseFragment<V : IBaseContract.IView, P : IBaseContract.IPresente
 
     protected abstract fun initFragment(savedInstanceState: Bundle?)
 
+    @LayoutRes
     protected abstract fun getLayoutId(): Int
 }

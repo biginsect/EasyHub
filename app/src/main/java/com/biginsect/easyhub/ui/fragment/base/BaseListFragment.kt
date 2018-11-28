@@ -20,10 +20,8 @@ abstract class BaseListFragment<V : IBaseContract.IView, P : IBaseContract.IPres
 
     override fun initFragment(savedInstanceState: Bundle?) {
         adapter = createAdapter()
-        if (null != adapter) {
-            adapter!!.onItemClickListener = this
-            adapter!!.onItemLongClickListener = this
-        }
+        adapter?.onItemLongClickListener = this
+        adapter?.onItemClickListener = this
     }
 
     override fun onItemClick(position: Int, view: View?) {

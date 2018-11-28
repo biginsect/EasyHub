@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.biginsect.easyhub.R
+import com.biginsect.easyhub.bean.Event
+import com.biginsect.easyhub.bean.Event.EventType.*
 import com.biginsect.easyhub.ui.adapter.EventListAdapter
 import com.biginsect.easyhub.ui.contract.IActivityContract
 import com.biginsect.easyhub.ui.fragment.base.BaseListFragment
 import com.biginsect.easyhub.ui.presenter.ActivityPresenter
 import com.biginsect.easyhub.util.BundleHelper
+import com.biginsect.easyhub.util.PreUtils
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_project_list.*
 
@@ -83,5 +86,23 @@ class ActivityFragment : BaseListFragment<IActivityContract.IActivityView, IActi
 
         val owner = event.repo.fullName.split("/")[0]
         val repoName = event.repo.fullName.split("/")[1]
+        when(event.type){
+            Fork -> TODO()
+            Release -> TODO()
+            Issues, IssueComment -> TODO()
+            Push -> TODO()
+            else -> {
+
+            }
+        }
+    }
+
+    override fun showEvens(events: ArrayList<Event>) {
+        adapter?.setData(events)
+    }
+
+    override fun onItemLongClick(position: Int, view: View?): Boolean {
+        PreUtils.set(PreUtils.ACTIVITY_LONG_CLICK_TIP_ABLE, false)
+        return super.onItemLongClick(position, view)
     }
 }
